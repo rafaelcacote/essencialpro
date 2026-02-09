@@ -1,0 +1,162 @@
+/* ===================================================
+   NAVBAR SUBMENU ANINHADO - Estilos customizados
+   ================================================== */
+
+/* Estrutura básica do submenu aninhado */
+.dropdown-submenu {
+    position: relative !important;
+}
+
+/* Indicador visual - seta para direita */
+.dropdown-submenu > a.dropdown-item::after {
+    content: "\f105" !important;
+    font-family: "Font Awesome 5 Free" !important;
+    font-weight: 900 !important;
+    position: absolute !important;
+    right: 15px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    float: none !important;
+}
+
+/* Padding extra para acomodar a seta */
+.dropdown-submenu > .dropdown-item {
+    padding-right: 40px !important;
+    position: relative !important;
+}
+
+/* ===== DESKTOP - HOVER MENU ===== */
+@media (min-width: 992px) {
+    /* Permitir que submenus aparecam fora do dropdown principal */
+    .navbar .custom-dropdown {
+        overflow: visible !important;
+    }
+
+    
+    /* SOBRESCREVER COMPLETAMENTE as regras do style.css
+       Seletores ULTRA específicos para ter prioridade máxima */
+    .navbar .nav-item .dropdown-menu .dropdown-submenu > .dropdown-menu,
+    .navbar .nav-item .dropdown-menu .dropdown-submenu > .dropdown-menu.custom-dropdown,
+    .navbar .nav-item .custom-dropdown .dropdown-submenu > .dropdown-menu,
+    .navbar .dropdown-submenu > .dropdown-menu,
+    .navbar .dropdown-submenu > .dropdown-menu.custom-dropdown,
+    .navbar .custom-dropdown .dropdown-submenu > .dropdown-menu,
+    .dropdown-menu .dropdown-submenu > .dropdown-menu {
+        /* IMPORTANTE: Remover/sobrescrever a transição que está causando o problema */
+        transition: none !important;
+        animation: none !important;
+        
+        /* Posicionamento */
+        display: block !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 100% !important;
+        margin-top: 0 !important;
+        margin-left: -1px !important;
+        
+        /* Invisível por padrão - SEM transição */
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        
+        /* Reset completo de transforms */
+        transform: none !important;
+        
+        /* Z-index MUITO alto */
+        z-index: 9999 !important;
+        
+        /* Visual */
+        background: white !important;
+        border: 1px solid #E5E5E5 !important;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+        min-width: 250px !important;
+        
+        /* Garantir visibilidade */
+        clip: auto !important;
+        clip-path: none !important;
+        overflow: visible !important;
+    }
+
+    /* MOSTRAR submenu - Especificidade MÁXIMA para sobrescrever style.css */
+    .navbar .nav-item .dropdown-menu .dropdown-submenu:hover > .dropdown-menu,
+    .navbar .nav-item .dropdown-menu .dropdown-submenu.show > .dropdown-menu,
+    .navbar .nav-item .dropdown-menu .dropdown-submenu:hover > .dropdown-menu.custom-dropdown,
+    .navbar .nav-item .dropdown-menu .dropdown-submenu.show > .dropdown-menu.custom-dropdown,
+    .navbar .nav-item .custom-dropdown .dropdown-submenu:hover > .dropdown-menu,
+    .navbar .nav-item .custom-dropdown .dropdown-submenu.show > .dropdown-menu,
+    .navbar .dropdown-submenu:hover > .dropdown-menu,
+    .navbar .dropdown-submenu.show > .dropdown-menu,
+    .navbar .dropdown-submenu:hover > .dropdown-menu.custom-dropdown,
+    .navbar .dropdown-submenu.show > .dropdown-menu.custom-dropdown,
+    .dropdown-menu .dropdown-submenu:hover > .dropdown-menu,
+    .dropdown-menu .dropdown-submenu.show > .dropdown-menu {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        transform: none !important;
+        transition: none !important;
+    }
+
+    /* Quando o submenu estoura a tela, abrir para a esquerda */
+    .navbar .dropdown-submenu > .dropdown-menu.submenu-left,
+    .navbar .dropdown-submenu > .dropdown-menu.custom-dropdown.submenu-left,
+    .navbar .nav-item .dropdown-menu .dropdown-submenu > .dropdown-menu.submenu-left {
+        left: auto !important;
+        right: 100% !important;
+        margin-left: 0 !important;
+        margin-right: -1px !important;
+    }
+    
+    /* Manter estilo hover no item pai quando submenu está ativo */
+    .dropdown-submenu:hover > .dropdown-item {
+        background-color: #F8F8F8 !important;
+        color: var(--primary) !important;
+    }
+
+    /* Z-index hierárquico para múltiplos níveis */
+    .navbar .nav-item.dropdown > .dropdown-menu {
+        z-index: 1050 !important;
+    }
+    
+    .dropdown-submenu > .dropdown-menu {
+        z-index: 1060 !important;
+    }
+    
+    .dropdown-submenu .dropdown-submenu > .dropdown-menu {
+        z-index: 1070 !important;
+    }
+    
+    .dropdown-submenu .dropdown-submenu .dropdown-submenu > .dropdown-menu {
+        z-index: 1080 !important;
+    }
+
+    /* Garantir que submenu não seja cortado pela borda da tela */
+    .dropdown-submenu > .dropdown-menu {
+        max-width: 300px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+}
+
+/* ===== MOBILE - ACCORDION MENU ===== */
+@media (max-width: 991.98px) {
+    .dropdown-submenu > .dropdown-menu {
+        position: static !important;
+        margin-left: 1rem !important;
+        box-shadow: none !important;
+        border-left: 2px solid var(--primary) !important;
+        padding-left: 0.5rem !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        display: none !important;
+    }
+
+    .dropdown-submenu.show > .dropdown-menu {
+        display: block !important;
+    }
+
+    .dropdown-submenu > a.dropdown-item::after {
+        content: "\f107" !important;
+    }
+}
