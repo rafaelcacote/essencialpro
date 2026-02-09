@@ -14,7 +14,7 @@
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-10 text-start">
-                                <p class="fs-5 fw-medium text-primary text-uppercase animated slideInRight">Equipamentos de Segurança do Trabalho</p>
+                                <p class="fs-5 fw-medium text-primary text-uppercase animated slideInRight">Segurança do Trabalho</p>
                                 <h1 class="display-1 text-white mb-5 animated slideInRight">Essencial Pro - Sua Segurança em Primeiro Lugar</h1>
                                 <a href="{{ route('service') }}" class="btn btn-primary py-3 px-5 animated slideInRight">Ver Produtos</a>
                             </div>
