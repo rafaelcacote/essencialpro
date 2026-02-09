@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -11,14 +12,42 @@ use Illuminate\Validation\Rule;
 
 class AdminProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::query()
-            ->with('images')
-            ->latest()
-            ->paginate(20);
+        $query = Product::query()->with(['images', 'category']);
 
-        return view('admin.products.index', compact('products'));
+        // Busca por título, código ou slug
+        if ($search = $request->filled('q') ? trim($request->input('q')) : null) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('code', 'like', '%' . $search . '%')
+                    ->orWhere('slug', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Filtro por categoria
+        if ($request->filled('category_id')) {
+            $query->where('category_id', $request->input('category_id'));
+        }
+
+        // Filtro por status (ativo / inativo)
+        if ($request->filled('status')) {
+            if ($request->input('status') === 'active') {
+                $query->where('is_active', true);
+            }
+            if ($request->input('status') === 'inactive') {
+                $query->where('is_active', false);
+            }
+        }
+
+        $products = $query->latest()->paginate(20)->withQueryString();
+
+        $categories = Category::where('is_active', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
+
+        return view('admin.products.index', compact('products', 'categories'));
     }
 
     public function create()
@@ -86,6 +115,10 @@ class AdminProductController extends Controller
             'spec_keys.*' => ['nullable', 'string', 'max:255'],
             'spec_values' => ['nullable', 'array'],
             'spec_values.*' => ['nullable', 'string', 'max:255'],
+            'colors' => ['nullable', 'array'],
+            'colors.*' => ['nullable', 'string', 'max:255'],
+            'sizes' => ['nullable', 'array'],
+            'sizes.*' => ['nullable', 'string', 'max:255'],
             'is_active' => ['nullable', 'boolean'],
             'is_featured' => ['nullable', 'boolean'],
             'images' => ['nullable', 'array'],
@@ -111,6 +144,18 @@ class AdminProductController extends Controller
             $specs[] = ['label' => $label, 'value' => $value];
         }
 
+        $colors = collect($validated['colors'] ?? [])
+            ->map(fn ($v) => is_string($v) ? trim($v) : '')
+            ->filter()
+            ->values()
+            ->all();
+
+        $sizes = collect($validated['sizes'] ?? [])
+            ->map(fn ($v) => is_string($v) ? trim($v) : '')
+            ->filter()
+            ->values()
+            ->all();
+
         return [
             'title' => $validated['title'],
             'slug' => $validated['slug'] ?? null,
@@ -121,6 +166,8 @@ class AdminProductController extends Controller
             'description' => $validated['description'] ?? null,
             'key_features' => $features ?: null,
             'technical_specs' => $specs ?: null,
+            'colors' => $colors ?: null,
+            'sizes' => $sizes ?: null,
             'is_active' => (bool) ($validated['is_active'] ?? false),
             'is_featured' => (bool) ($validated['is_featured'] ?? false),
         ];

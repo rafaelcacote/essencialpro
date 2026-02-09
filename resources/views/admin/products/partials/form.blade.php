@@ -28,6 +28,23 @@
         $specKeys = [''];
         $specValues = [''];
     }
+
+    $oldColors = old('colors');
+    $colors = is_array($oldColors)
+        ? $oldColors
+        : (($product?->colors) ?: ['']);
+
+    $oldSizes = old('sizes');
+    $sizes = is_array($oldSizes)
+        ? $oldSizes
+        : (($product?->sizes) ?: ['']);
+
+    if (count($colors) === 0) {
+        $colors = [''];
+    }
+    if (count($sizes) === 0) {
+        $sizes = [''];
+    }
 @endphp
 
 @if ($errors->any())
@@ -102,6 +119,46 @@
                         <label class="form-label">Slug (URL)</label>
                         <input class="form-control" name="slug" value="{{ old('slug', $product?->slug) }}" placeholder="Deixe vazio para gerar automático">
                         <div class="form-text">Ex: <code>bota-de-seguranca-premium</code></div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <label class="form-label mb-0">Cores disponíveis</label>
+                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="addColorRow()">
+                                <i class="fa fa-plus me-1"></i> Adicionar
+                            </button>
+                        </div>
+                        <div id="colors-list" class="mt-2">
+                            @foreach ($colors as $idx => $color)
+                                <div class="input-group mb-2 color-row">
+                                    <input class="form-control" name="colors[]" value="{{ $color }}" placeholder="Ex: Preto, Vermelho, Azul">
+                                    <button type="button" class="btn btn-outline-danger" onclick="removeRow(this)" title="Remover">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="form-text">Uma cor por linha. Ex: Preto, Vermelho, Branco</div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <label class="form-label mb-0">Tamanhos disponíveis</label>
+                            <button type="button" class="btn btn-sm btn-outline-primary" onclick="addSizeRow()">
+                                <i class="fa fa-plus me-1"></i> Adicionar
+                            </button>
+                        </div>
+                        <div id="sizes-list" class="mt-2">
+                            @foreach ($sizes as $idx => $size)
+                                <div class="input-group mb-2 size-row">
+                                    <input class="form-control" name="sizes[]" value="{{ $size }}" placeholder="Ex: P, M, G, GG ou 38, 39, 40">
+                                    <button type="button" class="btn btn-outline-danger" onclick="removeRow(this)" title="Remover">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="form-text">Um tamanho por linha. Ex: P, M, G ou 38, 39, 40</div>
                     </div>
 
                     <div class="col-12">
@@ -227,7 +284,7 @@
 @push('scripts')
 <script>
 function removeRow(btn) {
-    const row = btn.closest('.feature-row') || btn.closest('.spec-row');
+    const row = btn.closest('.feature-row') || btn.closest('.spec-row') || btn.closest('.color-row') || btn.closest('.size-row');
     if (row) row.remove();
 }
 
@@ -237,6 +294,32 @@ function addFeatureRow() {
     div.className = 'input-group mb-2 feature-row';
     div.innerHTML = `
         <input class="form-control" name="key_features[]" placeholder="Ex: Solado antiderrapante">
+        <button type="button" class="btn btn-outline-danger" onclick="removeRow(this)" title="Remover">
+            <i class="fa fa-trash"></i>
+        </button>
+    `;
+    wrap.appendChild(div);
+}
+
+function addColorRow() {
+    const wrap = document.getElementById('colors-list');
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2 color-row';
+    div.innerHTML = `
+        <input class="form-control" name="colors[]" placeholder="Ex: Preto, Vermelho, Azul">
+        <button type="button" class="btn btn-outline-danger" onclick="removeRow(this)" title="Remover">
+            <i class="fa fa-trash"></i>
+        </button>
+    `;
+    wrap.appendChild(div);
+}
+
+function addSizeRow() {
+    const wrap = document.getElementById('sizes-list');
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2 size-row';
+    div.innerHTML = `
+        <input class="form-control" name="sizes[]" placeholder="Ex: P, M, G, GG ou 38, 39, 40">
         <button type="button" class="btn btn-outline-danger" onclick="removeRow(this)" title="Remover">
             <i class="fa fa-trash"></i>
         </button>

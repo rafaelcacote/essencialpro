@@ -57,6 +57,30 @@
                         @endif
                     </div>
 
+                    <!-- Colors -->
+                    @if (!empty($product->colors))
+                        <div class="mb-4">
+                            <h5 class="mb-2">Cores disponíveis</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach ($product->colors as $color)
+                                    <span class="badge bg-light text-dark border border-secondary px-3 py-2">{{ $color }}</span>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Sizes -->
+                    @if (!empty($product->sizes))
+                        <div class="mb-4">
+                            <h5 class="mb-2">Tamanhos disponíveis</h5>
+                            <div class="d-flex flex-wrap gap-2">
+                                @foreach ($product->sizes as $size)
+                                    <span class="badge bg-primary px-3 py-2">{{ $size }}</span>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
                     <!-- Description -->
                     @if ($product->description)
                         <div class="mb-4">

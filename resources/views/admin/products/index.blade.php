@@ -17,6 +17,40 @@
         </a>
     </div>
 
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form method="GET" action="{{ route('admin.products.index') }}" class="row g-3 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label small text-muted">Buscar</label>
+                    <input type="text" name="q" class="form-control" placeholder="Título, código ou slug..." value="{{ request('q') }}">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label small text-muted">Categoria</label>
+                    <select name="category_id" class="form-select">
+                        <option value="">— Todas —</option>
+                        @foreach ($categories as $cat)
+                            <option value="{{ $cat->id }}" @selected(request('category_id') == $cat->id)>{{ $cat->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label small text-muted">Status</label>
+                    <select name="status" class="form-select">
+                        <option value="">— Todos —</option>
+                        <option value="active" @selected(request('status') === 'active')>Ativos</option>
+                        <option value="inactive" @selected(request('status') === 'inactive')>Inativos</option>
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-search me-1"></i> Filtrar
+                    </button>
+                    <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">Limpar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="card shadow-sm">
         <div class="table-responsive">
             <table class="table table-striped mb-0">

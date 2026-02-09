@@ -19,6 +19,8 @@ class Product extends Model
         'description',
         'key_features',
         'technical_specs',
+        'colors',
+        'sizes',
         'is_active',
         'is_featured',
     ];
@@ -26,6 +28,8 @@ class Product extends Model
     protected $casts = [
         'key_features' => 'array',
         'technical_specs' => 'array',
+        'colors' => 'array',
+        'sizes' => 'array',
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
         'price' => 'decimal:2',
