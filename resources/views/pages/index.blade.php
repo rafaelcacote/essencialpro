@@ -86,39 +86,45 @@
     </div>
     <div class="owl-carousel project-carousel wow fadeIn" data-wow-delay="0.1s">
         <a class="project-item" href="">
-            <img class="img-fluid" src="{{ asset('img/project-1.jpg') }}" alt="">
+            <img class="img-fluid" src="{{ asset('img/equipamentos_carrossel/calcado.jpeg') }}" alt="Calçados de segurança">
             <div class="project-title">
-                <h5 class="text-primary mb-0">Botas de Segurança</h5>
+                <h5 class="text-primary mb-0">Calçados de Segurança</h5>
             </div>
         </a>
         <a class="project-item" href="">
-            <img class="img-fluid" src="{{ asset('img/project-2.jpg') }}" alt="">
+            <img class="img-fluid" src="{{ asset('img/equipamentos_carrossel/capacete.jpeg') }}" alt="Capacetes de proteção">
             <div class="project-title">
-                <h5 class="text-primary mb-0">Calçados Especiais</h5>
+                <h5 class="text-primary mb-0">Capacetes</h5>
             </div>
         </a>
         <a class="project-item" href="">
-            <img class="img-fluid" src="{{ asset('img/project-3.jpg') }}" alt="">
+            <img class="img-fluid" src="{{ asset('img/equipamentos_carrossel/colete1.jpeg') }}" alt="Coletes de segurança">
             <div class="project-title">
-                <h5 class="text-primary mb-0">Abafadores</h5>
+                <h5 class="text-primary mb-0">Coletes</h5>
             </div>
         </a>
         <a class="project-item" href="">
-            <img class="img-fluid" src="{{ asset('img/project-4.jpg') }}" alt="">
+            <img class="img-fluid" src="{{ asset('img/equipamentos_carrossel/luvas.jpeg') }}" alt="Luvas de proteção">
             <div class="project-title">
-                <h5 class="text-primary mb-0">EPIs Diversos</h5>
+                <h5 class="text-primary mb-0">Luvas de Proteção</h5>
             </div>
         </a>
         <a class="project-item" href="">
-            <img class="img-fluid" src="{{ asset('img/project-5.jpg') }}" alt="">
+            <img class="img-fluid" src="{{ asset('img/equipamentos_carrossel/mascara.jpeg') }}" alt="Máscaras de proteção respiratória">
             <div class="project-title">
-                <h5 class="text-primary mb-0">Equipamentos</h5>
+                <h5 class="text-primary mb-0">Máscaras</h5>
             </div>
         </a>
         <a class="project-item" href="">
-            <img class="img-fluid" src="{{ asset('img/project-6.jpg') }}" alt="">
+            <img class="img-fluid" src="{{ asset('img/equipamentos_carrossel/oculos.jpeg') }}" alt="Óculos de proteção">
             <div class="project-title">
-                <h5 class="text-primary mb-0">Proteção Individual</h5>
+                <h5 class="text-primary mb-0">Óculos de Proteção</h5>
+            </div>
+        </a>
+        <a class="project-item" href="">
+            <img class="img-fluid" src="{{ asset('img/equipamentos_carrossel/protetor.jpeg') }}" alt="Protetores de segurança">
+            <div class="project-title">
+                <h5 class="text-primary mb-0">Protetores</h5>
             </div>
         </a>
     </div>
