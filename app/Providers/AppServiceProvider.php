@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
@@ -37,7 +38,25 @@ class AppServiceProvider extends ServiceProvider
                 ->with(['children' => $withNestedChildren])
                 ->orderBy('sort_order')
                 ->get();
-            $view->with('menuCategories', $categories);
+
+            $cartCount = 0;
+            $sessionId = session()->getId();
+            $userId = auth()->id();
+            if ($sessionId) {
+                $cart = Cart::query()
+                    ->where('status', 'active')
+                    ->when($userId, fn ($q) => $q->where('user_id', $userId), fn ($q) => $q->where('session_id', $sessionId))
+                    ->with('items')
+                    ->latest('id')
+                    ->first();
+
+                if ($cart) {
+                    $cartCount = (int) $cart->items->sum('quantity');
+                }
+            }
+
+            $view->with('menuCategories', $categories)
+                ->with('cartCount', $cartCount);
         });
     }
 }

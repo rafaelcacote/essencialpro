@@ -12,14 +12,17 @@ class ProductController extends Controller
     {
         $query = Product::query()
             ->where('is_active', true)
-            ->with('images', 'category');
+            ->with('images', 'categories');
 
         // Filtro por categoria
         if ($request->filled('category')) {
             $category = Category::where('slug', $request->category)->where('is_active', true)->first();
             if ($category) {
                 $categoryIds = $this->getCategoryAndDescendantIds($category);
-                $query->whereIn('category_id', $categoryIds);
+                $query->where(function ($q) use ($categoryIds) {
+                    $q->whereIn('category_id', $categoryIds)
+                        ->orWhereHas('categories', fn ($cq) => $cq->whereIn('categories.id', $categoryIds));
+                });
             }
         }
 
@@ -105,8 +108,11 @@ class ProductController extends Controller
 
         $query = Product::query()
             ->where('is_active', true)
-            ->whereIn('category_id', $categoryIds)
-            ->with('images', 'category');
+            ->where(function ($q) use ($categoryIds) {
+                $q->whereIn('category_id', $categoryIds)
+                    ->orWhereHas('categories', fn ($cq) => $cq->whereIn('categories.id', $categoryIds));
+            })
+            ->with('images', 'categories');
 
         // Filtro por preço
         if ($request->filled('min_price')) {

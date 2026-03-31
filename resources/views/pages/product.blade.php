@@ -18,7 +18,9 @@
                             $mainImage = $product->images->first();
                             $mainSrc = $mainImage ? asset($mainImage->path) : asset('img/service-1.jpg');
                         @endphp
-                        <img id="main-product-image" class="img-fluid w-100 rounded shadow" src="{{ $mainSrc }}" alt="{{ $product->title }}" style="max-height: 500px; object-fit: cover;">
+                        <div class="product-zoom-container rounded shadow">
+                            <img id="main-product-image" class="img-fluid w-100" src="{{ $mainSrc }}" alt="{{ $product->title }}">
+                        </div>
                     </div>
                     <!-- Thumbnail Images -->
                     @if ($product->images->isNotEmpty())
@@ -43,7 +45,10 @@
                     @if ($product->category_label)
                         <p class="fw-medium text-uppercase text-primary mb-2">{{ $product->category_label }}</p>
                     @endif
-                    <h1 class="display-5 mb-4">{{ $product->title }}</h1>
+                    <h1 class="display-5 mb-2">{{ $product->title }}</h1>
+                    @if ($product->subtitle)
+                        <p class="text-muted fs-5 mb-4">{{ $product->subtitle }}</p>
+                    @endif
                     
                     <!-- Price and SKU -->
                     <div class="mb-4">
@@ -61,9 +66,43 @@
                     @if (!empty($product->colors))
                         <div class="mb-4">
                             <h5 class="mb-2">Cores disponíveis</h5>
-                            <div class="d-flex flex-wrap gap-2">
+                            @php
+                                $colorMap = [
+                                    'preto' => '#000000',
+                                    'branco' => '#ffffff',
+                                    'vermelho' => '#dc3545',
+                                    'azul' => '#0d6efd',
+                                    'verde' => '#198754',
+                                    'amarelo' => '#ffc107',
+                                    'laranja' => '#fd7e14',
+                                    'roxo' => '#6f42c1',
+                                    'rosa' => '#d63384',
+                                    'cinza' => '#6c757d',
+                                    'castanho' => '#8b4513',
+                                    'marrom' => '#8b4513',
+                                    'bege' => '#f5f5dc',
+                                    'dourado' => '#d4af37',
+                                    'prata' => '#c0c0c0',
+                                ];
+                            @endphp
+                            <div class="d-flex flex-wrap gap-3">
                                 @foreach ($product->colors as $color)
-                                    <span class="badge bg-light text-dark border border-secondary px-3 py-2">{{ $color }}</span>
+                                    @php
+                                        $colorName = trim((string) $color);
+                                        $normalized = \Illuminate\Support\Str::lower($colorName);
+                                        $swatchColor = preg_match('/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/', $colorName)
+                                            ? $colorName
+                                            : ($colorMap[$normalized] ?? null);
+                                    @endphp
+                                    <div class="color-option">
+                                        <span
+                                            class="color-swatch"
+                                            style="background-color: {{ $swatchColor ?? '#e9ecef' }};"
+                                            title="{{ $colorName }}"
+                                            aria-label="{{ $colorName }}"
+                                        ></span>
+                                        <small class="text-muted">{{ $colorName }}</small>
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
@@ -124,6 +163,44 @@
                     @endif
 
                     <!-- CTA Button -->
+                    <div class="mb-4">
+                        <form action="{{ route('cart.items.store') }}" method="POST" class="row g-2 align-items-end">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            @if (!empty($product->colors))
+                                <div class="col-md-4">
+                                    <label class="form-label mb-1">Cor</label>
+                                    <select class="form-select" name="selected_color">
+                                        <option value="">Selecione</option>
+                                        @foreach ($product->colors as $color)
+                                            <option value="{{ $color }}">{{ $color }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+                            @if (!empty($product->sizes))
+                                <div class="col-md-4">
+                                    <label class="form-label mb-1">Tamanho</label>
+                                    <select class="form-select" name="selected_size">
+                                        <option value="">Selecione</option>
+                                        @foreach ($product->sizes as $size)
+                                            <option value="{{ $size }}">{{ $size }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+                            <div class="col-md-2">
+                                <label class="form-label mb-1">Qtd</label>
+                                <input type="number" min="1" value="1" name="quantity" class="form-control">
+                            </div>
+                            <div class="col-md-2 d-grid">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="bi bi-cart-plus me-1"></i>Adicionar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
                     <div class="d-flex gap-3">
                         <a href="{{ route('contact') }}" class="btn btn-primary btn-lg px-5 py-3">
                             <i class="fa fa-envelope me-2"></i>Solicitar Orçamento
@@ -164,6 +241,9 @@
                                 <div class="service-title">
                                     <hr class="w-25">
                                     <h3 class="mb-0">{{ $rp->title }}</h3>
+                                    @if ($rp->subtitle)
+                                        <p class="text-muted small mb-0 mt-2">{{ $rp->subtitle }}</p>
+                                    @endif
                                     <hr class="w-25">
                                 </div>
                                 <div class="service-text">
@@ -206,15 +286,75 @@ const thumbs = document.querySelectorAll('.product-thumb');
 if (thumbs.length > 0) {
     thumbs[0].classList.add('border-primary', 'border-3');
 }
+
+const zoomContainer = document.querySelector('.product-zoom-container');
+const mainImage = document.getElementById('main-product-image');
+
+if (zoomContainer && mainImage) {
+    zoomContainer.addEventListener('mousemove', function (event) {
+        const rect = zoomContainer.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+        mainImage.style.transformOrigin = `${x}% ${y}%`;
+        mainImage.style.transform = 'scale(2)';
+    });
+
+    zoomContainer.addEventListener('mouseleave', function () {
+        mainImage.style.transformOrigin = 'center center';
+        mainImage.style.transform = 'scale(1)';
+    });
+}
 </script>
 
 <style>
+.product-zoom-container {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: zoom-in;
+    background: #fff;
+}
+
+#main-product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transition: transform 0.15s ease-out;
+    transform-origin: center center;
+}
+
 .product-thumb {
     transition: all 0.3s ease;
 }
 
 .product-thumb:hover {
     transform: scale(1.05);
+}
+
+@media (max-width: 767.98px) {
+    .product-zoom-container {
+        height: 360px;
+    }
+}
+
+.color-option {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 60px;
+}
+
+.color-swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 </style>
 @endsection

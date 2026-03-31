@@ -61,6 +61,10 @@
                     <i class="bi bi-chat-dots"></i>
                     <span>Orçamentos</span>
                 </a>
+                <a class="admin-nav-link @if (request()->routeIs('admin.orders.*')) active @endif" href="{{ route('admin.orders.index') }}">
+                    <i class="bi bi-receipt"></i>
+                    <span>Pedidos</span>
+                </a>
                 <a class="admin-nav-link" href="{{ route('home') }}" target="_blank">
                     <i class="bi bi-box-arrow-up-right"></i>
                     <span>Ver site</span>

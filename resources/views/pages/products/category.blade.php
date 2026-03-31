@@ -155,10 +155,20 @@
                                                 {{ $name }}
                                             </a>
                                         </div>
+                                        @if ($product->subtitle)
+                                            <p class="text-muted small mb-2">{{ $product->subtitle }}</p>
+                                        @endif
                                         <div class="product-grid-price">{{ $priceText }}</div>
                                     </div>
                                     <div class="card-footer bg-white border-0 pt-0 pb-4 px-4">
-                                        <a class="btn btn-primary w-100 product-grid-btn" href="{{ route('products.show', $product) }}">Ver Detalhes</a>
+                                        <div class="d-grid gap-2">
+                                            <form method="POST" action="{{ route('cart.items.store') }}">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                <button class="btn btn-outline-primary w-100" type="submit">Adicionar ao Carrinho</button>
+                                            </form>
+                                            <a class="btn btn-primary w-100 product-grid-btn" href="{{ route('products.show', $product) }}">Ver Detalhes</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -200,13 +210,23 @@
                                                         {{ $name }}
                                                     </a>
                                                 </h5>
+                                                @if($product->subtitle)
+                                                    <p class="text-muted small mb-2">{{ $product->subtitle }}</p>
+                                                @endif
                                                 @if($product->description)
                                                     <p class="text-muted small mb-2">{{ Str::limit($product->description, 150) }}</p>
                                                 @endif
                                             </div>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="product-list-price">{{ $priceText }}</div>
-                                                <a class="btn btn-primary product-list-btn" href="{{ route('products.show', $product) }}">Ver Detalhes</a>
+                                                <div class="d-flex gap-2">
+                                                    <form method="POST" action="{{ route('cart.items.store') }}">
+                                                        @csrf
+                                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                                        <button class="btn btn-outline-primary product-list-btn" type="submit">Adicionar</button>
+                                                    </form>
+                                                    <a class="btn btn-primary product-list-btn" href="{{ route('products.show', $product) }}">Ver Detalhes</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -347,7 +367,7 @@
 }
 
 .product-grid-thumb {
-    background: #f4f4f4;
+    background: #fff;
     border: 1px solid rgba(0,0,0,.06);
     border-radius: 8px;
     min-height: 200px;
@@ -359,18 +379,25 @@
     padding: 10px;
 }
 
+.product-grid-thumb > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
 .product-grid-thumb img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     object-position: center;
-    transition: transform 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .product-grid-thumb:hover img {
-    transform: scale(1.05);
+    opacity: 0.92;
 }
 
 .product-grid-title {
@@ -406,7 +433,7 @@
 }
 
 .product-list-thumb {
-    background: #f4f4f4;
+    background: #fff;
     border-radius: 8px 0 0 8px;
     min-height: 200px;
     height: 100%;
@@ -417,11 +444,18 @@
     padding: 10px;
 }
 
+.product-list-thumb > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 180px;
+}
+
 .product-list-thumb img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     object-position: center;
 }

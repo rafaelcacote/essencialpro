@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Category extends Model
@@ -40,9 +41,10 @@ class Category extends Model
             ->orderBy('sort_order');
     }
 
-    public function products(): HasMany
+    public function products(): BelongsToMany
     {
-        return $this->hasMany(Product::class)->where('is_active', true);
+        return $this->belongsToMany(Product::class)
+            ->where('products.is_active', true);
     }
 
     protected static function booted(): void

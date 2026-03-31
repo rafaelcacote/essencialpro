@@ -14,7 +14,7 @@ class AdminProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::query()->with(['images', 'category']);
+        $query = Product::query()->with(['images', 'categories']);
 
         // Busca por título, código ou slug
         if ($search = $request->filled('q') ? trim($request->input('q')) : null) {
@@ -27,7 +27,11 @@ class AdminProductController extends Controller
 
         // Filtro por categoria
         if ($request->filled('category_id')) {
-            $query->where('category_id', $request->input('category_id'));
+            $categoryId = (int) $request->input('category_id');
+            $query->where(function ($q) use ($categoryId) {
+                $q->where('category_id', $categoryId)
+                    ->orWhereHas('categories', fn ($cq) => $cq->where('categories.id', $categoryId));
+            });
         }
 
         // Filtro por status (ativo / inativo)
@@ -58,8 +62,11 @@ class AdminProductController extends Controller
     public function store(Request $request)
     {
         $data = $this->validateProduct($request);
+        $categoryIds = $data['category_ids'] ?? [];
+        unset($data['category_ids']);
 
         $product = Product::create($data);
+        $product->categories()->sync($categoryIds);
 
         $this->storeUploadedImages($request, $product);
 
@@ -70,14 +77,17 @@ class AdminProductController extends Controller
 
     public function edit(Product $product)
     {
-        $product->load('images');
+        $product->load(['images', 'categories']);
         return view('admin.products.edit', compact('product'));
     }
 
     public function update(Request $request, Product $product)
     {
         $data = $this->validateProduct($request, $product);
+        $categoryIds = $data['category_ids'] ?? [];
+        unset($data['category_ids']);
         $product->update($data);
+        $product->categories()->sync($categoryIds);
 
         $this->updateExistingImages($request, $product);
         $this->deleteSelectedImages($request, $product);
@@ -103,10 +113,13 @@ class AdminProductController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'subtitle' => ['nullable', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('products', 'slug')->ignore($product?->id)],
             'code' => ['nullable', 'string', 'max:255', Rule::unique('products', 'code')->ignore($product?->id)],
             'price' => ['nullable', 'numeric', 'min:0', 'max:99999999.99'],
             'category_id' => ['nullable', 'exists:categories,id'],
+            'category_ids' => ['nullable', 'array'],
+            'category_ids.*' => ['nullable', 'exists:categories,id'],
             'category_label' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'key_features' => ['nullable', 'array'],
@@ -156,12 +169,25 @@ class AdminProductController extends Controller
             ->values()
             ->all();
 
+        $categoryIds = collect($validated['category_ids'] ?? [])
+            ->map(fn ($v) => (int) $v)
+            ->filter(fn ($v) => $v > 0)
+            ->unique()
+            ->values()
+            ->all();
+
+        if (count($categoryIds) === 0 && isset($validated['category_id']) && $validated['category_id']) {
+            $categoryIds = [(int) $validated['category_id']];
+        }
+
         return [
             'title' => $validated['title'],
+            'subtitle' => $validated['subtitle'] ?? null,
             'slug' => $validated['slug'] ?? null,
             'code' => $validated['code'] ?? null,
             'price' => $validated['price'] ?? null,
-            'category_id' => $validated['category_id'] ?? null,
+            'category_id' => $categoryIds[0] ?? null,
+            'category_ids' => $categoryIds,
             'category_label' => $validated['category_label'] ?? null,
             'description' => $validated['description'] ?? null,
             'key_features' => $features ?: null,

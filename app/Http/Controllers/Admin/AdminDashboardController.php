@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Quote;
 
@@ -16,6 +17,8 @@ class AdminDashboardController extends Controller
 
         $totalQuotes = Quote::query()->count();
         $pendingQuotes = Quote::query()->where('status', 'pending')->count();
+        $totalOrders = Order::query()->count();
+        $pendingOrders = Order::query()->where('status', 'pending')->count();
 
         $latestPendingQuotes = Quote::query()
             ->where('status', 'pending')
@@ -28,13 +31,22 @@ class AdminDashboardController extends Controller
             ->limit(5)
             ->get();
 
+        $latestPendingOrders = Order::query()
+            ->where('status', 'pending')
+            ->latest()
+            ->limit(5)
+            ->get();
+
         return view('admin.dashboard', compact(
             'totalProducts',
             'activeProducts',
             'featuredProducts',
             'totalQuotes',
             'pendingQuotes',
+            'totalOrders',
+            'pendingOrders',
             'latestPendingQuotes',
+            'latestPendingOrders',
             'latestProducts',
         ));
     }

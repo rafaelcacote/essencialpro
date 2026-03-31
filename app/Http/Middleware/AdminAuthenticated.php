@@ -22,6 +22,10 @@ class AdminAuthenticated
             return redirect()->route('admin.login');
         }
 
+        if (!Auth::user()?->is_admin) {
+            abort(403, 'Acesso permitido apenas para administradores.');
+        }
+
         return $next($request);
     }
 }

@@ -26,6 +26,13 @@ class AdminAuthController extends Controller
                 ->withInput();
         }
 
+        if (!Auth::user()?->is_admin) {
+            Auth::logout();
+            return back()
+                ->withErrors(['email' => 'Sua conta não tem acesso ao painel administrativo.'])
+                ->withInput();
+        }
+
         $request->session()->regenerate();
 
         $intended = $request->session()->pull('admin_intended');

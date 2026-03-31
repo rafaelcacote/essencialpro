@@ -45,6 +45,21 @@
     if (count($sizes) === 0) {
         $sizes = [''];
     }
+
+    $oldCategoryIds = old('category_ids');
+    if (is_array($oldCategoryIds)) {
+        $selectedCategoryIds = array_map('intval', $oldCategoryIds);
+    } elseif ($product?->relationLoaded('categories')) {
+        $selectedCategoryIds = $product->categories->pluck('id')->map(fn ($id) => (int) $id)->all();
+    } elseif ($product) {
+        $selectedCategoryIds = $product->categories()->pluck('categories.id')->map(fn ($id) => (int) $id)->all();
+    } else {
+        $selectedCategoryIds = [];
+    }
+
+    if (count($selectedCategoryIds) === 0 && $product?->category_id) {
+        $selectedCategoryIds = [(int) $product->category_id];
+    }
 @endphp
 
 @if ($errors->any())
@@ -71,15 +86,18 @@
                         <label class="form-label">Código do Produto</label>
                         <input class="form-control" name="code" value="{{ old('code', $product?->code) }}" placeholder="Ex: BS-2024-PREM">
                     </div>
+                    <div class="col-12">
+                        <label class="form-label">Subtítulo (opcional)</label>
+                        <input class="form-control" name="subtitle" value="{{ old('subtitle', $product?->subtitle) }}" placeholder="Texto exibido abaixo do título no site">
+                    </div>
                     <div class="col-md-4">
                         <label class="form-label">Preço (opcional)</label>
                         <input class="form-control" name="price" value="{{ old('price', $product?->price) }}" placeholder="Ex: 199.90">
                         <div class="form-text">Use ponto. Ex: <code>199.90</code></div>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Categoria</label>
-                        <select class="form-select" name="category_id">
-                            <option value="">— Sem categoria —</option>
+                        <label class="form-label">Categorias</label>
+                        <select class="form-select" name="category_ids[]" multiple size="8">
                             @php
                                 $allCategories = \App\Models\Category::with('parent')
                                     ->where('is_active', true)
@@ -104,11 +122,12 @@
                                     $indent = str_repeat('&nbsp;&nbsp;', $category->level ?? 0);
                                     $prefix = ($category->level ?? 0) > 0 ? '— ' : '';
                                 @endphp
-                                <option value="{{ $category->id }}" @selected(old('category_id', $product?->category_id) == $category->id)>
+                                <option value="{{ $category->id }}" @selected(in_array((int) $category->id, $selectedCategoryIds, true))>
                                     {!! $indent . $prefix . e($category->name) !!}
                                 </option>
                             @endforeach
                         </select>
+                        <div class="form-text">Segure Ctrl (ou Cmd no Mac) para selecionar varias categorias.</div>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Categoria/Label (linha pequena - opcional)</label>

@@ -70,14 +70,14 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <div class="text-muted small">Mensagens novas</div>
-                            <div class="display-6 fw-bold mb-0">{{ $pendingQuotes }}</div>
+                            <div class="text-muted small">Pedidos</div>
+                            <div class="display-6 fw-bold mb-0">{{ $totalOrders }}</div>
                         </div>
                         <div class="admin-stat-icon bg-success text-white">
-                            <i class="bi bi-envelope"></i>
+                            <i class="bi bi-receipt"></i>
                         </div>
                     </div>
-                    <div class="mt-2 text-muted small">Orçamentos pendentes</div>
+                    <div class="mt-2 text-muted small">Pendentes: {{ $pendingOrders }}</div>
                 </div>
             </div>
         </div>
@@ -135,29 +135,23 @@
         <div class="col-lg-5">
             <div class="card shadow-sm">
                 <div class="card-header bg-white d-flex align-items-center justify-content-between">
-                    <div class="fw-bold">Produtos recentes</div>
-                    <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.products.index') }}">Ver todos</a>
+                    <div class="fw-bold">Pedidos pendentes recentes</div>
+                    <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.orders.index', ['status' => 'pending']) }}">Ver todos</a>
                 </div>
                 <div class="card-body">
-                    @if ($latestProducts->isEmpty())
-                        <div class="text-muted">Nenhum produto cadastrado ainda.</div>
+                    @if ($latestPendingOrders->isEmpty())
+                        <div class="text-muted">Nenhum pedido pendente no momento.</div>
                     @else
                         <div class="list-group list-group-flush">
-                            @foreach ($latestProducts as $p)
+                            @foreach ($latestPendingOrders as $o)
                                 <div class="list-group-item d-flex align-items-start justify-content-between">
                                     <div>
-                                        <div class="fw-medium">{{ $p->title }}</div>
+                                        <div class="fw-medium">{{ $o->order_number }}</div>
                                         <div class="text-muted small">
-                                            <code>{{ $p->slug }}</code>
-                                            @if ($p->is_featured)
-                                                <span class="badge bg-warning text-dark ms-1">Destaque</span>
-                                            @endif
-                                            @if (!$p->is_active)
-                                                <span class="badge bg-secondary ms-1">Inativo</span>
-                                            @endif
+                                            {{ $o->contact_name }} - {{ $o->created_at?->format('d/m/Y H:i') }}
                                         </div>
                                     </div>
-                                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('admin.products.edit', $p) }}">Editar</a>
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('admin.orders.show', $o) }}">Abrir</a>
                                 </div>
                             @endforeach
                         </div>
