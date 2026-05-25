@@ -160,20 +160,221 @@ h6,
 }
 
 
-.topbar-right {
+/*** Site Topbar ***/
+.site-topbar {
+    background: var(--dark);
+    font-family: 'Rubik', 'Open Sans', sans-serif;
+}
+
+.site-topbar-inner {
+    display: flex;
+    align-items: stretch;
+    min-height: 46px;
+    max-width: 100%;
+}
+
+.site-topbar-left,
+.site-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.site-topbar-left {
+    flex: 1;
+    padding: 0.5rem 1.75rem 0.5rem 2.5rem;
+    background: var(--dark);
+}
+
+.site-topbar-right {
     position: relative;
+    flex-shrink: 0;
+    padding: 0.5rem 2.5rem 0.5rem 2.75rem;
     background: var(--primary);
 }
 
-.topbar-right::before {
+.site-topbar-right::before {
     position: absolute;
     content: "";
-    width: 30px;
+    width: 36px;
     height: 100%;
     top: 0;
-    left: -15px;
-    transform: skewX(-30deg);
+    left: -18px;
+    transform: skewX(-28deg);
     background-color: var(--primary);
+}
+
+.site-topbar-block {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.site-topbar-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    line-height: 1;
+    color: #fff;
+}
+
+.site-topbar-icon--accent {
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+.site-topbar-text {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.site-topbar-shipping .site-topbar-text {
+    font-weight: 600;
+}
+
+.site-topbar-price {
+    position: relative;
+    display: inline-block;
+    margin-left: 0.2rem;
+    color: #ffd700;
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 0;
+}
+
+.site-topbar-sparkles {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    width: 16px;
+    height: 7px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    background: linear-gradient(to top, #ffd700, #ffd700) center bottom / 2px 6px no-repeat;
+}
+
+.site-topbar-sparkles::before,
+.site-topbar-sparkles::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 2px;
+    height: 5px;
+    background: #ffd700;
+    border-radius: 1px;
+}
+
+.site-topbar-sparkles::before {
+    left: 1px;
+    transform: rotate(-22deg);
+    transform-origin: bottom center;
+}
+
+.site-topbar-sparkles::after {
+    right: 1px;
+    transform: rotate(22deg);
+    transform-origin: bottom center;
+}
+
+.site-topbar-separator {
+    width: 1px;
+    align-self: stretch;
+    margin: 0.15rem 0;
+    background: rgba(255, 255, 255, 0.22);
+    flex-shrink: 0;
+}
+
+.site-topbar-separator--light {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.site-topbar-phone-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+    line-height: 1.15;
+}
+
+.site-topbar-phone-number {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: opacity 0.2s ease;
+}
+
+.site-topbar-phone-number:hover {
+    color: #fff;
+    opacity: 0.85;
+}
+
+.site-topbar-phone-note {
+    font-size: 0.62rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    color: rgba(255, 255, 255, 0.88);
+    white-space: nowrap;
+}
+
+.site-topbar-region .site-topbar-text {
+    font-weight: 500;
+    text-transform: none;
+    font-size: 0.84rem;
+    letter-spacing: 0.01em;
+}
+
+.site-topbar-langs {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+}
+
+.site-topbar-lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.2rem 0.85rem;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border-right: 1px solid rgba(255, 255, 255, 0.4);
+    transition: opacity 0.2s ease;
+}
+
+.site-topbar-lang:last-child {
+    border-right: none;
+    padding-right: 0;
+}
+
+.site-topbar-lang:first-child {
+    padding-left: 0;
+}
+
+.site-topbar-lang img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
+.site-topbar-lang:hover {
+    color: #fff;
+    opacity: 0.88;
+}
+
+.site-topbar-lang.is-active {
+    opacity: 1;
 }
 
 

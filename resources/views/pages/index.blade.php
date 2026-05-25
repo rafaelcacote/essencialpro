@@ -65,6 +65,88 @@
         letter-spacing: 0.3px;
         text-transform: uppercase;
     }
+    .professional-catalogs {
+        background: #f8fafc;
+        padding: 0.25rem 0 2.5rem;
+    }
+    .professional-catalogs-header {
+        text-align: center;
+        margin-bottom: 1.15rem;
+    }
+    .professional-catalogs-title {
+        margin: 0;
+        color: #0f172a;
+        font-size: clamp(1.15rem, 2vw, 2rem);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+    }
+    .professional-catalogs-subtitle {
+        margin: 0.35rem 0 0;
+        color: #64748b;
+        font-size: clamp(0.82rem, 1vw, 0.95rem);
+    }
+    .professional-catalogs-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        align-items: stretch;
+    }
+    .professional-catalog-card {
+        position: relative;
+        display: block;
+        border-radius: 14px;
+        overflow: hidden;
+        text-decoration: none;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .professional-catalog-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 32px rgba(15, 23, 42, 0.14);
+    }
+    .professional-catalog-card img {
+        width: 100%;
+        height: 100%;
+        min-height: 220px;
+        aspect-ratio: 1024 / 460;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        transition: transform 0.35s ease;
+    }
+    .professional-catalog-card:hover img {
+        transform: scale(1.02);
+    }
+    .professional-catalog-cta {
+        position: absolute;
+        bottom: 1.1rem;
+        right: 1.1rem;
+        z-index: 2;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.62rem 1.15rem;
+        border: 1px solid rgba(255, 255, 255, 0.85);
+        border-radius: 4px;
+        background: rgba(15, 23, 42, 0.55);
+        backdrop-filter: blur(4px);
+        color: #fff;
+        font-size: clamp(0.68rem, 0.85vw, 0.78rem);
+        font-weight: 700;
+        letter-spacing: 0.35px;
+        text-transform: uppercase;
+        line-height: 1.2;
+        transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .professional-catalog-card:hover .professional-catalog-cta {
+        background: rgba(15, 23, 42, 0.72);
+        border-color: #fff;
+    }
+    .professional-catalog-card--portwest .professional-catalog-cta {
+        right: auto;
+        left: 1.1rem;
+    }
     .professional-solutions {
         background: #f8fafc;
         padding: 0.3rem 0 2.4rem;
@@ -555,13 +637,74 @@
         font-size: 1rem;
     }
     .technologies-banner-section {
-        background: #fff;
-        padding: 0.25rem 0 1.5rem;
+        background: #f8fafc;
+        padding: 0.5rem 0 2rem;
     }
     .technologies-banner-section img {
         width: 100%;
-        border-radius: 10px;
+        height: auto;
+        border-radius: 12px;
         display: block;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+    .trust-partners-section {
+        background: #f8fafc;
+        padding: 0 0 2rem;
+    }
+    .trust-partners-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+    .trust-partners-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.25rem;
+        background: #fff;
+        border: 1px solid #e8edf3;
+        border-radius: 14px;
+        padding: 1.35rem 1.5rem;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+        min-height: 115px;
+    }
+    .trust-partners-content {
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: 52%;
+    }
+    .trust-partners-title {
+        margin: 0;
+        color: #0f1d4d;
+        font-size: clamp(0.82rem, 1.1vw, 0.95rem);
+        font-weight: 800;
+        letter-spacing: 0.35px;
+        text-transform: uppercase;
+        line-height: 1.25;
+    }
+    .trust-partners-text {
+        margin: 0.45rem 0 0;
+        color: #64748b;
+        font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+        line-height: 1.45;
+        font-weight: 500;
+    }
+    .trust-partners-logos {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: clamp(0.65rem, 1.2vw, 1.1rem);
+        flex-shrink: 0;
+    }
+    .trust-partners-logos img {
+        height: clamp(42px, 5vw, 56px);
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+        display: block;
+    }
+    .trust-partners-logos--delivery img {
+        height: clamp(48px, 5.5vw, 62px);
     }
     .testimonials-showcase {
         background: #f8fafc;
@@ -779,6 +922,28 @@
         .category-explorer-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+        .professional-catalogs-grid {
+            grid-template-columns: 1fr;
+        }
+        .professional-catalog-card img {
+            min-height: 200px;
+        }
+        .trust-partners-grid {
+            grid-template-columns: 1fr;
+        }
+        .trust-partners-card {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 1.15rem 1.2rem;
+        }
+        .trust-partners-content {
+            max-width: 100%;
+        }
+        .trust-partners-logos {
+            width: 100%;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
         .professional-solutions-grid {
             grid-template-columns: 1fr;
         }
@@ -939,6 +1104,25 @@
     </div>
 </section>
 
+<section class="professional-catalogs">
+    <div class="container">
+        <div class="professional-catalogs-header">
+            <h2 class="professional-catalogs-title">Catálogos profissionais</h2>
+            <p class="professional-catalogs-subtitle">Explore toda a nossa solução completa para empresas e profissionais.</p>
+        </div>
+        <div class="professional-catalogs-grid">
+            <a href="#" class="professional-catalog-card professional-catalog-card--base" target="_blank" rel="noopener noreferrer">
+                <img src="{{ asset('img/catalogs/catalogo-base.png') }}" alt="Catálogo Base — Feel the comfort">
+                <span class="professional-catalog-cta">Ver catálogo Base</span>
+            </a>
+            <a href="#" class="professional-catalog-card professional-catalog-card--portwest" target="_blank" rel="noopener noreferrer">
+                <img src="{{ asset('img/catalogs/catalogo-portwest.png') }}" alt="Catálogo Portwest — Peak Protection">
+                <span class="professional-catalog-cta">Ver catálogo Portwest</span>
+            </a>
+        </div>
+    </div>
+</section>
+
 <section class="professional-solutions">
     <div class="container">
         <div class="professional-solutions-header">
@@ -1011,14 +1195,77 @@
             @endforeach
         </div>
     </div>
-    <div class="custom-brand-banner wow fadeInUp" data-wow-delay="0.15s">
-        <img src="{{ asset('img/home_sections/personalizamos-sua-marca-novo.png') }}" alt="Personalizamos sua marca">
-        <a href="{{ route('contact') }}" class="custom-brand-cta">Solicite o seu orcamento</a>
-    </div>
 </section>
 @endif
 <!-- Featured Products End -->
 
+<div class="custom-brand-banner wow fadeInUp" data-wow-delay="0.15s">
+    <img src="{{ asset('img/home_sections/personalizamos-sua-marca-novo.png') }}" alt="Personalizamos sua marca">
+    <a href="{{ route('contact') }}" class="custom-brand-cta">Solicite o seu orcamento</a>
+</div>
+
+<section class="contact-highlight-section">
+    <div class="container">
+        <div class="contact-highlight-top">
+            <div class="contact-highlight-main">
+                <div class="contact-highlight-icon">
+                    <i class="bi bi-headset"></i>
+                </div>
+                <div>
+                    <h2 class="contact-highlight-title">Precisa de soluções para sua empresa?</h2>
+                    <p class="contact-highlight-text">Nossa equipe está pronta para ajudar você a encontrar<br>o equipamento ideal para o seu negócio.</p>
+                </div>
+                <div class="contact-highlight-actions">
+                    <div class="contact-highlight-btns-row">
+                        <a href="{{ route('contact') }}" class="contact-highlight-btn quote">
+                            <i class="bi bi-file-earmark-text"></i>
+                            Pedir Orçamento
+                        </a>
+                        <a href="{{ route('contact') }}" class="contact-highlight-btn whatsapp">
+                            <i class="bi bi-whatsapp"></i>
+                            Falar no WhatsApp
+                        </a>
+                    </div>
+                    <div class="contact-highlight-meta">
+                        <span><i class="bi bi-shield-check"></i> Atendimento rápido</span>
+                        <span><i class="bi bi-lock"></i> Segurança e confiança</span>
+                        <span><i class="bi bi-clock"></i> Resposta imediata</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact-highlight-bottom">
+            <div class="contact-benefit">
+                <i class="bi bi-shield"></i>
+                <div>
+                    <h4>Foco em qualidade e durabilidade</h4>
+                    <p>Trabalhamos com materiais resistentes e certificados.</p>
+                </div>
+            </div>
+            <div class="contact-benefit">
+                <i class="bi bi-handshake"></i>
+                <div>
+                    <h4>Parcerias com fornecedores confiáveis</h4>
+                    <p>Selecionamos os melhores produtos e marcas do mercado.</p>
+                </div>
+            </div>
+            <div class="contact-benefit">
+                <i class="bi bi-person-check"></i>
+                <div>
+                    <h4>Atendimento próximo ao cliente</h4>
+                    <p>Entendemos a necessidade da sua empresa.</p>
+                </div>
+            </div>
+            <div class="contact-benefit">
+                <i class="bi bi-box-seam"></i>
+                <div>
+                    <h4>Entrega rápida e eficiente</h4>
+                    <p>Logística otimizada para mais agilidade nas entregas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Features Start -->
 <section class="about-highlight-section">
@@ -1093,6 +1340,39 @@
     </div>
 </section>
 <!-- Features End -->
+
+<section class="technologies-banner-section wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <img src="{{ asset('img/home_sections/tecnologias-banner.png') }}" alt="As tecnologias — Tecnologia revolucionária para cada tipo de calçado fabricado">
+    </div>
+</section>
+
+<section class="trust-partners-section wow fadeInUp" data-wow-delay="0.15s">
+    <div class="container">
+        <div class="trust-partners-grid">
+            <div class="trust-partners-card">
+                <div class="trust-partners-content">
+                    <h3 class="trust-partners-title">Nossos fornecedores</h3>
+                    <p class="trust-partners-text">Trabalhamos com marcas e fornecedores líderes, reconhecidos mundialmente pela qualidade, inovação e segurança.</p>
+                </div>
+                <div class="trust-partners-logos trust-partners-logos--suppliers">
+                    <img src="{{ asset('img/partners/logo-portwest.png') }}" alt="Portwest">
+                    <img src="{{ asset('img/partners/logo-base.png') }}" alt="Base">
+                    <img src="{{ asset('img/partners/logo-boa.png') }}" alt="BOA">
+                </div>
+            </div>
+            <div class="trust-partners-card">
+                <div class="trust-partners-content">
+                    <h3 class="trust-partners-title">Entrega rápida e segura</h3>
+                    <p class="trust-partners-text">Trabalhamos com a transportadora GLS para garantir que seu pedido chegue com agilidade e segurança.</p>
+                </div>
+                <div class="trust-partners-logos trust-partners-logos--delivery">
+                    <img src="{{ asset('img/partners/logo-gls.png') }}" alt="GLS">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Project Start -->
 <!-- <div class="container-fluid bg-dark pt-5 pb-5 mb-5 px-0">
@@ -1242,75 +1522,6 @@ Our Products End -->
     
 
 <!-- Products Partners Start -->
-<section class="contact-highlight-section">
-    <div class="container">
-        <div class="contact-highlight-top">
-            <div class="contact-highlight-main">
-                <div class="contact-highlight-icon">
-                    <i class="bi bi-headset"></i>
-                </div>
-                <div>
-                    <h2 class="contact-highlight-title">Precisa de soluções para sua empresa?</h2>
-                    <p class="contact-highlight-text">Nossa equipe está pronta para ajudar você a encontrar<br>o equipamento ideal para o seu negócio.</p>
-                </div>
-                <div class="contact-highlight-actions">
-                    <div class="contact-highlight-btns-row">
-                        <a href="{{ route('contact') }}" class="contact-highlight-btn quote">
-                            <i class="bi bi-file-earmark-text"></i>
-                            Pedir Orçamento
-                        </a>
-                        <a href="{{ route('contact') }}" class="contact-highlight-btn whatsapp">
-                            <i class="bi bi-whatsapp"></i>
-                            Falar no WhatsApp
-                        </a>
-                    </div>
-                    <div class="contact-highlight-meta">
-                        <span><i class="bi bi-shield-check"></i> Atendimento rápido</span>
-                        <span><i class="bi bi-lock"></i> Segurança e confiança</span>
-                        <span><i class="bi bi-clock"></i> Resposta imediata</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="contact-highlight-bottom">
-            <div class="contact-benefit">
-                <i class="bi bi-shield"></i>
-                <div>
-                    <h4>Foco em qualidade e durabilidade</h4>
-                    <p>Trabalhamos com materiais resistentes e certificados.</p>
-                </div>
-            </div>
-            <div class="contact-benefit">
-                <i class="bi bi-handshake"></i>
-                <div>
-                    <h4>Parcerias com fornecedores confiáveis</h4>
-                    <p>Selecionamos os melhores produtos e marcas do mercado.</p>
-                </div>
-            </div>
-            <div class="contact-benefit">
-                <i class="bi bi-person-check"></i>
-                <div>
-                    <h4>Atendimento próximo ao cliente</h4>
-                    <p>Entendemos a necessidade da sua empresa.</p>
-                </div>
-            </div>
-            <div class="contact-benefit">
-                <i class="bi bi-box-seam"></i>
-                <div>
-                    <h4>Entrega rápida e eficiente</h4>
-                    <p>Logística otimizada para mais agilidade nas entregas.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="technologies-banner-section">
-    <div class="container">
-        <img src="{{ asset('img/home_sections/tecnologias-banner.png') }}" alt="As tecnologias">
-    </div>
-</section>
-
 <div class="container-fluid px-0 partners-section">
     <div class="container-xxl partners-section-inner">
     <div class="container">

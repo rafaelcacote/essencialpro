@@ -1,22 +1,62 @@
 <!-- Topbar Start -->
-<div class="container-fluid bg-dark px-0">
-    <div class="row g-0 d-none d-lg-flex">
-        <div class="col-lg-6 ps-5 text-start">
-            <div class="h-100 d-inline-flex align-items-center text-white">
-                <span>Follow Us:</span>
-                <a class="btn btn-link text-light" href=""><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-link text-light" href=""><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-link text-light" href=""><i class="fab fa-linkedin-in"></i></a>
-                <a class="btn btn-link text-light" href=""><i class="fab fa-instagram"></i></a>
+<div class="site-topbar d-none d-lg-block">
+    <div class="site-topbar-inner">
+        <div class="site-topbar-left">
+            <div class="site-topbar-block site-topbar-shipping">
+                <span class="site-topbar-icon site-topbar-icon--accent" aria-hidden="true">
+                    <i class="fas fa-shipping-fast"></i>
+                </span>
+                <span class="site-topbar-text">
+                    FRETE GRÁTIS acima de
+                    <span class="site-topbar-price">
+                        <span class="site-topbar-sparkles" aria-hidden="true"></span>
+                        80€
+                    </span>
+                </span>
+            </div>
+
+            <span class="site-topbar-separator" aria-hidden="true"></span>
+
+            <div class="site-topbar-block site-topbar-phone">
+                <span class="site-topbar-icon site-topbar-icon--accent" aria-hidden="true">
+                    <i class="fas fa-phone-alt"></i>
+                </span>
+                <div class="site-topbar-phone-text">
+                    <a href="tel:+351923128006" class="site-topbar-phone-number">+351 923 128 006</a>
+                    <span class="site-topbar-phone-note">(Chamada para a rede móvel nacional)</span>
+                </div>
             </div>
         </div>
-        <div class="col-lg-6 text-end">
-            <div class="h-100 topbar-right d-inline-flex align-items-center text-white py-2 px-5">
-                <span class="fs-5 fw-bold me-2"><i class="fa fa-phone-alt me-2"></i>Ligue:</span>
-                <span class="fs-5 fw-bold">+55 (00) 0000-0000</span>
+
+        <div class="site-topbar-right">
+            <div class="site-topbar-block site-topbar-region">
+                <span class="site-topbar-icon" aria-hidden="true">
+                    <i class="fas fa-globe-americas"></i>
+                </span>
+                <span class="site-topbar-text">Envio para Portugal e Europa</span>
             </div>
+
+            <span class="site-topbar-separator site-topbar-separator--light" aria-hidden="true"></span>
+
+            <nav class="site-topbar-langs" aria-label="Idioma">
+                <a href="#" class="site-topbar-lang is-active" title="Português">
+                    <img src="https://flagcdn.com/w40/pt.png" width="22" height="22" alt="" loading="lazy">
+                    <span>PT</span>
+                </a>
+                <a href="#" class="site-topbar-lang" title="Español">
+                    <img src="https://flagcdn.com/w40/es.png" width="22" height="22" alt="" loading="lazy">
+                    <span>ES</span>
+                </a>
+                <a href="#" class="site-topbar-lang" title="English">
+                    <img src="https://flagcdn.com/w40/gb.png" width="22" height="22" alt="" loading="lazy">
+                    <span>EN</span>
+                </a>
+                <a href="#" class="site-topbar-lang" title="Français">
+                    <img src="https://flagcdn.com/w40/fr.png" width="22" height="22" alt="" loading="lazy">
+                    <span>FR</span>
+                </a>
+            </nav>
         </div>
     </div>
 </div>
 <!-- Topbar End -->
-
