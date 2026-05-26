@@ -1472,9 +1472,9 @@
                     <x-section-heading tag="h3" size="sm" align="left" title="Nossos parceiros" :dashes="false" class="mb-0" />
                 </div>
                 <div class="trust-partners-logos trust-partners-logos--suppliers">
-                    <img src="{{ asset('img/partners/logo-portwest.png') }}" alt="Portwest">
-                    <img src="{{ asset('img/partners/logo-base.png') }}" alt="Base Protection">
-                    <img src="{{ asset('img/partners/logo-boa.png') }}" alt="BOA">
+                    <img src="{{ asset('img/partners/portwest.jpeg') }}" alt="Portwest">
+                    <img src="{{ asset('img/partners/base.jpeg') }}" alt="Base Protection">
+                    <img src="{{ asset('img/partners/boa.jpeg') }}" alt="BOA">
                 </div>
             </div>
             <div class="trust-partners-card">
@@ -1483,7 +1483,7 @@
                     <p class="trust-partners-text">Trabalhamos com a transportadora GLS para garantir que o seu pedido chegue com agilidade e segurança.</p>
                 </div>
                 <div class="trust-partners-logos trust-partners-logos--delivery">
-                    <img src="{{ asset('img/partners/logo-gls.png') }}" alt="GLS">
+                    <img src="{{ asset('img/partners/gls.jpeg') }}" alt="GLS">
                 </div>
             </div>
         </div>
