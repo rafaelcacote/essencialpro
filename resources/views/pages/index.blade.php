@@ -659,9 +659,27 @@
         object-fit: contain;
         display: block;
     }
+    .trust-partners-card--partners {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    .trust-partners-card--partners .trust-partners-content {
+        max-width: none;
+    }
+    .trust-partners-card--partners .trust-partners-logos {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: clamp(1rem, 3vw, 2rem);
+    }
     .trust-partners-logos--suppliers img {
         height: clamp(44px, 5.5vw, 58px);
-        max-width: min(180px, 42vw);
+        max-width: min(160px, 28vw);
+    }
+    .trust-partners-logos--suppliers img[alt="BOA"] {
+        height: clamp(48px, 5.5vw, 62px);
+        max-width: min(72px, 14vw);
     }
     .trust-partners-logos--delivery img {
         height: clamp(48px, 5.5vw, 62px);
@@ -1449,14 +1467,14 @@
 <section class="trust-partners-section wow fadeInUp" data-wow-delay="0.15s">
     <div class="container">
         <div class="trust-partners-grid">
-            <div class="trust-partners-card">
+            <div class="trust-partners-card trust-partners-card--partners">
                 <div class="trust-partners-content">
                     <x-section-heading tag="h3" size="sm" align="left" title="Nossos parceiros" :dashes="false" class="mb-0" />
-                    <p class="trust-partners-text">Trabalhamos com marcas e fornecedores líderes, reconhecidos mundialmente pela qualidade, inovação e segurança.</p>
                 </div>
                 <div class="trust-partners-logos trust-partners-logos--suppliers">
                     <img src="{{ asset('img/partners/logo-portwest.png') }}" alt="Portwest">
                     <img src="{{ asset('img/partners/logo-base.png') }}" alt="Base Protection">
+                    <img src="{{ asset('img/partners/logo-boa.png') }}" alt="BOA">
                 </div>
             </div>
             <div class="trust-partners-card">
