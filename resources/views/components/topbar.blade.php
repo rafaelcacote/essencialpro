@@ -22,7 +22,7 @@
                     <i class="fas fa-phone-alt"></i>
                 </span>
                 <div class="site-topbar-phone-text">
-                    <a href="tel:+351923128006" class="site-topbar-phone-number">+351 923 128 006</a>
+                    <a href="tel:+351922026198" class="site-topbar-phone-number">+351 922 026 198</a>
                     <span class="site-topbar-phone-note">(Chamada para a rede móvel nacional)</span>
                 </div>
             </div>

@@ -58,7 +58,7 @@
                             </div>
                             <div class="ms-3">
                                 <p class="mb-2">Telefone</p>
-                                <h5 class="mb-0">+012 345 6789</h5>
+                                <h5 class="mb-0">+351 922 026 198</h5>
                             </div>
                         </div>
                     </div>

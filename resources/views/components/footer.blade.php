@@ -154,7 +154,7 @@
                 </div>
                 <div class="ep-footer-contact-item">
                     <i class="bi bi-telephone-fill"></i>
-                    <span><strong>+351 910 000 000</strong>Atendimento via WhatsApp</span>
+                    <span><strong><a href="tel:+351922026198" class="text-white text-decoration-none">+351 922 026 198</a></strong>Atendimento via WhatsApp</span>
                 </div>
                 <div class="ep-footer-contact-item">
                     <i class="bi bi-envelope-fill"></i>
