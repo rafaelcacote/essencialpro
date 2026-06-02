@@ -4,7 +4,7 @@
 (function () {
     'use strict';
 
-    var nav = document.querySelector('.nav-essencial');
+    var nav = document.querySelector('.site-header.nav-essencial, .nav-essencial');
     if (!nav) return;
 
     var triggers = nav.querySelectorAll('[data-nav-tree-trigger]');

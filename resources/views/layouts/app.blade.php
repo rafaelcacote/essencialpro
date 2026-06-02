@@ -17,6 +17,7 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/nav-tree.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/header-nav.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
 <body>

@@ -1,149 +1,169 @@
+@php
+    $whatsappNumber = '351923128006';
+    $categoryPlaceholders = [
+        ['slug' => 'epis', 'name' => 'EPIs'],
+        ['slug' => 'vestuario', 'name' => 'Vestuário'],
+        ['slug' => 'calcado', 'name' => 'Calçado'],
+        ['slug' => 'acessorios', 'name' => 'Acessórios'],
+    ];
+
+    if (!function_exists('nav_tree_is_active')) {
+        function nav_tree_is_active($category, $currentCategory, $isCategoryActive) {
+            if (!$isCategoryActive || !$currentCategory) {
+                return false;
+            }
+            if ($currentCategory->id == $category->id) {
+                return true;
+            }
+            $parent = $currentCategory->parent;
+            while ($parent) {
+                if ($parent->id == $category->id) {
+                    return true;
+                }
+                $parent = $parent->parent;
+            }
+            return false;
+        }
+    }
+
+    $currentCategory = request()->route('category');
+    $isCategoryActive = request()->routeIs('categories.show', 'category.placeholder');
+@endphp
+
 <!-- Navbar Start -->
-<nav class="nav-essencial navbar navbar-expand-lg bg-white navbar-light sticky-top py-0 pe-5">
-    <a href="{{ route('home') }}" class="navbar-brand ps-5 me-0 d-flex align-items-center bg-white" style="background: white !important;">
-        <img src="{{ asset('img/logo_essencial.png') }}" alt="Essencial Pro" class="me-2" style="height: 120px; width: auto; max-width: 300px; object-fit: contain;">
-    </a>
-    <style>.navbar .navbar-brand::after { display: none !important; }</style>
-
-    <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Abrir menu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav ms-auto p-4 p-lg-0 align-items-lg-center">
-            <li class="nav-item">
-                <a href="{{ route('quem-somos') }}" class="nav-link @if (request()->routeIs('quem-somos')) active @endif">Quem Somos</a>
-            </li>
-
-            @if(isset($menuCategories) && $menuCategories->isNotEmpty())
-                @php
-                    $currentCategory = request()->route('category');
-                    $isCategoryActive = request()->routeIs('categories.show');
-                    if (!function_exists('nav_tree_is_active')) {
-                        function nav_tree_is_active($category, $currentCategory, $isCategoryActive) {
-                            if (!$isCategoryActive || !$currentCategory) return false;
-                            if ($currentCategory->id == $category->id) return true;
-                            $parent = $currentCategory->parent;
-                            while ($parent) {
-                                if ($parent->id == $category->id) return true;
-                                $parent = $parent->parent;
-                            }
-                            return false;
-                        }
-                    }
-                @endphp
-                @foreach($menuCategories as $parentCategory)
-                    @php
-                        $children = $parentCategory->children->where('is_active', true)->sortBy('sort_order');
-                        $hasChildren = $children->isNotEmpty();
-                        $isActive = nav_tree_is_active($parentCategory, $currentCategory, $isCategoryActive);
-                    @endphp
-                    @if($hasChildren)
-                        <li class="nav-item nav-tree-trigger" data-nav-tree-trigger>
-                            <a href="{{ route('categories.show', $parentCategory->slug) }}" class="nav-link dropdown-toggle {{ $isActive ? 'active' : '' }}">
-                                {{ $parentCategory->name }}
-                            </a>
-                            <div class="nav-tree-panel" data-nav-tree-panel aria-hidden="true">
-                                <div class="nav-tree-panel__inner">
-                                    <a href="{{ route('categories.show', $parentCategory->slug) }}" class="nav-tree__link nav-tree__link--all d-lg-none">
-                                        <span class="nav-tree__label">Ver todos em {{ $parentCategory->name }}</span>
-                                    </a>
-                                    @include('components.navbar-menu-tree', ['items' => $children, 'depth' => 0])
-                                </div>
-                            </div>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a href="{{ route('categories.show', $parentCategory->slug) }}" class="nav-link @if($isCategoryActive && $currentCategory && $currentCategory->id == $parentCategory->id) active @endif">
-                                {{ $parentCategory->name }}
-                            </a>
-                        </li>
-                    @endif
-                @endforeach
-            @endif
-        </ul>
-        <div class="navbar-actions d-flex align-items-center gap-2 ms-lg-2">
-            <a href="{{ route('cart.show') }}" class="btn btn-outline-primary position-relative">
-                <i class="bi bi-cart3"></i>
-                @if (!empty($cartCount))
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        {{ $cartCount }}
-                    </span>
-                @endif
+<header class="site-header nav-essencial sticky-top">
+    <div class="site-header-main d-none d-lg-block">
+        <div class="site-header-inner">
+            <a href="{{ route('home') }}" class="site-header-brand">
+                <img src="{{ asset('img/logo_new.jpeg') }}" alt="Essencial Pro">
             </a>
 
-            @auth
-                <div class="dropdown nav-user-dropdown">
-                    <button class="btn btn-outline-secondary dropdown-toggle text-start"
-                            type="button"
-                            id="navUserMenu"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            aria-label="Menu da conta">
-                        <i class="bi bi-person-circle me-1"></i>
-                        <span class="nav-user-name">{{ auth()->user()->name }}</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="navUserMenu">
-                        <li>
-                            <a class="dropdown-item @if(request()->routeIs('profile.*')) active @endif" href="{{ route('profile.edit') }}">
-                                <i class="bi bi-person me-2"></i>Perfil
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item @if(request()->routeIs('account.orders*')) active @endif" href="{{ route('account.orders') }}">
-                                <i class="bi bi-bag me-2"></i>Pedidos
-                            </a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="dropdown-item text-danger">
-                                    <i class="bi bi-box-arrow-right me-2"></i>Sair
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            @else
-                <a href="{{ route('login') }}" class="btn btn-outline-secondary d-none d-lg-inline-block">Entrar</a>
-                <a href="{{ route('register') }}" class="btn btn-outline-dark d-none d-lg-inline-block">Cadastrar</a>
-            @endauth
+            <div class="site-header-right">
+                <nav class="site-header-quicklinks" aria-label="Links rápidos">
+                    <a href="{{ route('quem-somos') }}" class="site-header-quicklink @if(request()->routeIs('quem-somos', 'about')) is-active @endif">Sobre Nós</a>
+                    <span class="site-header-quicksep" aria-hidden="true"></span>
+                    <a href="{{ route('contact') }}" class="site-header-quicklink @if(request()->routeIs('contact')) is-active @endif">Contactos</a>
+                    <a href="{{ route('quote') }}" class="site-header-cta">
+                        Pedir Orçamento <i class="bi bi-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </nav>
 
-            <a href="{{ route('contact') }}" class="btn btn-primary px-3 d-none d-lg-block">Solicitar Orçamento</a>
+                <div class="site-header-navrow">
+                    <nav class="site-header-categories" aria-label="Categorias">
+                        @if(isset($menuCategories) && $menuCategories->isNotEmpty())
+                            @foreach($menuCategories as $parentCategory)
+                                @php
+                                    $children = $parentCategory->children->where('is_active', true)->sortBy('sort_order');
+                                    $hasChildren = $children->isNotEmpty();
+                                    $isActive = nav_tree_is_active($parentCategory, $currentCategory, $isCategoryActive);
+                                @endphp
+                                <div class="site-header-category @if($hasChildren) nav-tree-trigger @endif" @if($hasChildren) data-nav-tree-trigger @endif>
+                                    <a href="{{ route('categories.show', $parentCategory->slug) }}" class="site-header-category-link {{ $isActive ? 'active' : '' }}">
+                                        {{ $parentCategory->name }}
+                                    </a>
+                                    @if($hasChildren)
+                                        <div class="nav-tree-panel" data-nav-tree-panel aria-hidden="true">
+                                            <div class="nav-tree-panel__inner">
+                                                @include('components.navbar-menu-tree', ['items' => $children, 'depth' => 0])
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endforeach
+                        @else
+                            @foreach($categoryPlaceholders as $category)
+                                <div class="site-header-category">
+                                    <a href="{{ route('category.placeholder', $category['slug']) }}" class="site-header-category-link @if(request()->routeIs('category.placeholder') && request()->route('slug') === $category['slug']) active @endif">
+                                        {{ $category['name'] }}
+                                    </a>
+                                </div>
+                            @endforeach
+                        @endif
+                    </nav>
+
+                    <span class="site-header-utils-sep" aria-hidden="true"></span>
+
+                    <nav class="site-header-utils" aria-label="Ações">
+                        <a href="{{ route('search') }}" class="site-header-util @if(request()->routeIs('search')) is-active @endif">
+                            <i class="bi bi-search" aria-hidden="true"></i>
+                            <span>Procurar</span>
+                        </a>
+                        <a href="https://wa.me/{{ $whatsappNumber }}" class="site-header-util site-header-util--whatsapp" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-whatsapp" aria-hidden="true"></i>
+                            <span>Whatsapp</span>
+                        </a>
+                        <div class="site-header-account dropdown">
+                            <button type="button"
+                                    class="site-header-util site-header-util--account dropdown-toggle"
+                                    id="navAccountToggle"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-auto-close="true"
+                                    aria-expanded="false"
+                                    aria-label="Minha Conta">
+                                <i class="bi bi-person" aria-hidden="true"></i>
+                                <span>Minha Conta</span>
+                                <i class="bi bi-chevron-up d-none" aria-hidden="true"></i>
+                                <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                            </button>
+                            @include('components.navbar-account-menu')
+                        </div>
+                        <a href="{{ route('cart.show') }}" class="site-header-util site-header-util--cart @if(request()->routeIs('cart.*')) is-active @endif">
+                            <i class="bi bi-cart3" aria-hidden="true"></i>
+                            @if (!empty($cartCount))
+                                <span class="site-header-util-badge">{{ $cartCount }}</span>
+                            @else
+                                <span class="site-header-util-badge">0</span>
+                            @endif
+                            <span>Carrinho</span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
         </div>
     </div>
-</nav>
+
+    <nav class="site-header-mobile nav-essencial navbar navbar-expand-lg bg-white navbar-light py-2 px-3">
+        <a href="{{ route('home') }}" class="navbar-brand p-0 me-2">
+            <img src="{{ asset('img/logo_new.jpeg') }}" alt="Essencial Pro" style="height: 72px; width: auto; max-width: 240px; object-fit: contain;">
+        </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Abrir menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ms-auto p-3 p-lg-0">
+                <li class="nav-item"><a href="{{ route('quem-somos') }}" class="nav-link">Sobre Nós</a></li>
+                <li class="nav-item"><a href="{{ route('contact') }}" class="nav-link">Contactos</a></li>
+                <li class="nav-item"><a href="{{ route('quote') }}" class="nav-link">Pedir Orçamento</a></li>
+                <li class="nav-item"><a href="{{ route('search') }}" class="nav-link">Procurar</a></li>
+                <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Entrar</a></li>
+                <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Criar Conta</a></li>
+                <li class="nav-item"><a href="{{ route('orders.track') }}" class="nav-link">Acompanhar Pedido</a></li>
+                <li class="nav-item"><a href="{{ route('wishlist') }}" class="nav-link">Lista de Desejos</a></li>
+                <li class="nav-item"><a href="{{ route('account.orders') }}" class="nav-link">Meus Pedidos</a></li>
+                @if(isset($menuCategories) && $menuCategories->isNotEmpty())
+                    @foreach($menuCategories as $parentCategory)
+                        <li class="nav-item">
+                            <a href="{{ route('categories.show', $parentCategory->slug) }}" class="nav-link">{{ $parentCategory->name }}</a>
+                        </li>
+                    @endforeach
+                @else
+                    @foreach($categoryPlaceholders as $category)
+                        <li class="nav-item">
+                            <a href="{{ route('category.placeholder', $category['slug']) }}" class="nav-link">{{ $category['name'] }}</a>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
+            <div class="navbar-actions d-flex align-items-center gap-2 pb-3">
+                <a href="{{ route('cart.show') }}" class="btn btn-outline-primary position-relative">
+                    <i class="bi bi-cart3"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">{{ $cartCount ?? 0 }}</span>
+                </a>
+                <a href="https://wa.me/{{ $whatsappNumber }}" class="btn btn-success" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
 <!-- Navbar End -->
-
-<style>
-.navbar-actions .btn {
-    white-space: nowrap;
-}
-
-.nav-user-dropdown .dropdown-toggle::after {
-    margin-left: 0.35rem;
-}
-
-.nav-user-name {
-    display: inline-block;
-    max-width: 11rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    vertical-align: bottom;
-}
-
-@media (max-width: 991.98px) {
-    .navbar-actions {
-        border-top: 1px solid #eee;
-        margin-top: 0.5rem;
-        padding-top: 0.75rem;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-    }
-
-    .nav-user-name {
-        max-width: 14rem;
-    }
-}
-</style>

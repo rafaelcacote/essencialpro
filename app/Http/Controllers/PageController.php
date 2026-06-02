@@ -74,6 +74,40 @@ class PageController extends Controller
     {
         return view('pages.404');
     }
+
+    public function quote()
+    {
+        return view('pages.placeholder', ['title' => 'Pedir Orçamento']);
+    }
+
+    public function search()
+    {
+        return view('pages.placeholder', ['title' => 'Procurar']);
+    }
+
+    public function trackOrder()
+    {
+        return view('pages.placeholder', ['title' => 'Acompanhar Pedido']);
+    }
+
+    public function wishlist()
+    {
+        return view('pages.placeholder', ['title' => 'Lista de Desejos']);
+    }
+
+    public function categoryPlaceholder(string $slug)
+    {
+        $titles = [
+            'epis' => 'EPIs',
+            'vestuario' => 'Vestuário',
+            'calcado' => 'Calçado',
+            'acessorios' => 'Acessórios',
+        ];
+
+        return view('pages.placeholder', [
+            'title' => $titles[$slug] ?? ucfirst(str_replace('-', ' ', $slug)),
+        ]);
+    }
 }
 
 

@@ -377,6 +377,66 @@ h6,
     opacity: 1;
 }
 
+.site-quicknav {
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    font-family: 'Rubik', 'Open Sans', sans-serif;
+}
+
+.site-quicknav-inner {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 48px;
+    padding: 0.5rem 2.5rem;
+}
+
+.site-quicknav-links {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.site-quicknav-link {
+    color: #222;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.site-quicknav-link:hover,
+.site-quicknav-link.is-active {
+    color: var(--primary);
+}
+
+.site-quicknav-separator {
+    width: 1px;
+    height: 18px;
+    background: var(--primary);
+    flex-shrink: 0;
+}
+
+.site-quicknav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-left: 0.25rem;
+    padding: 0.55rem 1.25rem;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.site-quicknav-cta:hover {
+    color: #fff;
+    background: #e6530f;
+}
+
 
 /*** Navbar ***/
 .navbar.sticky-top {
