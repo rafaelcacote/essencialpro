@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Partner;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -18,13 +17,7 @@ class PageController extends Controller
             ->limit(12)
             ->get();
 
-        $partners = Partner::query()
-            ->where('is_active', true)
-            ->orderBy('sort_order')
-            ->limit(12)
-            ->get();
-
-        return view('pages.index', compact('featuredProducts', 'partners'));
+        return view('pages.index', compact('featuredProducts'));
     }
 
     public function about()

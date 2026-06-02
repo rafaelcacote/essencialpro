@@ -68,7 +68,7 @@
     .professional-catalog-card {
         position: relative;
         display: block;
-        height: 105px;
+        height: 145px;
         border-radius: 12px;
         overflow: hidden;
         text-decoration: none;
@@ -81,7 +81,7 @@
     }
     .professional-catalog-card img {
         width: 100%;
-        height: 105px;
+        height: 145px;
         object-fit: cover;
         object-position: center center;
         display: block;
@@ -315,11 +315,125 @@
         padding: 0 0 2.5rem;
         background: #fff;
     }
-    .tech-performance-banner-section img {
+    .tech-performance-banner {
+        position: relative;
+        width: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #f4f6f8;
+    }
+    .tech-performance-banner__media {
         width: 100%;
         height: auto;
         display: block;
-        border-radius: 12px;
+        vertical-align: middle;
+    }
+    .tech-performance-banner__copy {
+        position: absolute;
+        left: clamp(2.0rem, 9.0vw, 7.0rem);
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        max-width: min(340px, 36%);
+        pointer-events: none;
+    }
+    .tech-performance-banner__title {
+        margin: 0 0 0.65rem;
+        color: #0f172a;
+        font-family: "Rubik", sans-serif;
+        font-size: clamp(1.35rem, 2.8vw, 2.35rem);
+        font-weight: 900;
+        line-height: 1.05;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+    }
+    .tech-performance-banner__subtitle {
+        margin: 0;
+        color: #64748b;
+        font-size: clamp(0.88rem, 1.35vw, 1.05rem);
+        font-weight: 500;
+        line-height: 1.45;
+        max-width: 18rem;
+    }
+    @media (max-width: 767.98px) {
+        .tech-performance-banner__copy {
+            left: 1rem;
+            max-width: 46%;
+        }
+        .tech-performance-banner__title {
+            font-size: clamp(0.95rem, 4.2vw, 1.2rem);
+            margin-bottom: 0.4rem;
+        }
+        .tech-performance-banner__subtitle {
+            font-size: clamp(0.68rem, 2.6vw, 0.78rem);
+            line-height: 1.35;
+        }
+    }
+    @media (max-width: 575.98px) {
+        .tech-performance-banner__copy {
+            top: 1rem;
+            transform: none;
+            max-width: 42%;
+        }
+    }
+    .tech-performance-banner__callout-idaptive {
+        position: absolute;
+        left: clamp(0rem, 51vw, 16rem);
+        bottom: clamp(1.1rem, 14.5vw, 5.5rem);
+        z-index: 3;
+        max-width: min(240px, 34%);
+        pointer-events: none;
+    }
+    .tech-performance-banner__callout-brand {
+        display: block;
+        width: auto;
+        max-width: min(130px, 100%);
+        max-height: 42px;
+        height: auto;
+        margin: 0 0 0.4rem;
+        object-fit: contain;
+        object-position: left center;
+    }
+    .tech-performance-banner__callout-title {
+        margin: 0 0 0.35rem;
+        color: #1a1a1a;
+        font-family: "Rubik", sans-serif;
+        font-size: clamp(0.62rem, 1vw, 0.78rem);
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+    }
+    .tech-performance-banner__callout-text {
+        margin: 0;
+        color: #6b7280;
+        font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+        font-weight: 500;
+        line-height: 1.45;
+        max-width: 16rem;
+    }
+    @media (max-width: 991.98px) {
+        .tech-performance-banner__callout-idaptive {
+            left: clamp(0rem, 31vw, 3.5rem);
+            bottom: 0.5rem;
+            max-width: 38%;
+        }
+        .tech-performance-banner__callout-brand {
+            width: min(110px, 90%);
+            margin-bottom: 0.25rem;
+        }
+    }
+    @media (max-width: 575.98px) {
+        .tech-performance-banner__callout-idaptive {
+            max-width: 44%;
+        }
+        .tech-performance-banner__callout-title {
+            font-size: 0.55rem;
+        }
+        .tech-performance-banner__callout-text {
+            font-size: 0.52rem;
+            line-height: 1.35;
+        }
     }
     .tech-performance-panel {
         background: linear-gradient(135deg, #0f1d4d 0%, #0c1638 100%);
@@ -341,12 +455,12 @@
         letter-spacing: 0.6px;
         text-transform: uppercase;
     }
-    .tech-performance-title {
+    .tech-performance-heading.section-heading {
         margin: 0 0 0.85rem;
-        color: #fff;
+    }
+    .tech-performance-heading .section-heading__title {
+        justify-content: flex-start;
         font-size: clamp(1.35rem, 2.2vw, 2rem);
-        font-weight: 800;
-        line-height: 1.2;
     }
     .tech-performance-text {
         margin: 0 0 1rem;
@@ -405,12 +519,8 @@
         letter-spacing: 0.6px;
         text-transform: uppercase;
     }
-    .about-title {
-        margin: 0 0 0.85rem;
-        color: #0f172a;
-        font-size: clamp(1.25rem, 1.8vw, 1.75rem);
-        font-weight: 800;
-        line-height: 1.25;
+    .about-highlight-section > .container > .section-heading {
+        margin-bottom: 1.25rem;
     }
     .about-content-card p {
         color: #475569;
@@ -638,6 +748,15 @@
         margin-bottom: 0;
         text-align: left;
     }
+    .trust-partners-heading {
+        margin: 0;
+        color: #0f172a;
+        font-family: "Rubik", sans-serif;
+        font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: 0.02em;
+    }
     .trust-partners-text {
         margin: 0.45rem 0 0;
         color: #64748b;
@@ -649,14 +768,24 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        gap: clamp(0.65rem, 1.2vw, 1.1rem);
+        gap: clamp(0.75rem, 1.5vw, 1.25rem);
         flex-shrink: 0;
     }
-    .trust-partners-logos img {
-        height: clamp(42px, 5vw, 56px);
-        width: auto;
-        max-width: 100%;
+    .trust-partners-logo-slot {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 120px;
+        height: 52px;
+        flex-shrink: 0;
+    }
+    .trust-partners-logo-slot img {
+        width: 100%;
+        height: 100%;
+        max-width: 120px;
+        max-height: 52px;
         object-fit: contain;
+        object-position: center;
         display: block;
     }
     .trust-partners-card--partners {
@@ -671,18 +800,7 @@
         width: 100%;
         justify-content: center;
         flex-wrap: wrap;
-        gap: clamp(1rem, 3vw, 2rem);
-    }
-    .trust-partners-logos--suppliers img {
-        height: clamp(44px, 5.5vw, 58px);
-        max-width: min(160px, 28vw);
-    }
-    .trust-partners-logos--suppliers img[alt="BOA"] {
-        height: clamp(48px, 5.5vw, 62px);
-        max-width: min(72px, 14vw);
-    }
-    .trust-partners-logos--delivery img {
-        height: clamp(48px, 5.5vw, 62px);
+        gap: clamp(0.85rem, 2vw, 1.5rem);
     }
     .testimonials-showcase {
         background: #f8fafc;
@@ -795,17 +913,13 @@
         max-width: min(52%, 34rem);
         z-index: 1;
     }
-    .custom-brand-banner-title {
-        margin: 0;
-        color: #fff;
-        font-weight: 800;
+    .custom-brand-banner-heading.section-heading {
+        margin-bottom: 0;
+    }
+    .custom-brand-banner-heading .section-heading__title {
+        justify-content: flex-start;
         font-size: clamp(1.15rem, 2.4vw, 1.85rem);
         line-height: 1.05;
-        letter-spacing: 0.02em;
-        text-transform: uppercase;
-    }
-    .custom-brand-banner-title .accent {
-        color: #f97316;
     }
     .custom-brand-cta {
         display: inline-block;
@@ -838,22 +952,10 @@
         margin-left: calc(50% - 50vw);
         margin-right: calc(50% - 50vw);
     }
-    .partners-section {
-        background: #f8fafc;
-    }
-    .partners-section .partners-section-inner {
-        padding: clamp(2.25rem, 4vw, 3.5rem) 0;
-    }
-    .partners-section .partners-strip {
-        background: #fff;
-        border-radius: 14px;
-        padding: clamp(0.6rem, 1.2vw, 1rem);
-        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
-    }
     #header-carousel .carousel-item.hero-single-slide {
         position: relative;
-        min-height: 700px;
-        height: clamp(380px, 40vw, 760px);
+        width: 100%;
+        height: 550px;
         background-image:
             linear-gradient(to right, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.24) 42%, rgba(0, 0, 0, 0.08) 62%, transparent 78%),
             -webkit-image-set(
@@ -983,7 +1085,7 @@
         }
         .professional-catalog-card,
         .professional-catalog-card img {
-            height: 100px;
+            height: 145px;
         }
         .trust-partners-grid {
             grid-template-columns: 1fr;
@@ -1058,7 +1160,7 @@
             gap: 0.45rem;
             padding: 0;
         }
-        .custom-brand-banner-title {
+        .custom-brand-banner-heading .section-heading__title {
             font-size: clamp(0.85rem, 4.2vw, 1.1rem);
         }
         .custom-brand-cta {
@@ -1068,12 +1170,6 @@
         #header-carousel .carousel-item.hero-single-slide {
             min-height: 380px;
             height: clamp(380px, 62vw, 520px);
-            background-position: 72% center;
-        }
-        .hero-slide-inner {
-            max-width: 100%;
-            padding: 1.5rem 1rem 1.35rem;
-            justify-content: flex-end;
         }
         .hero-slide-features {
             gap: 0.65rem 1rem;
@@ -1081,20 +1177,72 @@
         .hero-slide-features li {
             white-space: normal;
         }
-        .hero-slide-actions {
-            gap: 0.6rem;
-        }
-        .hero-slide-btn {
-            flex: 1 1 100%;
-            min-width: 0;
-            font-size: 0.82rem;
-            padding: 0.72rem 0.95rem;
-        }
     }
-    @media (min-width: 1920px) {
+    @media (max-width: 767.98px) {
         #header-carousel .carousel-item.hero-single-slide {
-            height: 730px;
-            min-height: 730px;
+            min-height: 480px;
+            height: clamp(420px, 115vw, 560px);
+        }
+        .hero-slide-inner {
+            position: absolute;
+            left: 24px;
+            right: 24px;
+            top: 90px;
+            bottom: auto;
+            z-index: 2;
+            max-width: 320px;
+            min-height: auto;
+            padding: 0;
+            display: block;
+        }
+        .hero-slide-title {
+            font-size: 38px;
+            line-height: 1.08;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+        .hero-slide-subtitle {
+            font-size: 18px;
+            line-height: 1.45;
+            max-width: 300px;
+            margin: 0 0 24px;
+        }
+        .hero-slide-features {
+            display: none;
+        }
+        .hero-slide-actions {
+            flex-direction: column;
+            gap: 0;
+            margin-top: 0;
+            width: 100%;
+        }
+        .hero-slide-btn.products,
+        .hero-slide-btn.whatsapp {
+            width: 100%;
+            height: 58px;
+            border-radius: 14px;
+            min-width: 0;
+            padding: 0 1.2rem;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+        }
+        .hero-slide-btn.products {
+            margin-bottom: 14px;
+            box-shadow: 0 8px 18px rgba(249, 115, 22, 0.35);
+        }
+        .hero-slide-btn.whatsapp {
+            margin-bottom: 0;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1.5px solid #f97316;
+            backdrop-filter: blur(4px);
+        }
+        .hero-slide-btn.whatsapp:hover {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: #fb923c;
+        }
+        .hero-slide-btn.whatsapp i {
+            color: #25d366;
         }
     }
     @media (max-width: 575.98px) {
@@ -1133,8 +1281,7 @@
                         <span class="line-accent">Para Todos os Setores</span>
                     </h1>
                     <p class="hero-slide-subtitle">
-                        Equipamentos certificados, entrega rápida<br>
-                        e soluções personalizadas para a sua empresa.
+                        Equipamentos certificados, entrega rápida e soluções personalizadas para a sua empresa.
                     </p>
                     <ul class="hero-slide-features" aria-label="Diferenciais">
                         <li><i class="bi bi-shield-check" aria-hidden="true"></i> Produtos certificados</li>
@@ -1198,7 +1345,7 @@
             </a>
             <a href="/categoria/protecao-auditiva" class="category-explorer-card">
                 <img src="{{ asset('img/categories/protecao-auditiva.png') }}" alt="Proteção auditiva">
-                <h4>Proteção Auditiva</h4>
+                <h4>Proteção auditiva</h4>
                 <span>Ver produtos <i class="bi bi-arrow-right-short"></i></span>
             </a>
         </div>
@@ -1209,7 +1356,7 @@
     <div class="container">
         <x-section-heading
             title="Catálogos profissionais"
-            subtitle="Explore toda a nossa solução completa para empresas e profissionais."
+            subtitle="Explore todas as nossas soluções completas para empresas e profissionais."
         />
         <div class="professional-catalogs-grid">
             <a href="#" class="professional-catalog-card professional-catalog-card--base" target="_blank" rel="noopener noreferrer">
@@ -1249,7 +1396,7 @@
                         <i class="bi bi-boot"></i>
                         Calçado de Segurança
                     </h3>
-                    <p class="professional-solution-card-text">Conforto e resistencia para o dia a dia.</p>
+                    <p class="professional-solution-card-text">Conforto e resistência para o dia a dia.</p>
                     <span class="professional-solution-card-cta">Ver produtos <i class="bi bi-arrow-right-short"></i></span>
                 </div>
             </a>
@@ -1273,7 +1420,11 @@
 <section class="best-sellers-section">
     <div class="container">
         <div class="best-sellers-header">
-            <x-section-heading title="Mais vendidos" class="mb-0" />
+            <x-section-heading
+                title="Mais vendidos"
+                subtitle="Os equipamentos preferidos pelos nossos clientes."
+                class="mb-0"
+            />
             <a href="{{ route('product') }}" class="best-sellers-all-link">Ver todos os produtos <i class="bi bi-arrow-right-short"></i></a>
         </div>
         <div class="best-sellers-grid">
@@ -1303,10 +1454,13 @@
 <div class="custom-brand-banner wow fadeInUp" data-wow-delay="0.15s">
     <img src="{{ asset('img/home_sections/personalizamos-sua-marca.png') }}" alt="" role="presentation" aria-hidden="true">
     <div class="custom-brand-banner-content">
-        <h2 class="custom-brand-banner-title">
-            PERSONALIZAMOS<br>
-            SUA <span class="accent">MARCA</span>
-        </h2>
+        <x-section-heading
+            tag="h2"
+            align="left"
+            :inverse="true"
+            class="custom-brand-banner-heading mb-0"
+            title="Personalizamos a sua marca"
+        />
         <a href="{{ route('contact') }}" class="custom-brand-cta">Solicite o seu orçamento</a>
     </div>
 </div>
@@ -1320,7 +1474,7 @@
                 </div>
                 <div>
                     <h2 class="contact-highlight-title">Precisa de soluções para a sua empresa?</h2>
-                    <p class="contact-highlight-text">Nossa equipe está pronta para ajudar você a encontrar<br>o equipamento ideal para o seu negócio.</p>
+                    <p class="contact-highlight-text">A nossa equipa está pronta para o ajudar a encontrar<br>o equipamento ideal para o seu negócio.</p>
                 </div>
                 <div class="contact-highlight-actions">
                     <div class="contact-highlight-btns-row">
@@ -1377,6 +1531,10 @@
 <!-- Features Start -->
 <section class="about-highlight-section">
     <div class="container">
+        <x-section-heading
+            title="Compromisso com a segurança e o negócio"
+            subtitle="Equipamentos de proteção e vestuário profissional para empresas que valorizam segurança, conforto e desempenho."
+        />
         <div class="about-highlight-grid">
             <div class="about-media-card wow fadeInUp" data-wow-delay="0.1s">
                 <div class="about-media-wrap">
@@ -1385,7 +1543,6 @@
             </div>
             <div class="about-content-card wow fadeInUp" data-wow-delay="0.2s">
                 <p class="about-kicker">Sobre nós</p>
-                <h2 class="about-title">Compromisso com a segurança e o seu negócio</h2>
                 <p>A Essencial Pro fornece equipamentos de proteção individual e vestuário profissional para empresas que valorizam segurança, conforto e desempenho no dia a dia.</p>
                 <p>Trabalhamos com produtos selecionados e soluções adaptadas a diferentes setores, garantindo qualidade, resistência e confiança em cada detalhe.</p>
                 <ul class="about-check-list">
@@ -1435,7 +1592,13 @@
             <div class="tech-performance-grid">
                 <div class="tech-performance-content">
                     <p class="tech-performance-kicker">Tecnologia &amp; performance profissional</p>
-                    <h2 class="tech-performance-title">Soluções avançadas para profissionais exigentes</h2>
+                    <x-section-heading
+                        tag="h2"
+                        align="left"
+                        :inverse="true"
+                        class="tech-performance-heading mb-0"
+                        title="Soluções avançadas para profissionais exigentes"
+                    />
                     <p class="tech-performance-text">Trabalhamos com marcas líderes internacionais, reconhecidas pela inovação, qualidade e segurança, para oferecer o melhor desempenho no trabalho diário.</p>
                     <ul class="tech-performance-list">
                         <li><i class="bi bi-check-circle-fill"></i> Alta resistência e durabilidade</li>
@@ -1458,9 +1621,34 @@
     </div>
 </section>
 
-<section class="tech-performance-banner-section wow fadeInUp" data-wow-delay="0.1s" aria-label="Tecnologia em calçado de segurança">
+<section class="tech-performance-banner-section wow fadeInUp" data-wow-delay="0.1s" aria-label="Tecnologias em calçado de segurança">
     <div class="container">
-        <img src="{{ asset('img/home_sections/tecnologia-performance-banner.png') }}" alt="Tecnologia avançada em calçado de segurança profissional">
+        <div class="tech-performance-banner">
+            <img
+                class="tech-performance-banner__media"
+                src="{{ asset('img/home_sections/tecnologia-performance-banner.png') }}"
+                alt="Calçado Base com tecnologias SmellStop, Dry'n Air e i-daptive"
+            >
+            <div class="tech-performance-banner__copy">
+                <h2 class="tech-performance-banner__title">AS TECNOLOGIAS</h2>
+                <p class="tech-performance-banner__subtitle">
+                    Tecnologia revolucionária para cada<br>
+                    tipo de calçado fabricado.
+                </p>
+            </div>
+            <div class="tech-performance-banner__callout-idaptive">
+                <img
+                    class="tech-performance-banner__callout-brand"
+                    src="{{ asset('img/imagem-tennis/imagem1.jpeg') }}"
+                    alt="i-daptive"
+                >
+                <p class="tech-performance-banner__callout-title">SISTEMA ADAPTATIVO INTELIGENTE</p>
+                <p class="tech-performance-banner__callout-text">
+                    Maior equilíbrio, amortecimento e<br>
+                    adaptação dinâmica ao movimento.
+                </p>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -1469,21 +1657,21 @@
         <div class="trust-partners-grid">
             <div class="trust-partners-card trust-partners-card--partners">
                 <div class="trust-partners-content">
-                    <x-section-heading tag="h3" size="sm" align="left" title="Nossos parceiros" :dashes="false" class="mb-0" />
+                    <h3 class="trust-partners-heading">Nossos Parceiros</h3>
                 </div>
                 <div class="trust-partners-logos trust-partners-logos--suppliers">
-                    <img src="{{ asset('img/partners/portwest.jpeg') }}" alt="Portwest">
-                    <img src="{{ asset('img/partners/base.jpeg') }}" alt="Base Protection">
-                    <img src="{{ asset('img/partners/boa.jpeg') }}" alt="BOA">
+                    <span class="trust-partners-logo-slot"><img src="{{ asset('img/partners/portwest.jpeg') }}" alt="Portwest"></span>
+                    <span class="trust-partners-logo-slot"><img src="{{ asset('img/partners/base.jpeg') }}" alt="Base Protection"></span>
+                    <span class="trust-partners-logo-slot"><img src="{{ asset('img/partners/boa.jpeg') }}" alt="BOA"></span>
                 </div>
             </div>
             <div class="trust-partners-card">
                 <div class="trust-partners-content">
-                    <x-section-heading tag="h3" size="sm" align="left" title="Entrega rápida e segura" :dashes="false" class="mb-0" />
+                    <x-section-heading tag="h3" size="sm" align="left" title="Entrega rápida e segura" class="mb-0" />
                     <p class="trust-partners-text">Trabalhamos com a transportadora GLS para garantir que o seu pedido chegue com agilidade e segurança.</p>
                 </div>
                 <div class="trust-partners-logos trust-partners-logos--delivery">
-                    <img src="{{ asset('img/partners/gls.jpeg') }}" alt="GLS">
+                    <span class="trust-partners-logo-slot"><img src="{{ asset('img/partners/gls.jpeg') }}" alt="GLS"></span>
                 </div>
             </div>
         </div>
@@ -1634,51 +1822,6 @@
     </div>
 </div>
 Our Products End -->
-
-    
-
-<!-- Products Partners Start -->
-<div class="container-fluid px-0 partners-section">
-    <div class="container-xxl partners-section-inner">
-    <div class="container">
-        <x-section-heading
-            class="wow fadeInUp pb-2"
-            data-wow-delay="0.1s"
-            title="Produtos parceiros"
-            subtitle="Marcas e parceiros que trabalham connosco."
-        />
-
-        <div class="partners-strip wow fadeInUp" data-wow-delay="0.1s">
-            <div class="partners-strip-inner">
-                @if (!empty($partners) && $partners->count())
-                    @foreach ($partners as $partner)
-                        <div class="partner-logo">
-                            @if ($partner->website_url)
-                                <a href="{{ $partner->website_url }}" target="_blank" rel="noopener">
-                                    <img src="{{ asset($partner->logo_path) }}" alt="{{ $partner->name }}">
-                                </a>
-                            @else
-                                <img src="{{ asset($partner->logo_path) }}" alt="{{ $partner->name }}">
-                            @endif
-                        </div>
-                    @endforeach
-                @else
-                    {{-- Placeholder enquanto não houver cadastros --}}
-                    @for ($i = 0; $i < 5; $i++)
-                        <div class="partner-logo @if ($i >= 3) d-none d-md-block @endif @if ($i >= 4) d-none d-lg-block @endif">
-                            <div class="partner-logo-placeholder">
-                                <i class="bi bi-image"></i>
-                                <div>Logo</div>
-                            </div>
-                        </div>
-                    @endfor
-                @endif
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<!-- Products Partners End -->
 
 <section class="testimonials-showcase">
     <div class="container">

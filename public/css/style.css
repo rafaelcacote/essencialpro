@@ -1404,6 +1404,18 @@ h6,
     gap: 0;
 }
 
+.section-heading--inverse .section-heading__main {
+    color: #fff;
+}
+
+.section-heading--inverse .section-heading__accent {
+    color: var(--primary, #FF5E14);
+}
+
+.section-heading--inverse .section-heading__dash {
+    background: var(--primary, #FF5E14);
+}
+
 .section-heading__dash {
     flex-shrink: 0;
     width: clamp(28px, 4vw, 48px);

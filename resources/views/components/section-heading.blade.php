@@ -6,18 +6,21 @@
     'align' => 'center',
     'dashes' => true,
     'accentWord' => null,
+    'inverse' => false,
 ])
 
 @php
-    $words = preg_split('/\s+/u', trim((string) $title), -1, PREG_SPLIT_NO_EMPTY);
+    $normalizedTitle = trim((string) $title);
+    $words = preg_split('/\s+/u', $normalizedTitle, -1, PREG_SPLIT_NO_EMPTY);
     $accent = $accentWord ?? (count($words) > 1 ? array_pop($words) : ($words[0] ?? ''));
     $main = count($words) > 1 ? implode(' ', $words) : '';
     $sizeClass = $size === 'sm' ? ' section-heading--sm' : '';
     $alignClass = $align === 'left' ? ' section-heading--left' : '';
     $noDashesClass = ! $dashes ? ' section-heading--no-dashes' : '';
+    $inverseClass = $inverse ? ' section-heading--inverse' : '';
 @endphp
 
-<div {{ $attributes->merge(['class' => 'section-heading' . $sizeClass . $alignClass . $noDashesClass]) }}>
+<div {{ $attributes->merge(['class' => 'section-heading' . $sizeClass . $alignClass . $noDashesClass . $inverseClass]) }}>
     <{{ $tag }} class="section-heading__title">
         @if ($dashes)
             <span class="section-heading__dash" aria-hidden="true"></span>
