@@ -12,8 +12,20 @@
 @php
     $normalizedTitle = trim((string) $title);
     $words = preg_split('/\s+/u', $normalizedTitle, -1, PREG_SPLIT_NO_EMPTY);
-    $accent = $accentWord ?? (count($words) > 1 ? array_pop($words) : ($words[0] ?? ''));
-    $main = count($words) > 1 ? implode(' ', $words) : '';
+
+    if ($accentWord !== null) {
+        $accent = trim((string) $accentWord);
+        $main = trim(implode(' ', array_values(array_filter(
+            $words,
+            fn (string $word): bool => $word !== $accent
+        ))));
+    } elseif (count($words) > 1) {
+        $accent = array_pop($words);
+        $main = implode(' ', $words);
+    } else {
+        $accent = $words[0] ?? '';
+        $main = '';
+    }
     $sizeClass = $size === 'sm' ? ' section-heading--sm' : '';
     $alignClass = $align === 'left' ? ' section-heading--left' : '';
     $noDashesClass = ! $dashes ? ' section-heading--no-dashes' : '';

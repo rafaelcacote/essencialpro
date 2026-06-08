@@ -16,6 +16,58 @@
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 0.85rem;
     }
+    .home-section-carousel {
+        position: relative;
+    }
+    .home-section-carousel.owl-carousel .owl-stage-outer {
+        padding: 0.15rem 0 0.35rem;
+    }
+    .home-section-carousel.owl-carousel .owl-nav {
+        margin-top: 0.65rem;
+        display: flex;
+        justify-content: center;
+        gap: 0.55rem;
+    }
+    .home-section-carousel.owl-carousel .owl-nav button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 50%;
+        border: none;
+        background: #f97316 !important;
+        color: #fff !important;
+        font-size: 0.95rem;
+        line-height: 1;
+        box-shadow: 0 4px 12px rgba(249, 115, 22, 0.28);
+        transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    .home-section-carousel.owl-carousel .owl-nav button:hover {
+        background: #ea580c !important;
+        transform: translateY(-1px);
+    }
+    .home-section-carousel.owl-carousel .owl-dots {
+        margin-top: 0.55rem;
+        line-height: 1;
+    }
+    .home-section-carousel.owl-carousel .owl-dot span {
+        width: 8px;
+        height: 8px;
+        margin: 4px 5px;
+        background: #cbd5e1;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+    .home-section-carousel.owl-carousel .owl-dot.active span,
+    .home-section-carousel.owl-carousel .owl-dot:hover span {
+        background: #f97316;
+        transform: scale(1.1);
+    }
+    .home-section-carousel.owl-carousel .category-explorer-card,
+    .home-section-carousel.owl-carousel .professional-solution-card,
+    .home-section-carousel.owl-carousel .best-seller-card {
+        height: 100%;
+    }
     .category-explorer-card {
         display: block;
         background: #fff;
@@ -128,7 +180,7 @@
     }
     .professional-solutions-grid {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 1rem;
     }
     .professional-solution-card {
@@ -328,111 +380,212 @@
         display: block;
         vertical-align: middle;
     }
-    .tech-performance-banner__copy {
+    .tech-performance-banner__content {
         position: absolute;
-        left: clamp(2.0rem, 9.0vw, 7.0rem);
-        top: 50%;
-        transform: translateY(-50%);
+        inset: 0 auto 0 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0;
+        padding: clamp(1.25rem, 2.5vw, 2rem) clamp(1.5rem, 4vw, 3rem) clamp(1.25rem, 2.5vw, 2rem) clamp(0.5rem, 1.5vw, 1rem);
+        width: min(48%, 34rem);
         z-index: 2;
-        max-width: min(340px, 36%);
         pointer-events: none;
+    }
+    .tech-performance-banner__content a {
+        pointer-events: auto;
     }
     .tech-performance-banner__title {
-        margin: 0 0 0.65rem;
-        color: #0f172a;
+        margin: 0;
         font-family: "Rubik", sans-serif;
-        font-size: clamp(1.35rem, 2.8vw, 2.35rem);
         font-weight: 900;
-        line-height: 1.05;
+        font-size: clamp(1.45rem, 3vw, 2.5rem);
+        line-height: 1.1;
         letter-spacing: 0.02em;
         text-transform: uppercase;
+        white-space: nowrap;
+    }
+    .tech-performance-banner__title-main {
+        color: #0f172a;
+    }
+    .tech-performance-banner__title-accent {
+        color: #f97316;
     }
     .tech-performance-banner__subtitle {
-        margin: 0;
-        color: #64748b;
-        font-size: clamp(0.88rem, 1.35vw, 1.05rem);
+        margin: 0.7rem 0 0;
+        color: #5b6b7d;
+        font-size: clamp(0.84rem, 1.3vw, 1.05rem);
         font-weight: 500;
-        line-height: 1.45;
-        max-width: 18rem;
+        line-height: 1.5;
+        max-width: 26rem;
     }
-    @media (max-width: 767.98px) {
-        .tech-performance-banner__copy {
-            left: 1rem;
-            max-width: 46%;
-        }
-        .tech-performance-banner__title {
-            font-size: clamp(0.95rem, 4.2vw, 1.2rem);
-            margin-bottom: 0.4rem;
-        }
-        .tech-performance-banner__subtitle {
-            font-size: clamp(0.68rem, 2.6vw, 0.78rem);
-            line-height: 1.35;
-        }
+    .tech-performance-banner__features {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: clamp(0.75rem, 1.6vw, 1.35rem);
+        margin-top: clamp(1rem, 2vw, 1.5rem);
+        align-items: stretch;
     }
-    @media (max-width: 575.98px) {
-        .tech-performance-banner__copy {
-            top: 1rem;
-            transform: none;
-            max-width: 42%;
-        }
+    .tech-performance-banner__feature {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 0;
     }
-    .tech-performance-banner__callout-idaptive {
-        position: absolute;
-        left: clamp(0rem, 51vw, 16rem);
-        bottom: clamp(1.1rem, 14.5vw, 5.5rem);
-        z-index: 3;
-        max-width: min(240px, 34%);
-        pointer-events: none;
+    .tech-performance-banner__feature-head {
+        display: flex;
+        align-items: flex-end;
+        min-height: 2.15rem;
+        width: 100%;
+        margin-bottom: 0.45rem;
     }
-    .tech-performance-banner__callout-brand {
+    .tech-performance-banner__feature-logo {
         display: block;
         width: auto;
-        max-width: min(130px, 100%);
-        max-height: 42px;
+        max-width: 100%;
+        max-height: 1.9rem;
         height: auto;
-        margin: 0 0 0.4rem;
+        margin: 0;
         object-fit: contain;
-        object-position: left center;
+        object-position: left bottom;
     }
-    .tech-performance-banner__callout-title {
-        margin: 0 0 0.35rem;
+    .tech-performance-banner__brand {
+        display: block;
+        margin: 0;
+        font-family: "Rubik", sans-serif;
+        font-weight: 800;
+        font-size: clamp(0.78rem, 1.15vw, 0.98rem);
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+    }
+    .tech-performance-banner__brand--drynair {
+        color: #1a1a1a;
+    }
+    .tech-performance-banner__brand--drynair .accent {
+        color: #f97316;
+    }
+    .tech-performance-banner__brand--smellstop {
+        color: #1a1a1a;
+    }
+    .tech-performance-banner__brand--smellstop .accent {
+        color: #f97316;
+    }
+    .tech-performance-banner__feature-title {
+        margin: 0 0 0.4rem;
         color: #1a1a1a;
         font-family: "Rubik", sans-serif;
-        font-size: clamp(0.62rem, 1vw, 0.78rem);
+        font-size: clamp(0.64rem, 0.92vw, 0.78rem);
         font-weight: 800;
-        line-height: 1.25;
-        letter-spacing: 0.04em;
+        line-height: 1.35;
+        letter-spacing: 0.035em;
         text-transform: uppercase;
+        min-height: 2.7em;
     }
-    .tech-performance-banner__callout-text {
+    .tech-performance-banner__feature-text {
         margin: 0;
-        color: #6b7280;
-        font-size: clamp(0.58rem, 0.85vw, 0.72rem);
+        color: #5f6b7a;
+        font-size: clamp(0.6rem, 0.84vw, 0.74rem);
+        font-weight: 500;
+        line-height: 1.5;
+        flex: 1;
+    }
+    .tech-performance-banner__cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        align-self: flex-start;
+        margin-top: clamp(1rem, 2vw, 1.35rem);
+        padding: 0.65rem 0.6rem 0.65rem 1.2rem;
+        border-radius: 999px;
+        background: #f97316;
+        color: #fff;
+        font-family: "Rubik", sans-serif;
+        font-size: clamp(0.64rem, 0.95vw, 0.78rem);
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        text-decoration: none;
+        box-shadow: 0 6px 16px rgba(249, 115, 22, 0.32);
+        transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tech-performance-banner__cta:hover {
+        background: #ea580c;
+        color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(234, 88, 12, 0.36);
+    }
+    .tech-performance-banner__cta:focus-visible {
+        outline: 3px solid rgba(249, 115, 22, 0.35);
+        outline-offset: 2px;
+    }
+    .tech-performance-banner__cta-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: clamp(22px, 2.2vw, 28px);
+        height: clamp(22px, 2.2vw, 28px);
+        border-radius: 50%;
+        background: #fff;
+        color: #f97316;
+        flex-shrink: 0;
+        font-size: 0.85em;
+    }
+    .tech-performance-banner__note {
+        margin: 0.6rem 0 0;
+        color: #8896a8;
+        font-size: clamp(0.56rem, 0.76vw, 0.66rem);
         font-weight: 500;
         line-height: 1.45;
-        max-width: 16rem;
+        max-width: 24rem;
     }
     @media (max-width: 991.98px) {
-        .tech-performance-banner__callout-idaptive {
-            left: clamp(0rem, 31vw, 3.5rem);
-            bottom: 0.5rem;
-            max-width: 38%;
+        .tech-performance-banner__content {
+            width: min(52%, 30rem);
+            padding-left: clamp(0.35rem, 1vw, 0.75rem);
         }
-        .tech-performance-banner__callout-brand {
-            width: min(110px, 90%);
-            margin-bottom: 0.25rem;
+        .tech-performance-banner__title {
+            font-size: clamp(1.15rem, 2.3vw, 1.85rem);
+        }
+        .tech-performance-banner__features {
+            gap: 0.5rem;
         }
     }
-    @media (max-width: 575.98px) {
-        .tech-performance-banner__callout-idaptive {
-            max-width: 44%;
+    @media (max-width: 767.98px) {
+        .tech-performance-banner {
+            display: flex;
+            flex-direction: column;
         }
-        .tech-performance-banner__callout-title {
-            font-size: 0.55rem;
+        .tech-performance-banner__media {
+            order: 1;
         }
-        .tech-performance-banner__callout-text {
-            font-size: 0.52rem;
-            line-height: 1.35;
+        .tech-performance-banner__content {
+            position: static;
+            width: 100%;
+            transform: none;
+            padding: 1.25rem 1rem 1.5rem;
+            background: #f8fafc;
+            pointer-events: auto;
+        }
+        .tech-performance-banner__title {
+            white-space: normal;
+        }
+        .tech-performance-banner__features {
+            grid-template-columns: 1fr;
+            gap: 0.85rem;
+        }
+        .tech-performance-banner__feature {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .tech-performance-banner__feature-head {
+            min-height: auto;
+            margin-bottom: 0.3rem;
+        }
+        .tech-performance-banner__feature-title {
+            min-height: auto;
+            margin-bottom: 0.2rem;
         }
     }
     .tech-performance-panel {
@@ -892,6 +1045,7 @@
         width: 100%;
         margin: 1.5rem 0 0;
         overflow: hidden;
+        border-radius: 12px;
     }
     .custom-brand-banner img {
         width: 100%;
@@ -1077,8 +1231,22 @@
         .category-explorer {
             padding: 1.5rem 0 1.7rem;
         }
-        .category-explorer-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+        .category-explorer-grid:not(.owl-loaded),
+        .professional-solutions-grid:not(.owl-loaded),
+        .best-sellers-grid:not(.owl-loaded) {
+            display: block;
+        }
+        .category-explorer-grid.owl-carousel .category-explorer-card {
+            min-height: 100%;
+        }
+        .professional-solutions-grid.owl-carousel .professional-solution-card-image {
+            aspect-ratio: 16 / 9;
+        }
+        .best-sellers-grid.owl-carousel .best-seller-image {
+            max-width: 160px;
+        }
+        .best-sellers-grid.owl-carousel .best-seller-price {
+            font-size: 1.65rem;
         }
         .professional-catalogs-grid {
             grid-template-columns: 1fr;
@@ -1103,18 +1271,15 @@
             justify-content: flex-start;
             flex-wrap: wrap;
         }
-        .professional-solutions-grid {
-            grid-template-columns: 1fr;
-        }
         .best-sellers-header {
-            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.65rem;
+            text-align: center;
         }
         .best-sellers-all-link {
             position: static;
             transform: none;
-        }
-        .best-sellers-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
         .about-highlight-grid {
             grid-template-columns: 1fr;
@@ -1154,18 +1319,34 @@
         .testimonials-showcase-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+        .custom-brand-banner {
+            display: flex;
+            flex-direction: column;
+            border-radius: 0;
+            margin-top: 1rem;
+        }
+        .custom-brand-banner img {
+            height: clamp(170px, 42vw, 220px);
+            object-position: center center;
+        }
         .custom-brand-banner-content {
-            left: 1rem;
-            max-width: 58%;
-            gap: 0.45rem;
-            padding: 0;
+            position: static;
+            left: auto;
+            max-width: 100%;
+            width: 100%;
+            gap: 0.75rem;
+            padding: 1.15rem 1rem 1.25rem;
+            background: linear-gradient(135deg, #0f1d4d 0%, #162456 100%);
+            align-items: center;
+            text-align: center;
         }
         .custom-brand-banner-heading .section-heading__title {
-            font-size: clamp(0.85rem, 4.2vw, 1.1rem);
+            justify-content: center;
+            font-size: clamp(1rem, 4.5vw, 1.35rem);
         }
         .custom-brand-cta {
-            padding: 0.45rem 0.7rem;
-            font-size: 0.58rem;
+            padding: 0.6rem 1rem;
+            font-size: clamp(0.62rem, 2.8vw, 0.72rem);
         }
         #header-carousel .carousel-item.hero-single-slide {
             min-height: 380px;
@@ -1245,13 +1426,21 @@
             color: #25d366;
         }
     }
-    @media (max-width: 575.98px) {
+    @media (min-width: 992px) {
         .category-explorer-grid {
-            grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+        .professional-solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
         }
         .best-sellers-grid {
-            grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
         }
+    }
+    @media (max-width: 575.98px) {
         .contact-highlight-bottom {
             grid-template-columns: 1fr;
         }
@@ -1322,7 +1511,7 @@
             title="Explore por categoria"
             subtitle="Encontre rapidamente o equipamento ideal para o seu trabalho."
         />
-        <div class="category-explorer-grid">
+        <div class="category-explorer-grid home-section-carousel" data-carousel-label="Categorias">
             <a href="/categoria/calcados-de-seguranca" class="category-explorer-card">
                 <img src="{{ asset('img/categories/calcado.png') }}" alt="Calçado">
                 <h4>Calçado</h4>
@@ -1377,7 +1566,7 @@
             title="Soluções em segurança profissional"
             subtitle="Tudo para a sua segurança no trabalho."
         />
-        <div class="professional-solutions-grid">
+        <div class="professional-solutions-grid home-section-carousel" data-carousel-label="Soluções">
             <a href="/categoria/protecao-de-cabeca" class="professional-solution-card">
                 <img class="professional-solution-card-image" src="{{ asset('img/solutions/equipamentos-protecao.png') }}" alt="Equipamentos de proteção">
                 <div class="professional-solution-card-body">
@@ -1393,7 +1582,7 @@
                 <img class="professional-solution-card-image" src="{{ asset('img/solutions/calcado-seguranca.png') }}" alt="Calçado de segurança">
                 <div class="professional-solution-card-body">
                     <h3 class="professional-solution-card-title">
-                        <i class="bi bi-boot"></i>
+                        <i class="fas fa-shoe-prints" aria-hidden="true"></i>
                         Calçado de Segurança
                     </h3>
                     <p class="professional-solution-card-text">Conforto e resistência para o dia a dia.</p>
@@ -1411,6 +1600,17 @@
                     <span class="professional-solution-card-cta">Ver produtos <i class="bi bi-arrow-right-short"></i></span>
                 </div>
             </a>
+            <a href="/categoria/protecao-anti-queda" class="professional-solution-card">
+                <img class="professional-solution-card-image" src="{{ asset('img/solutions/antiqueda.jpeg') }}" alt="Proteção anti-queda">
+                <div class="professional-solution-card-body">
+                    <h3 class="professional-solution-card-title">
+                        <i class="bi bi-link-45deg"></i>
+                        Proteção Anti-Queda
+                    </h3>
+                    <p class="professional-solution-card-text">Soluções em altura com máxima segurança.</p>
+                    <span class="professional-solution-card-cta">Ver produtos <i class="bi bi-arrow-right-short"></i></span>
+                </div>
+            </a>
         </div>
     </div>
 </section>
@@ -1421,13 +1621,13 @@
     <div class="container">
         <div class="best-sellers-header">
             <x-section-heading
-                title="Mais vendidos"
+                title="MAIS VENDIDOS"
                 subtitle="Os equipamentos preferidos pelos nossos clientes."
                 class="mb-0"
             />
             <a href="{{ route('product') }}" class="best-sellers-all-link">Ver todos os produtos <i class="bi bi-arrow-right-short"></i></a>
         </div>
-        <div class="best-sellers-grid">
+        <div class="best-sellers-grid home-section-carousel" data-carousel-label="Mais vendidos">
             @foreach ($featuredProducts->take(5) as $fp)
                 @php
                     $img = $fp->cover_image_url ?: asset('img/service-1.jpg');
@@ -1626,26 +1826,61 @@
         <div class="tech-performance-banner">
             <img
                 class="tech-performance-banner__media"
-                src="{{ asset('img/home_sections/tecnologia-performance-banner.png') }}"
+                src="{{ asset('img/home_sections/tecnologia_tennis.jpeg') }}"
                 alt="Calçado Base com tecnologias SmellStop, Dry'n Air e i-daptive"
             >
-            <div class="tech-performance-banner__copy">
-                <h2 class="tech-performance-banner__title">AS TECNOLOGIAS</h2>
+            <div class="tech-performance-banner__content">
+                <h2 class="tech-performance-banner__title">
+                    <span class="tech-performance-banner__title-main">AS </span><span class="tech-performance-banner__title-accent">TECNOLOGIAS</span>
+                </h2>
                 <p class="tech-performance-banner__subtitle">
-                    Tecnologia revolucionária para cada<br>
-                    tipo de calçado fabricado.
+                    Tecnologia revolucionária para cada tipo de calçado fabricado.
                 </p>
-            </div>
-            <div class="tech-performance-banner__callout-idaptive">
-                <img
-                    class="tech-performance-banner__callout-brand"
-                    src="{{ asset('img/imagem-tennis/imagem1.jpeg') }}"
-                    alt="i-daptive"
-                >
-                <p class="tech-performance-banner__callout-title">SISTEMA ADAPTATIVO INTELIGENTE</p>
-                <p class="tech-performance-banner__callout-text">
-                    Maior equilíbrio, amortecimento e<br>
-                    adaptação dinâmica ao movimento.
+                <div class="tech-performance-banner__features">
+                    <div class="tech-performance-banner__feature">
+                        <div class="tech-performance-banner__feature-head">
+                            <img
+                                class="tech-performance-banner__feature-logo"
+                                src="{{ asset('img/imagem-tennis/imagem1.jpeg') }}"
+                                alt="i-daptive"
+                            >
+                        </div>
+                        <p class="tech-performance-banner__feature-title">SISTEMA ADAPTATIVO INTELIGENTE</p>
+                        <p class="tech-performance-banner__feature-text">
+                            Maior equilíbrio, amortecimento e adaptação dinâmica ao movimento.
+                        </p>
+                    </div>
+                    <div class="tech-performance-banner__feature">
+                        <div class="tech-performance-banner__feature-head">
+                            <span class="tech-performance-banner__brand tech-performance-banner__brand--drynair">
+                                Dry'n <span class="accent">Air</span><sup>®</sup>
+                            </span>
+                        </div>
+                        <p class="tech-performance-banner__feature-title">SISTEMA DE PÉ SECO</p>
+                        <p class="tech-performance-banner__feature-text">
+                            Respirabilidade avançada para maior conforto durante todo o dia.
+                        </p>
+                    </div>
+                    <div class="tech-performance-banner__feature">
+                        <div class="tech-performance-banner__feature-head">
+                            <span class="tech-performance-banner__brand tech-performance-banner__brand--smellstop">
+                                <span class="accent">Smell</span>Stop<sup>®</sup>
+                            </span>
+                        </div>
+                        <p class="tech-performance-banner__feature-title">FORRO ANTI-ODOR</p>
+                        <p class="tech-performance-banner__feature-text">
+                            Proteção bacteriana permanente para maior higiene e frescura.
+                        </p>
+                    </div>
+                </div>
+                <a href="/categoria/calcados-de-seguranca" class="tech-performance-banner__cta">
+                    <span>DESCUBRA OUTRAS TECNOLOGIAS</span>
+                    <span class="tech-performance-banner__cta-icon" aria-hidden="true">
+                        <i class="bi bi-arrow-right"></i>
+                    </span>
+                </a>
+                <p class="tech-performance-banner__note">
+                    Clique e conheça todas as tecnologias exclusivas que tornam os nossos calçados únicos.
                 </p>
             </div>
         </div>
@@ -1904,6 +2139,63 @@ Our Products End -->
 
 @push('scripts')
 <script>
+(function () {
+    var mobileCarouselBreakpoint = 992;
+    var resizeTimer = null;
+
+    function initHomeSectionCarousels() {
+        if (typeof jQuery === 'undefined' || !jQuery.fn.owlCarousel) {
+            return;
+        }
+
+        jQuery('.home-section-carousel').each(function () {
+            var $carousel = jQuery(this);
+            var isMobile = window.innerWidth < mobileCarouselBreakpoint;
+
+            if (isMobile) {
+                if ($carousel.hasClass('owl-loaded')) {
+                    return;
+                }
+
+                $carousel.addClass('owl-carousel').owlCarousel({
+                    autoplay: true,
+                    autoplayTimeout: 4500,
+                    autoplayHoverPause: true,
+                    smartSpeed: 650,
+                    loop: true,
+                    dots: true,
+                    nav: true,
+                    margin: 14,
+                    navText: [
+                        '<i class="bi bi-chevron-left"></i>',
+                        '<i class="bi bi-chevron-right"></i>'
+                    ],
+                    responsive: {
+                        0: {
+                            items: 1
+                        },
+                        576: {
+                            items: 2
+                        }
+                    }
+                });
+            } else if ($carousel.hasClass('owl-loaded')) {
+                $carousel.trigger('destroy.owl.carousel');
+                $carousel.removeClass('owl-carousel owl-loaded');
+            }
+        });
+    }
+
+    jQuery(document).ready(function () {
+        initHomeSectionCarousels();
+
+        jQuery(window).on('resize', function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(initHomeSectionCarousels, 180);
+        });
+    });
+})();
+
 (function () {
     var section = document.getElementById('video-institucional');
     var player = document.getElementById('institutionalVideoPlayer');
