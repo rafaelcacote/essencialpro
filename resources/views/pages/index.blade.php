@@ -120,7 +120,7 @@
     .professional-catalog-card {
         position: relative;
         display: block;
-        height: 145px;
+        aspect-ratio: 1024 / 484;
         border-radius: 12px;
         overflow: hidden;
         text-decoration: none;
@@ -133,8 +133,8 @@
     }
     .professional-catalog-card img {
         width: 100%;
-        height: 145px;
-        object-fit: cover;
+        height: 100%;
+        object-fit: contain;
         object-position: center center;
         display: block;
         transition: transform 0.35s ease;
@@ -552,40 +552,96 @@
         }
     }
     @media (max-width: 767.98px) {
+        .tech-performance-banner-section {
+            padding: 0 0 1.75rem;
+        }
+        .tech-performance-banner-section .container {
+            padding-left: 0;
+            padding-right: 0;
+        }
         .tech-performance-banner {
             display: flex;
             flex-direction: column;
+            border-radius: 0;
+            background: #fff;
         }
         .tech-performance-banner__media {
             order: 1;
+            width: 100%;
+            height: clamp(210px, 54vw, 290px);
+            object-fit: cover;
+            object-position: 68% center;
         }
         .tech-performance-banner__content {
             position: static;
             width: 100%;
             transform: none;
-            padding: 1.25rem 1rem 1.5rem;
-            background: #f8fafc;
+            padding: 1.35rem 1.35rem 1.5rem;
+            background: #fff;
             pointer-events: auto;
         }
         .tech-performance-banner__title {
             white-space: normal;
+            font-size: clamp(1.5rem, 6.8vw, 2rem);
+            line-height: 1.1;
+        }
+        .tech-performance-banner__subtitle {
+            margin-top: 0.55rem;
+            font-size: clamp(0.92rem, 3.8vw, 1rem);
+            max-width: 100%;
+            line-height: 1.55;
+            color: #475569;
         }
         .tech-performance-banner__features {
             grid-template-columns: 1fr;
-            gap: 0.85rem;
+            gap: 0.7rem;
+            margin-top: 1.1rem;
         }
         .tech-performance-banner__feature {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            padding: 0.9rem 1rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
         }
         .tech-performance-banner__feature-head {
             min-height: auto;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.35rem;
+        }
+        .tech-performance-banner__feature-logo {
+            max-height: 1.85rem;
+        }
+        .tech-performance-banner__brand {
+            font-size: 1rem;
         }
         .tech-performance-banner__feature-title {
             min-height: auto;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.25rem;
+            font-size: 0.78rem;
+            line-height: 1.4;
+        }
+        .tech-performance-banner__feature-text {
+            font-size: 0.84rem;
+            line-height: 1.55;
+            color: #64748b;
+        }
+        .tech-performance-banner__cta {
+            width: 100%;
+            justify-content: space-between;
+            align-self: stretch;
+            margin-top: 1.2rem;
+            padding: 0.78rem 0.85rem 0.78rem 1.1rem;
+            font-size: 0.72rem;
+            box-sizing: border-box;
+        }
+        .tech-performance-banner__note {
+            max-width: 100%;
+            margin-top: 0.75rem;
+            font-size: 0.78rem;
+            line-height: 1.5;
+            color: #64748b;
         }
     }
     .tech-performance-panel {
@@ -1062,18 +1118,29 @@
         justify-content: center;
         align-items: flex-start;
         gap: 0.65rem;
-        padding: 0 1.25rem;
+        padding: 0 1.25rem clamp(4.5rem, 20%, 6rem);
         left: clamp(1.25rem, 8vw, 6.5rem);
-        max-width: min(52%, 34rem);
+        max-width: min(60%, 38rem);
         z-index: 1;
     }
     .custom-brand-banner-heading.section-heading {
         margin-bottom: 0;
+        width: 100%;
     }
     .custom-brand-banner-heading .section-heading__title {
+        flex-wrap: nowrap;
         justify-content: flex-start;
-        font-size: clamp(1.15rem, 2.4vw, 1.85rem);
+        font-size: clamp(1.35rem, 2.85vw, 2.15rem);
         line-height: 1.05;
+        gap: clamp(0.45rem, 1vw, 0.85rem);
+    }
+    .custom-brand-banner-heading .section-heading__text,
+    .custom-brand-banner-heading .section-heading__main,
+    .custom-brand-banner-heading .section-heading__accent {
+        white-space: nowrap;
+    }
+    .custom-brand-banner-heading .section-heading__dash {
+        width: clamp(20px, 2.8vw, 36px);
     }
     .custom-brand-cta {
         display: inline-block;
@@ -1165,29 +1232,29 @@
         display: flex;
         flex-wrap: wrap;
         gap: clamp(0.75rem, 2vw, 1.75rem);
-        margin: clamp(1.35rem, 2.8vw, 2rem) 0 0;
+        margin: 0;
         padding: 0;
         list-style: none;
     }
     .hero-slide-features li {
         display: inline-flex;
         align-items: center;
-        gap: 0.45rem;
+        gap: 0.55rem;
         color: #fff;
-        font-size: clamp(0.72rem, 0.95vw, 0.92rem);
+        font-size: clamp(0.84rem, 1.12vw, 1.05rem);
         font-weight: 600;
         white-space: nowrap;
     }
     .hero-slide-features i {
         color: #f97316;
-        font-size: 1.15em;
+        font-size: 1.35em;
         flex-shrink: 0;
     }
     .hero-slide-actions {
         display: flex;
         flex-wrap: wrap;
         gap: 0.75rem;
-        margin-top: clamp(1.25rem, 2.5vw, 1.75rem);
+        margin: clamp(1.25rem, 2.5vw, 1.75rem) 0;
     }
     .hero-slide-btn {
         display: inline-flex;
@@ -1250,10 +1317,6 @@
         }
         .professional-catalogs-grid {
             grid-template-columns: 1fr;
-        }
-        .professional-catalog-card,
-        .professional-catalog-card img {
-            height: 145px;
         }
         .trust-partners-grid {
             grid-template-columns: 1fr;
@@ -1342,7 +1405,13 @@
         }
         .custom-brand-banner-heading .section-heading__title {
             justify-content: center;
-            font-size: clamp(1rem, 4.5vw, 1.35rem);
+            flex-wrap: nowrap;
+            font-size: clamp(1.05rem, 4.8vw, 1.5rem);
+        }
+        .custom-brand-banner-heading .section-heading__text,
+        .custom-brand-banner-heading .section-heading__main,
+        .custom-brand-banner-heading .section-heading__accent {
+            white-space: nowrap;
         }
         .custom-brand-cta {
             padding: 0.6rem 1rem;
@@ -1361,33 +1430,56 @@
     }
     @media (max-width: 767.98px) {
         #header-carousel .carousel-item.hero-single-slide {
-            min-height: 480px;
-            height: clamp(420px, 115vw, 560px);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: clamp(520px, 128vw, 600px);
+            height: auto;
+            background-position: 72% 18%;
+        }
+        #header-carousel .carousel-item.hero-single-slide::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.05) 0%,
+                rgba(0, 0, 0, 0) 30%,
+                rgba(11, 28, 62, 0.45) 55%,
+                rgba(11, 28, 62, 0.92) 78%,
+                rgba(11, 28, 62, 0.98) 100%
+            );
+            z-index: 1;
+            pointer-events: none;
         }
         .hero-slide-inner {
-            position: absolute;
-            left: 24px;
-            right: 24px;
-            top: 90px;
+            position: relative;
+            left: auto;
+            right: auto;
+            top: auto;
             bottom: auto;
             z-index: 2;
-            max-width: 320px;
+            width: 100%;
+            max-width: none;
             min-height: auto;
-            padding: 0;
-            display: block;
+            padding: 0 1.35rem 1.65rem;
+            display: flex;
+            flex-direction: column;
         }
         .hero-slide-title {
-            font-size: 38px;
-            line-height: 1.08;
+            font-size: clamp(1.5rem, 7.2vw, 1.95rem);
+            line-height: 1.12;
             font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 16px;
+            letter-spacing: 0;
+            margin-bottom: 0.65rem;
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
         }
         .hero-slide-subtitle {
-            font-size: 18px;
-            line-height: 1.45;
-            max-width: 300px;
-            margin: 0 0 24px;
+            font-size: clamp(0.92rem, 3.8vw, 1rem);
+            line-height: 1.5;
+            max-width: 100%;
+            margin: 0;
+            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.28);
         }
         .hero-slide-features {
             display: none;
@@ -1395,7 +1487,7 @@
         .hero-slide-actions {
             flex-direction: column;
             gap: 0;
-            margin-top: 0;
+            margin: 1.15rem 0 0;
             width: 100%;
         }
         .hero-slide-btn.products,
@@ -1472,12 +1564,6 @@
                     <p class="hero-slide-subtitle">
                         Equipamentos certificados, entrega rápida e soluções personalizadas para a sua empresa.
                     </p>
-                    <ul class="hero-slide-features" aria-label="Diferenciais">
-                        <li><i class="bi bi-shield-check" aria-hidden="true"></i> Produtos certificados</li>
-                        <li><i class="bi bi-truck" aria-hidden="true"></i> Entrega rápida para toda Europa</li>
-                        <li><i class="bi bi-lock-fill" aria-hidden="true"></i> Pagamento 100% seguro</li>
-                        <li><i class="bi bi-headset" aria-hidden="true"></i> Suporte especializado</li>
-                    </ul>
                     <div class="hero-slide-actions">
                         <a href="{{ route('product') }}" class="hero-slide-btn products">
                             <i class="bi bi-bag" aria-hidden="true"></i>
@@ -1488,6 +1574,12 @@
                             Falar no WhatsApp
                         </a>
                     </div>
+                    <ul class="hero-slide-features" aria-label="Diferenciais">
+                        <li><i class="bi bi-shield-check" aria-hidden="true"></i> Produtos certificados</li>
+                        <li><i class="bi bi-truck" aria-hidden="true"></i> Entrega rápida para toda Europa</li>
+                        <li><i class="bi bi-lock-fill" aria-hidden="true"></i> Pagamento 100% seguro</li>
+                        <li><i class="bi bi-headset" aria-hidden="true"></i> Suporte especializado</li>
+                    </ul>
                 </div>
             </div>
         </div>

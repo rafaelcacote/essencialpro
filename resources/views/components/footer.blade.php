@@ -131,6 +131,10 @@
         .ep-footer-grid { grid-template-columns: 1fr 1fr 1fr; }
     }
     @media (max-width: 767.98px) {
+        .ep-footer .container {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
         .ep-footer-grid { grid-template-columns: 1fr; }
         .ep-footer-bottom-grid { grid-template-columns: 1fr; }
         .ep-trust-row { justify-content: flex-start; }

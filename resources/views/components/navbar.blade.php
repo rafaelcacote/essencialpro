@@ -124,7 +124,7 @@
 
     <nav class="site-header-mobile nav-essencial navbar navbar-expand-lg bg-white navbar-light py-2 px-3">
         <a href="{{ route('home') }}" class="navbar-brand p-0 me-2">
-            <img src="{{ asset('img/logo_new.jpeg') }}" alt="Essencial Pro" style="height: 72px; width: auto; max-width: 240px; object-fit: contain;">
+            <img src="{{ asset('img/logo_new.jpeg') }}" alt="Essencial Pro" style="height: 80px; width: auto; max-width: 260px; object-fit: contain;">
         </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Abrir menu">
             <span class="navbar-toggler-icon"></span>
