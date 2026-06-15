@@ -6,19 +6,33 @@
     z-index: 1030;
 }
 
+.site-header-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.site-header-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 1.15rem;
+    padding: 0.55rem 2.5rem 0.45rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
 .site-header-inner {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    min-height: 132px;
-    padding: 0.4rem 2.5rem 0.45rem;
+    gap: 1.75rem;
+    min-height: 100px;
+    padding: 0.35rem 2.5rem 0.5rem;
 }
 
 .site-header-brand {
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    align-self: center;
     text-decoration: none;
     color: inherit;
 }
@@ -30,28 +44,10 @@
 
 .site-header-brand img {
     display: block;
-    height: 132px;
+    height: 118px;
     width: auto;
-    max-width: 480px;
+    max-width: 440px;
     object-fit: contain;
-}
-
-.site-header-right {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    flex: 1;
-    min-width: 0;
-    min-height: 100px;
-    padding: 0.05rem 0 0;
-    gap: 0.45rem;
-}
-
-.site-header-quicklinks {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 1.15rem;
 }
 
 .site-header-quicklink {
@@ -95,21 +91,14 @@
     background: #e6530f;
 }
 
-.site-header-navrow {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1.5rem;
-    min-width: 0;
-    margin-top: -0.1rem;
-}
-
 .site-header-categories {
     display: flex;
     align-items: center;
+    flex: 1;
     flex-wrap: nowrap;
-    gap: 0 2.25rem;
+    gap: 0 2rem;
     min-width: 0;
+    overflow: visible;
 }
 
 .site-header-category {
@@ -125,7 +114,7 @@
     gap: 0.35rem;
     padding: 0.2rem 0;
     color: #1a1a1a;
-    font-size: 1.08rem;
+    font-size: 1.05rem;
     font-weight: 600;
     text-decoration: none;
     white-space: nowrap;
@@ -149,21 +138,12 @@
     color: var(--primary);
 }
 
-.site-header-utils-sep {
-    width: 1px;
-    align-self: stretch;
-    min-height: 42px;
-    margin: 0 0.25rem 0.15rem;
-    background: rgba(0, 0, 0, 0.12);
-    flex-shrink: 0;
-}
-
 .site-header-utils {
     display: flex;
     align-items: flex-start;
     flex-shrink: 0;
-    gap: 1.5rem;
-    padding-bottom: 0.1rem;
+    gap: 1.35rem;
+    margin-left: auto;
 }
 
 .site-header-util {
@@ -323,12 +303,6 @@
 }
 
 /* Category dropdown panel */
-.site-header-categories,
-.site-header-category,
-.site-header-navrow {
-    overflow: visible;
-}
-
 .site-header-category.nav-tree-trigger {
     position: relative;
 }
@@ -340,39 +314,11 @@
 
 .site-header-mobile {
     display: none;
-}
-
-@media (max-width: 1199.98px) {
-    .site-header-inner {
-        gap: 1.25rem;
-        padding: 0.5rem 1.25rem;
-    }
-
-    .site-header-brand img {
-        height: 112px;
-        max-width: 400px;
-    }
-
-    .site-header-categories {
-        gap: 0 1.5rem;
-    }
-
-    .site-header-category > .site-header-category-link {
-        font-size: 0.98rem;
-    }
-
-    .site-header-utils {
-        gap: 1rem;
-    }
-
-    .site-header-util {
-        min-width: 46px;
-        font-size: 0.68rem;
-    }
+    background: #fff;
 }
 
 @media (max-width: 991.98px) {
-    .site-header-inner {
+    .site-header-main {
         display: none;
     }
 
@@ -380,14 +326,285 @@
         display: block;
     }
 
-    .site-header-mobile .navbar-brand img {
-        height: 80px;
-        max-width: 260px;
+    .site-header-mobile-topbar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        gap: 0.65rem;
+        padding: 0.45rem 1rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
     }
 
-    .site-header-mobile .navbar-actions {
-        border-top: 1px solid #eee;
-        margin-top: 0.5rem;
-        padding-top: 0.75rem;
+    .site-header-mobile-topbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .site-header-mobile-quicklink {
+        color: #222;
+        font-size: 0.82rem;
+        font-weight: 500;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: color 0.2s ease;
+    }
+
+    .site-header-mobile-quicklink:hover,
+    .site-header-mobile-quicklink.is-active {
+        color: var(--primary);
+    }
+
+    .site-header-mobile-quicksep {
+        width: 1px;
+        height: 14px;
+        background: var(--primary);
+        flex-shrink: 0;
+    }
+
+    .site-header-mobile-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.4rem 0.75rem;
+        background: var(--primary);
+        color: #fff;
+        font-size: 0.78rem;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        border-radius: 6px;
+        flex-shrink: 0;
+    }
+
+    .site-header-mobile-cta:hover {
+        color: #fff;
+        background: #e6530f;
+    }
+
+    .site-header-mobile-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.55rem 1rem 0.65rem;
+    }
+
+    .site-header-mobile-brand {
+        display: flex;
+        align-items: center;
+        flex-shrink: 1;
+        min-width: 0;
+        text-decoration: none;
+    }
+
+    .site-header-mobile-brand img {
+        display: block;
+        height: 58px;
+        width: auto;
+        max-width: min(200px, 52vw);
+        object-fit: contain;
+    }
+
+    .site-header-mobile-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        flex-shrink: 0;
+    }
+
+    .site-header-mobile-icon {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.35rem;
+        height: 2.35rem;
+        border-radius: 50%;
+        color: #222;
+        text-decoration: none;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .site-header-mobile-icon:hover,
+    .site-header-mobile-icon.is-active {
+        color: var(--primary);
+        background: rgba(255, 94, 20, 0.08);
+    }
+
+    .site-header-mobile-icon i {
+        font-size: 1.25rem;
+        line-height: 1;
+    }
+
+    .site-header-mobile-icon--whatsapp i {
+        color: #25d366;
+    }
+
+    .site-header-mobile-icon-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 16px;
+        height: 16px;
+        padding: 0 4px;
+        border-radius: 999px;
+        background: #dc3545;
+        color: #fff;
+        font-size: 0.62rem;
+        font-weight: 700;
+        line-height: 16px;
+        text-align: center;
+    }
+
+    .site-header-mobile-toggle {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 2.35rem;
+        height: 2.35rem;
+        padding: 0;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 94, 20, 0.1);
+        cursor: pointer;
+    }
+
+    .site-header-mobile-toggle span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--primary);
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .site-header-mobile-toggle[aria-expanded="true"] span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .site-header-mobile-toggle[aria-expanded="true"] span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .site-header-mobile-toggle[aria-expanded="true"] span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .site-header-mobile-menu {
+        border-top: 1px solid rgba(0, 0, 0, 0.06);
+        background: #fafbfc;
+    }
+
+    .site-header-mobile-menu-inner {
+        padding: 0.85rem 1rem 1.15rem;
+        max-height: min(70vh, 520px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .site-header-mobile-menu-label {
+        margin: 0 0 0.45rem;
+        padding: 0 0.15rem;
+        color: #64748b;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    .site-header-mobile-menu-label:not(:first-child) {
+        margin-top: 1rem;
+        padding-top: 0.85rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .site-header-mobile-nav {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .site-header-mobile-nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0.72rem 0.85rem;
+        border: none;
+        border-radius: 8px;
+        background: #fff;
+        color: #1a1a1a;
+        font-size: 0.92rem;
+        font-weight: 600;
+        text-decoration: none;
+        text-align: left;
+        transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .site-header-mobile-nav-link + .site-header-mobile-nav-link,
+    .site-header-mobile-nav li + li {
+        margin-top: 0.35rem;
+    }
+
+    .site-header-mobile-nav-link:hover,
+    .site-header-mobile-nav-link.is-active {
+        color: var(--primary);
+        background: rgba(255, 94, 20, 0.08);
+    }
+
+    .site-header-mobile-nav-link i {
+        color: #94a3b8;
+        font-size: 0.85rem;
+    }
+
+    .site-header-mobile-nav-link--button {
+        cursor: pointer;
+    }
+
+    .site-header-mobile-user {
+        display: block;
+        padding: 0.55rem 0.85rem 0.15rem;
+        color: #475569;
+        font-size: 0.88rem;
+        font-weight: 600;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .site-header-topbar {
+        padding: 0.5rem 1.25rem 0.4rem;
+        gap: 0.9rem;
+    }
+
+    .site-header-inner {
+        gap: 1.15rem;
+        padding: 0.35rem 1.25rem 0.45rem;
+    }
+
+    .site-header-brand img {
+        height: 100px;
+        max-width: 360px;
+    }
+
+    .site-header-categories {
+        gap: 0 1.25rem;
+    }
+
+    .site-header-category > .site-header-category-link {
+        font-size: 0.95rem;
+    }
+
+    .site-header-utils {
+        gap: 0.85rem;
+    }
+
+    .site-header-util {
+        min-width: 46px;
+        font-size: 0.68rem;
     }
 }
