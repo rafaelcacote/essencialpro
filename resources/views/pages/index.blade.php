@@ -120,7 +120,7 @@
     .professional-catalog-card {
         position: relative;
         display: block;
-        aspect-ratio: 1024 / 484;
+        aspect-ratio: 1024 / 387;
         border-radius: 12px;
         overflow: hidden;
         text-decoration: none;
@@ -134,7 +134,7 @@
     .professional-catalog-card img {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
         object-position: center center;
         display: block;
         transition: transform 0.35s ease;
@@ -170,6 +170,9 @@
     .professional-catalog-card--portwest .professional-catalog-cta {
         right: auto;
         left: 0.75rem;
+    }
+    .professional-catalog-card--portwest img {
+        object-position: 20% center;
     }
     .professional-solutions {
         background: #f8fafc;
