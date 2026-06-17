@@ -1129,24 +1129,21 @@
         max-width: min(60%, 38rem);
         z-index: 1;
     }
-    .custom-brand-banner-heading.section-heading {
-        margin-bottom: 0;
-        width: 100%;
-    }
-    .custom-brand-banner-heading .section-heading__title {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
+    .custom-brand-banner-title {
+        margin: 0;
+        font-family: "Rubik", sans-serif;
         font-size: clamp(1.35rem, 2.85vw, 2.15rem);
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
         line-height: 1.05;
-        gap: clamp(0.45rem, 1vw, 0.85rem);
+        color: #fff;
     }
-    .custom-brand-banner-heading .section-heading__text,
-    .custom-brand-banner-heading .section-heading__main,
-    .custom-brand-banner-heading .section-heading__accent {
-        white-space: nowrap;
+    .custom-brand-banner-title-line {
+        display: block;
     }
-    .custom-brand-banner-heading .section-heading__dash {
-        width: clamp(20px, 2.8vw, 36px);
+    .custom-brand-banner-title-accent {
+        color: #f97316;
     }
     .custom-brand-cta {
         display: inline-block;
@@ -1409,15 +1406,9 @@
             align-items: center;
             text-align: center;
         }
-        .custom-brand-banner-heading .section-heading__title {
-            justify-content: center;
-            flex-wrap: nowrap;
+        .custom-brand-banner-title {
+            text-align: center;
             font-size: clamp(1.05rem, 4.8vw, 1.5rem);
-        }
-        .custom-brand-banner-heading .section-heading__text,
-        .custom-brand-banner-heading .section-heading__main,
-        .custom-brand-banner-heading .section-heading__accent {
-            white-space: nowrap;
         }
         .custom-brand-cta {
             padding: 0.6rem 1rem;
@@ -1730,7 +1721,7 @@
             data-carousel-label="Mais vendidos"
             data-carousel-desktop="true"
             data-carousel-items="5"
-            data-carousel-slide-by="5"
+            data-carousel-slide-by="1"
         >
             @foreach ($featuredProducts as $fp)
                 @php
@@ -1758,13 +1749,10 @@
 <div class="custom-brand-banner wow fadeInUp" data-wow-delay="0.15s">
     <img src="{{ asset('img/home_sections/personalizamos-sua-marca.png') }}" alt="" role="presentation" aria-hidden="true">
     <div class="custom-brand-banner-content">
-        <x-section-heading
-            tag="h2"
-            align="left"
-            :inverse="true"
-            class="custom-brand-banner-heading mb-0"
-            title="Personalizamos a sua marca"
-        />
+        <h2 class="custom-brand-banner-title">
+            <span class="custom-brand-banner-title-line">Personalizamos</span>
+            <span class="custom-brand-banner-title-line">Sua <span class="custom-brand-banner-title-accent">Marca</span></span>
+        </h2>
         <a href="{{ route('contact') }}" class="custom-brand-cta">Solicite o seu orçamento</a>
     </div>
 </div>
