@@ -1113,7 +1113,7 @@
         width: 100%;
         height: 270px;
         object-fit: cover;
-        object-position: left center;
+        object-position: right center;
         display: block;
     }
     .custom-brand-banner-content {
@@ -1124,15 +1124,15 @@
         justify-content: center;
         align-items: flex-start;
         gap: 0.65rem;
-        padding: 0 1.25rem clamp(4.5rem, 20%, 6rem);
-        left: clamp(1.25rem, 8vw, 6.5rem);
+        padding: 0 1.25rem clamp(3.7rem, 16%, 5rem);
+        left: clamp(0.25rem, 3.2vw, 3.4rem);
         max-width: min(60%, 38rem);
         z-index: 1;
     }
     .custom-brand-banner-title {
         margin: 0;
         font-family: "Rubik", sans-serif;
-        font-size: clamp(1.35rem, 2.85vw, 2.15rem);
+        font-size: clamp(1.5rem, 3vw, 2.35rem);
         font-weight: 900;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -1151,9 +1151,9 @@
         color: #fff;
         border: none;
         border-radius: 6px;
-        padding: 0.55rem 1rem;
+        padding: 0.68rem 1.2rem;
         font-weight: 700;
-        font-size: clamp(0.62rem, 1.1vw, 0.78rem);
+        font-size: clamp(0.72rem, 1.2vw, 0.9rem);
         text-transform: uppercase;
         letter-spacing: 0.35px;
         text-decoration: none;
@@ -1393,7 +1393,7 @@
         }
         .custom-brand-banner img {
             height: clamp(170px, 42vw, 220px);
-            object-position: center center;
+            object-position: right center;
         }
         .custom-brand-banner-content {
             position: static;
@@ -1408,11 +1408,11 @@
         }
         .custom-brand-banner-title {
             text-align: center;
-            font-size: clamp(1.05rem, 4.8vw, 1.5rem);
+            font-size: clamp(1.15rem, 5.1vw, 1.7rem);
         }
         .custom-brand-cta {
-            padding: 0.6rem 1rem;
-            font-size: clamp(0.62rem, 2.8vw, 0.72rem);
+            padding: 0.66rem 1.1rem;
+            font-size: clamp(0.68rem, 3vw, 0.8rem);
         }
         #header-carousel .carousel-item.hero-single-slide {
             min-height: 380px;
@@ -1746,16 +1746,20 @@
 @endif
 <!-- Featured Products End -->
 
-<div class="custom-brand-banner wow fadeInUp" data-wow-delay="0.15s">
-    <img src="{{ asset('img/home_sections/personalizamos-sua-marca.png') }}" alt="" role="presentation" aria-hidden="true">
-    <div class="custom-brand-banner-content">
-        <h2 class="custom-brand-banner-title">
-            <span class="custom-brand-banner-title-line">Personalizamos</span>
-            <span class="custom-brand-banner-title-line">Sua <span class="custom-brand-banner-title-accent">Marca</span></span>
-        </h2>
-        <a href="{{ route('contact') }}" class="custom-brand-cta">Solicite o seu orçamento</a>
+<section class="custom-brand-section">
+    <div class="container">
+        <div class="custom-brand-banner wow fadeInUp" data-wow-delay="0.15s">
+            <img src="{{ asset('img/home_sections/personalizamos-sua-marca.png') }}" alt="" role="presentation" aria-hidden="true">
+            <div class="custom-brand-banner-content">
+                <h2 class="custom-brand-banner-title">
+                    <span class="custom-brand-banner-title-line">Personalizamos</span>
+                    <span class="custom-brand-banner-title-line">Sua <span class="custom-brand-banner-title-accent">Marca</span></span>
+                </h2>
+                <a href="{{ route('contact') }}" class="custom-brand-cta">Solicite o seu orçamento</a>
+            </div>
+        </div>
     </div>
-</div>
+</section>
 
 <section class="contact-highlight-section">
     <div class="container">

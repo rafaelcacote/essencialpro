@@ -7,11 +7,7 @@
                     <i class="fas fa-shipping-fast"></i>
                 </span>
                 <span class="site-topbar-text">
-                    FRETE GRÁTIS acima de
-                    <span class="site-topbar-price">
-                        <span class="site-topbar-sparkles" aria-hidden="true"></span>
-                        80€
-                    </span>
+                    Portes grátis para Portugal Continental a partir de 80€
                 </span>
             </div>
 
