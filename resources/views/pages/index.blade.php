@@ -271,6 +271,9 @@
         grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 0.9rem;
     }
+    .best-sellers-grid.owl-carousel.owl-loaded {
+        display: block;
+    }
     .best-seller-card {
         border: 1px solid #e5e7eb;
         border-radius: 8px;
@@ -1722,8 +1725,14 @@
             />
             <a href="{{ route('product') }}" class="best-sellers-all-link">Ver todos os produtos <i class="bi bi-arrow-right-short"></i></a>
         </div>
-        <div class="best-sellers-grid home-section-carousel" data-carousel-label="Mais vendidos">
-            @foreach ($featuredProducts->take(5) as $fp)
+        <div
+            class="best-sellers-grid home-section-carousel"
+            data-carousel-label="Mais vendidos"
+            data-carousel-desktop="true"
+            data-carousel-items="5"
+            data-carousel-slide-by="5"
+        >
+            @foreach ($featuredProducts as $fp)
                 @php
                     $img = $fp->cover_image_url ?: asset('img/service-1.jpg');
                     $priceText = filled($fp->price)
@@ -2246,38 +2255,55 @@ Our Products End -->
         jQuery('.home-section-carousel').each(function () {
             var $carousel = jQuery(this);
             var isMobile = window.innerWidth < mobileCarouselBreakpoint;
+            var desktopCarousel = $carousel.data('carouselDesktop') === true;
+            var itemsPerPage = parseInt($carousel.data('carouselItems'), 10) || 5;
+            var slideBy = parseInt($carousel.data('carouselSlideBy'), 10) || itemsPerPage;
+            var itemCount = $carousel.children('.best-seller-card, .category-explorer-card, .professional-solution-card').length;
+            var shouldUseDesktopCarousel = !isMobile && desktopCarousel && itemCount > itemsPerPage;
+            var shouldUseMobileCarousel = isMobile;
+            var shouldInit = shouldUseMobileCarousel || shouldUseDesktopCarousel;
 
-            if (isMobile) {
-                if ($carousel.hasClass('owl-loaded')) {
-                    return;
-                }
-
-                $carousel.addClass('owl-carousel').owlCarousel({
-                    autoplay: true,
-                    autoplayTimeout: 4500,
-                    autoplayHoverPause: true,
-                    smartSpeed: 650,
-                    loop: true,
-                    dots: true,
-                    nav: true,
-                    margin: 14,
-                    navText: [
-                        '<i class="bi bi-chevron-left"></i>',
-                        '<i class="bi bi-chevron-right"></i>'
-                    ],
-                    responsive: {
-                        0: {
-                            items: 1
-                        },
-                        576: {
-                            items: 2
-                        }
-                    }
-                });
-            } else if ($carousel.hasClass('owl-loaded')) {
+            if ($carousel.hasClass('owl-loaded')) {
                 $carousel.trigger('destroy.owl.carousel');
                 $carousel.removeClass('owl-carousel owl-loaded');
             }
+
+            if (!shouldInit) {
+                return;
+            }
+
+            var config = {
+                autoplay: true,
+                autoplayTimeout: 4500,
+                autoplayHoverPause: true,
+                smartSpeed: 650,
+                dots: true,
+                nav: true,
+                margin: 14,
+                navText: [
+                    '<i class="bi bi-chevron-left"></i>',
+                    '<i class="bi bi-chevron-right"></i>'
+                ]
+            };
+
+            if (shouldUseDesktopCarousel) {
+                config.items = itemsPerPage;
+                config.slideBy = slideBy;
+                config.loop = false;
+                config.rewind = true;
+            } else {
+                config.loop = true;
+                config.responsive = {
+                    0: {
+                        items: 1
+                    },
+                    576: {
+                        items: 2
+                    }
+                };
+            }
+
+            $carousel.addClass('owl-carousel').owlCarousel(config);
         });
     }
 
