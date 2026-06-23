@@ -1233,25 +1233,35 @@
     }
     .hero-slide-features {
         display: flex;
-        flex-wrap: wrap;
-        gap: clamp(0.75rem, 2vw, 1.75rem);
+        flex-wrap: nowrap;
+        gap: 0;
         margin: 0;
         padding: 0;
         list-style: none;
+        align-items: stretch;
     }
     .hero-slide-features li {
         display: inline-flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 0.55rem;
         color: #fff;
         font-size: clamp(0.84rem, 1.12vw, 1.05rem);
         font-weight: 600;
-        white-space: nowrap;
+        line-height: 1.3;
+        padding: 0 clamp(0.75rem, 1.8vw, 1.5rem);
+        border-right: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .hero-slide-features li:first-child {
+        padding-left: 0;
+    }
+    .hero-slide-features li:last-child {
+        border-right: none;
     }
     .hero-slide-features i {
         color: #f97316;
         font-size: 1.35em;
         flex-shrink: 0;
+        margin-top: 0.1em;
     }
     .hero-slide-actions {
         display: flex;
@@ -1419,10 +1429,15 @@
             height: clamp(380px, 62vw, 520px);
         }
         .hero-slide-features {
-            gap: 0.65rem 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem 0;
         }
         .hero-slide-features li {
             white-space: normal;
+            padding: 0.25rem clamp(0.5rem, 1.2vw, 1rem);
+        }
+        .hero-slide-features li:first-child {
+            padding-left: 0;
         }
     }
     @media (max-width: 767.98px) {
@@ -1572,10 +1587,10 @@
                         </a>
                     </div>
                     <ul class="hero-slide-features" aria-label="Diferenciais">
-                        <li><i class="bi bi-shield-check" aria-hidden="true"></i> Produtos certificados</li>
-                        <li><i class="bi bi-truck" aria-hidden="true"></i> Entrega rápida para toda Europa</li>
-                        <li><i class="bi bi-lock-fill" aria-hidden="true"></i> Pagamento 100% seguro</li>
-                        <li><i class="bi bi-headset" aria-hidden="true"></i> Suporte especializado</li>
+                        <li><i class="bi bi-shield-check" aria-hidden="true"></i><span>Produtos<br>certificados</span></li>
+                        <li><i class="bi bi-truck" aria-hidden="true"></i><span>Entrega rápida<br>para toda Europa</span></li>
+                        <li><i class="bi bi-lock-fill" aria-hidden="true"></i><span>Pagamento<br>100% seguro</span></li>
+                        <li><i class="bi bi-headset" aria-hidden="true"></i><span>Suporte<br>especializado</span></li>
                     </ul>
                 </div>
             </div>
