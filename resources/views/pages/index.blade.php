@@ -1423,35 +1423,72 @@
     }
     @media (max-width: 1399.98px) {
         .custom-brand-banner {
-            display: flex;
-            flex-direction: column;
-            border-radius: 0;
-            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+            align-items: stretch;
+            background: linear-gradient(135deg, #0f1d4d 0%, #162456 100%);
+            min-height: clamp(220px, 30vw, 270px);
+            border-radius: 12px;
         }
         .custom-brand-banner img {
-            height: clamp(200px, 38vw, 280px);
+            grid-column: 2;
+            grid-row: 1;
+            width: 100%;
+            height: 100%;
+            min-height: clamp(200px, 30vw, 270px);
+            object-fit: cover;
             object-position: right center;
         }
         .custom-brand-banner-content {
-            position: static;
+            position: relative;
+            grid-column: 1;
+            grid-row: 1;
+            inset: auto;
             left: auto;
-            max-width: 100%;
+            max-width: none;
             width: 100%;
             gap: 0.75rem;
-            padding: 1.4rem 1.5rem 1.5rem;
-            background: linear-gradient(135deg, #0f1d4d 0%, #162456 100%);
+            padding: clamp(1.1rem, 2.5vw, 1.5rem) clamp(1rem, 2vw, 1.5rem);
+            background: transparent;
             align-items: flex-start;
             text-align: left;
+            z-index: 2;
         }
         .custom-brand-banner-title {
-            font-size: clamp(1.3rem, 4vw, 1.9rem);
+            font-size: clamp(1.15rem, 2.4vw, 1.85rem);
         }
         .custom-brand-cta {
-            padding: 0.7rem 1.2rem;
-            font-size: clamp(0.75rem, 2vw, 0.88rem);
+            padding: 0.65rem 1rem;
+            font-size: clamp(0.68rem, 1.1vw, 0.82rem);
+        }
+    }
+    @media (max-width: 991.98px) {
+        .custom-brand-banner {
+            grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        }
+        .custom-brand-banner-title {
+            font-size: clamp(1.05rem, 3.2vw, 1.55rem);
         }
     }
     @media (max-width: 767.98px) {
+        .custom-brand-banner {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto;
+            min-height: auto;
+        }
+        .custom-brand-banner-content {
+            grid-column: 1;
+            grid-row: 1;
+            padding: 1.2rem 1.25rem;
+        }
+        .custom-brand-banner img {
+            grid-column: 1;
+            grid-row: 2;
+            min-height: clamp(160px, 42vw, 200px);
+        }
+        .custom-brand-banner-title {
+            font-size: clamp(1.1rem, 5vw, 1.45rem);
+        }
         #header-carousel .carousel-item.hero-single-slide {
             display: flex;
             flex-direction: column;
