@@ -1210,7 +1210,7 @@
         margin: 0;
         font-family: "Rubik", sans-serif;
         font-weight: 700;
-        font-size: clamp(1.65rem, 3.8vw, 3.35rem);
+        font-size: clamp(1.35rem, 3vw, 2.65rem);
         line-height: 1.08;
         letter-spacing: 0.02em;
         text-transform: uppercase;
@@ -1489,7 +1489,7 @@
             flex-direction: column;
         }
         .hero-slide-title {
-            font-size: clamp(1.05rem, 5.5vw, 1.75rem);
+            font-size: clamp(0.9rem, 4.6vw, 1.45rem);
             line-height: 1.12;
             font-weight: 800;
             letter-spacing: 0;
