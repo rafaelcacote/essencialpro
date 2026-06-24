@@ -1218,10 +1218,12 @@
     .hero-slide-title .line-white {
         display: block;
         color: #fff;
+        white-space: nowrap;
     }
     .hero-slide-title .line-accent {
         display: block;
         color: #f97316;
+        white-space: nowrap;
     }
     .hero-slide-subtitle {
         margin: clamp(0.85rem, 1.6vw, 1.25rem) 0 0;
@@ -1487,12 +1489,16 @@
             flex-direction: column;
         }
         .hero-slide-title {
-            font-size: clamp(1.5rem, 7.2vw, 1.95rem);
+            font-size: clamp(1.05rem, 5.5vw, 1.75rem);
             line-height: 1.12;
             font-weight: 800;
             letter-spacing: 0;
             margin-bottom: 0.65rem;
             text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+        }
+        .hero-slide-title .line-white,
+        .hero-slide-title .line-accent {
+            white-space: nowrap;
         }
         .hero-slide-subtitle {
             font-size: clamp(0.92rem, 3.8vw, 1rem);
@@ -1585,8 +1591,8 @@
             <div class="carousel-item active hero-single-slide" role="img" aria-label="Proteção profissional para todos os setores">
                 <div class="hero-slide-inner">
                     <h1 class="hero-slide-title">
-                        <span class="line-white">Proteção Profissional</span>
-                        <span class="line-accent">Para Todos os Setores</span>
+                        <span class="line-white">Proteção&nbsp;Profissional</span>
+                        <span class="line-accent">Para&nbsp;Todos&nbsp;os&nbsp;Setores</span>
                     </h1>
                     <p class="hero-slide-subtitle">
                         Equipamentos certificados, entrega rápida e soluções personalizadas para a sua empresa.
