@@ -1241,13 +1241,13 @@
         align-items: stretch;
     }
     .hero-slide-features li {
-        display: inline-flex;
-        align-items: flex-start;
+        display: flex;
+        align-items: center;
         gap: 0.55rem;
+        flex: 0 0 auto;
         color: #fff;
         font-size: clamp(0.84rem, 1.12vw, 1.05rem);
         font-weight: 600;
-        line-height: 1.3;
         padding: 0 clamp(0.75rem, 1.8vw, 1.5rem);
         border-right: 1px solid rgba(255, 255, 255, 0.25);
     }
@@ -1261,7 +1261,16 @@
         color: #f97316;
         font-size: 1.35em;
         flex-shrink: 0;
-        margin-top: 0.1em;
+        line-height: 1;
+    }
+    .hero-slide-feature-text {
+        display: block;
+        line-height: 1.2;
+    }
+    .hero-slide-feature-line {
+        display: block;
+        white-space: nowrap;
+        font-weight: 600;
     }
     .hero-slide-actions {
         display: flex;
@@ -1433,7 +1442,6 @@
             gap: 0.5rem 0;
         }
         .hero-slide-features li {
-            white-space: normal;
             padding: 0.25rem clamp(0.5rem, 1.2vw, 1rem);
         }
         .hero-slide-features li:first-child {
@@ -1494,7 +1502,14 @@
             text-shadow: 0 1px 10px rgba(0, 0, 0, 0.28);
         }
         .hero-slide-features {
-            display: none;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem 0.75rem;
+            margin-top: 1.25rem;
+        }
+        .hero-slide-features li {
+            padding: 0;
+            border-right: none;
         }
         .hero-slide-actions {
             flex-direction: column;
@@ -1587,10 +1602,34 @@
                         </a>
                     </div>
                     <ul class="hero-slide-features" aria-label="Diferenciais">
-                        <li><i class="bi bi-shield-check" aria-hidden="true"></i><span>Produtos<br>certificados</span></li>
-                        <li><i class="bi bi-truck" aria-hidden="true"></i><span>Entrega rápida<br>para toda Europa</span></li>
-                        <li><i class="bi bi-lock-fill" aria-hidden="true"></i><span>Pagamento<br>100% seguro</span></li>
-                        <li><i class="bi bi-headset" aria-hidden="true"></i><span>Suporte<br>especializado</span></li>
+                        <li>
+                            <i class="bi bi-shield-check" aria-hidden="true"></i>
+                            <div class="hero-slide-feature-text">
+                                <span class="hero-slide-feature-line">Produtos</span>
+                                <span class="hero-slide-feature-line">certificados</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="bi bi-truck" aria-hidden="true"></i>
+                            <div class="hero-slide-feature-text">
+                                <span class="hero-slide-feature-line">Entrega rápida</span>
+                                <span class="hero-slide-feature-line">para toda Europa</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="bi bi-lock-fill" aria-hidden="true"></i>
+                            <div class="hero-slide-feature-text">
+                                <span class="hero-slide-feature-line">Pagamento</span>
+                                <span class="hero-slide-feature-line">100% seguro</span>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="bi bi-headset" aria-hidden="true"></i>
+                            <div class="hero-slide-feature-text">
+                                <span class="hero-slide-feature-line">Suporte</span>
+                                <span class="hero-slide-feature-line">especializado</span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
