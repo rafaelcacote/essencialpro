@@ -1178,11 +1178,8 @@
     }
     #header-carousel .carousel-item.hero-single-slide {
         position: relative;
-        display: flex;
-        flex-direction: column;
         width: 100%;
-        height: clamp(520px, 42vw, 680px);
-        min-height: 520px;
+        height: 550px;
         background-image:
             linear-gradient(to right, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.24) 42%, rgba(0, 0, 0, 0.08) 62%, transparent 78%),
             -webkit-image-set(
@@ -1204,13 +1201,10 @@
         z-index: 2;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
-        flex: 1;
-        width: 100%;
-        min-height: 100%;
+        justify-content: center;
+        min-height: inherit;
         max-width: min(920px, 58vw);
         padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 6vw, 6rem);
-        padding-bottom: clamp(2.75rem, 5.5vh, 4.25rem);
     }
     .hero-slide-title {
         margin: 0;
@@ -1444,12 +1438,6 @@
         #header-carousel .carousel-item.hero-single-slide {
             min-height: 380px;
             height: clamp(380px, 62vw, 520px);
-            display: flex;
-            flex-direction: column;
-        }
-        .hero-slide-inner {
-            justify-content: flex-end;
-            padding-bottom: clamp(2rem, 4vh, 3rem);
         }
         .hero-slide-features {
             flex-wrap: wrap;
