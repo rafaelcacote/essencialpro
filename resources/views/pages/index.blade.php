@@ -1421,7 +1421,7 @@
             padding-left: 0;
         }
     }
-    @media (max-width: 1199.98px) {
+    @media (max-width: 1399.98px) {
         .custom-brand-banner {
             display: flex;
             flex-direction: column;
