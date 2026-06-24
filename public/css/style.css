@@ -704,8 +704,8 @@ h6,
 }
 
 #header-carousel .carousel-item.hero-single-slide {
-    height: clamp(380px, 40vw, 760px);
-    min-height: 700px;
+    height: clamp(520px, 42vw, 680px);
+    min-height: 520px;
 }
 
 #header-carousel .carousel-item img {
@@ -718,8 +718,8 @@ h6,
 
 @media (min-width: 1920px) {
     #header-carousel .carousel-item.hero-single-slide {
-        height: 730px;
-        min-height: 730px;
+        height: 680px;
+        min-height: 680px;
     }
 }
 
