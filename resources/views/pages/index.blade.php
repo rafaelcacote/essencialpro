@@ -237,7 +237,7 @@
         letter-spacing: 0.25px;
     }
     .best-sellers-section {
-        padding: 1.5rem 0 2.6rem;
+        padding: 1.5rem 0 1.25rem;
         background: #fff;
     }
     .best-sellers-header {
@@ -1105,7 +1105,7 @@
     .custom-brand-banner {
         position: relative;
         width: 100%;
-        margin: 1.5rem 0 0;
+        margin: 0.5rem 0 0;
         overflow: hidden;
         border-radius: 12px;
     }
@@ -1408,7 +1408,7 @@
             display: flex;
             flex-direction: column;
             border-radius: 0;
-            margin-top: 1rem;
+            margin-top: 0.25rem;
         }
         .custom-brand-banner img {
             width: 100%;
