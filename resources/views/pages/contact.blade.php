@@ -1,11 +1,160 @@
 @extends('layouts.app')
 
-@section('title', 'Orçamentos - Industro')
+@section('title', 'Contactos - Essencial Pro')
+
+@push('styles')
+<style>
+    .ep-contact-intro {
+        max-width: 720px;
+        margin: 0 auto 2.5rem;
+        text-align: center;
+    }
+    .ep-contact-intro p {
+        color: #4a5568;
+        line-height: 1.8;
+        margin-bottom: 0;
+    }
+    .ep-contact-sidebar {
+        position: sticky;
+        top: 20px;
+    }
+    .ep-contact-card {
+        background: linear-gradient(145deg, #0b1c3e 0%, #122a52 100%);
+        border-radius: 14px;
+        padding: 2rem 1.75rem;
+        color: #c8d5e8;
+        margin-bottom: 1.25rem;
+        box-shadow: 0 8px 28px rgba(11, 28, 62, 0.15);
+    }
+    .ep-contact-card-title {
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.85rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .ep-contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.85rem;
+        margin-bottom: 1.25rem;
+    }
+    .ep-contact-item:last-child {
+        margin-bottom: 0;
+    }
+    .ep-contact-item-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        background: rgba(255, 94, 20, 0.15);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+    .ep-contact-item strong {
+        display: block;
+        color: #fff;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 0.25rem;
+    }
+    .ep-contact-item span,
+    .ep-contact-item a {
+        color: #b8c9e1;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        text-decoration: none;
+    }
+    .ep-contact-item a:hover {
+        color: var(--primary);
+    }
+    .ep-contact-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.65rem;
+    }
+    .ep-contact-action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.7rem 1rem;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 0.92rem;
+        text-decoration: none;
+        transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .ep-contact-action-btn-primary {
+        background: var(--primary);
+        color: #fff;
+    }
+    .ep-contact-action-btn-primary:hover {
+        background: #e04f0a;
+        color: #fff;
+        transform: translateY(-2px);
+    }
+    .ep-contact-action-btn-whatsapp {
+        background: #25d366;
+        color: #fff;
+    }
+    .ep-contact-action-btn-whatsapp:hover {
+        background: #1ebe57;
+        color: #fff;
+        transform: translateY(-2px);
+    }
+    .ep-contact-form-wrap {
+        background: #fff;
+        border: 1px solid #e8edf4;
+        border-radius: 14px;
+        padding: 2rem 2.25rem;
+        box-shadow: 0 2px 16px rgba(11, 28, 62, 0.05);
+    }
+    .ep-contact-form-header {
+        margin-bottom: 1.75rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 2px solid #f0f3f8;
+    }
+    .ep-contact-form-header h2 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #0b1c3e;
+        margin-bottom: 0.5rem;
+    }
+    .ep-contact-form-header p {
+        color: #5a6478;
+        margin: 0;
+        line-height: 1.65;
+    }
+    @media (max-width: 991px) {
+        .ep-contact-sidebar {
+            position: relative;
+            top: 0;
+            margin-bottom: 2rem;
+        }
+    }
+    @media (max-width: 575px) {
+        .ep-contact-form-wrap {
+            padding: 1.5rem 1.15rem;
+        }
+        .ep-contact-card {
+            padding: 1.5rem 1.25rem;
+        }
+    }
+</style>
+@endpush
 
 @section('content')
-@include('components.page-header', ['title' => 'Orçamentos'])
+@include('components.page-header', ['title' => 'Contactos'])
 
-<!-- Quote Start -->
+<!-- Contact Start -->
 <div class="container-xxl py-5">
     <div class="container">
         @if (session('status'))
@@ -14,17 +163,76 @@
             </div>
         @endif
 
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-8 text-center wow fadeInUp" data-wow-delay="0.1s">
-                <p class="fw-medium text-uppercase text-primary mb-2">Orçamentos</p>
-                <h1 class="display-5 mb-4">Tem um projecto para realizar?</h1>
-                <p class="mb-4">A nossa equipa comercial está disponível para ajudar com grandes volumes, bordados ou personalização avançada. Contacte-nos através do formulário ou em info@example.com.</p>
-                <p class="mb-0"><strong>Peça o seu orçamento gratuito!</strong></p>
-            </div>
+        <div class="ep-contact-intro wow fadeInUp" data-wow-delay="0.1s">
+            <p class="fw-medium text-uppercase text-primary mb-2">Contactos</p>
+            <h1 class="display-6 mb-4">Estamos disponíveis para o ajudar</h1>
+            <p>
+                Se pretender entrar em contacto com a Essencial Pro, poderá utilizar qualquer um dos seguintes meios.
+            </p>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-lg-10 wow fadeInUp" data-wow-delay="0.3s">
+        <div class="row g-4">
+            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.15s">
+                <div class="ep-contact-sidebar">
+                    <div class="ep-contact-card">
+                        <div class="ep-contact-card-title">Dados de Contacto</div>
+
+                        <div class="ep-contact-item">
+                            <div class="ep-contact-item-icon"><i class="bi bi-telephone-fill"></i></div>
+                            <div>
+                                <strong>Telefone</strong>
+                                <a href="tel:+351922026198">+351 922 026 198</a>
+                            </div>
+                        </div>
+
+                        <div class="ep-contact-item">
+                            <div class="ep-contact-item-icon"><i class="bi bi-envelope-fill"></i></div>
+                            <div>
+                                <strong>E-mail</strong>
+                                <a href="mailto:essencialprotection@gmail.com">essencialprotection@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="ep-contact-item">
+                            <div class="ep-contact-item-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                            <div>
+                                <strong>Morada</strong>
+                                <span>Travessa Professora Adélia Campos, 42<br>Serafão<br>4820-770</span>
+                            </div>
+                        </div>
+
+                        <div class="ep-contact-item">
+                            <div class="ep-contact-item-icon"><i class="bi bi-clock-fill"></i></div>
+                            <div>
+                                <strong>Horário de Atendimento</strong>
+                                <span>Segunda a Sexta-feira<br>09:00 às 18:00<br><small class="text-white-50">(dias úteis)</small></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ep-contact-actions">
+                        <a href="tel:+351922026198" class="ep-contact-action-btn ep-contact-action-btn-primary">
+                            <i class="bi bi-telephone-fill"></i>
+                            Ligar agora
+                        </a>
+                        <a href="https://wa.me/351922026198" target="_blank" rel="noopener noreferrer" class="ep-contact-action-btn ep-contact-action-btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            WhatsApp
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="ep-contact-form-wrap" id="formulario-contacto">
+                    <div class="ep-contact-form-header">
+                        <h2>Formulário de Contacto</h2>
+                        <p>
+                            Também poderá utilizar o formulário de contacto disponível nesta página.
+                            A nossa equipa responderá com a maior brevidade possível.
+                        </p>
+                    </div>
+
                 <form id="quoteForm" method="POST" action="{{ route('contact.submit') }}" enctype="multipart/form-data">
                     @csrf
                     
@@ -241,7 +449,7 @@
                     <div class="row g-3">
                         <div class="col-12 text-center">
                             <button class="btn btn-primary py-3 px-5" type="submit" id="submitBtn">
-                                <span id="submitText">Enviar Pedido de Orçamento</span>
+                                <span id="submitText">Enviar Mensagem</span>
                                 <span id="submitLoading" style="display: none;">
                                     <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                                     A enviar...
@@ -250,11 +458,12 @@
                         </div>
                     </div>
                 </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Quote End -->
+<!-- Contact End -->
 
 @push('scripts')
 <script>

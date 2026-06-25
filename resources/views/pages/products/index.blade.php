@@ -1,12 +1,310 @@
 @extends('layouts.app')
 
-@section('title', 'Produtos - Essencial Pro')
+@section('title', 'Nossos Produtos - Essencial Pro')
+
+@push('styles')
+<style>
+    .ep-products-about {
+        padding: 3rem 0 2rem;
+        background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
+    }
+    .ep-products-about-inner {
+        max-width: 960px;
+        margin: 0 auto 2.5rem;
+        text-align: center;
+    }
+    .ep-products-about-inner p {
+        color: #4a5568;
+        line-height: 1.8;
+        margin-bottom: 1rem;
+    }
+    .ep-products-about-inner p:last-child {
+        margin-bottom: 0;
+    }
+    .ep-products-sectors {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.45rem;
+        margin-top: 1.25rem;
+    }
+    .ep-products-sector {
+        background: #fff;
+        border: 1px solid #e8edf4;
+        border-radius: 50px;
+        padding: 0.35rem 0.85rem;
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: #0b1c3e;
+    }
+    .ep-products-categories {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+    }
+    .ep-products-category {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: #fff;
+        border: 1px solid #e8edf4;
+        border-radius: 12px;
+        padding: 1rem 1.1rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .ep-products-category:hover {
+        border-color: rgba(255, 94, 20, 0.35);
+        box-shadow: 0 6px 20px rgba(11, 28, 62, 0.08);
+        transform: translateY(-2px);
+    }
+    .ep-products-category-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        background: rgba(255, 94, 20, 0.1);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        flex-shrink: 0;
+    }
+    .ep-products-category span {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #0b1c3e;
+        line-height: 1.35;
+    }
+    .ep-products-standards {
+        background: linear-gradient(145deg, #0b1c3e 0%, #122a52 100%);
+        border-radius: 14px;
+        padding: 1.75rem 2rem;
+        color: #c8d5e8;
+        text-align: center;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 8px 28px rgba(11, 28, 62, 0.15);
+    }
+    .ep-products-standards p {
+        margin: 0;
+        line-height: 1.75;
+        font-size: 0.98rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .ep-products-commitment {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+    .ep-products-commitment-card {
+        background: #fff;
+        border: 1px solid #e8edf4;
+        border-radius: 14px;
+        padding: 2rem;
+        box-shadow: 0 2px 16px rgba(11, 28, 62, 0.05);
+    }
+    .ep-products-commitment-card h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #0b1c3e;
+        margin-bottom: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+    .ep-products-commitment-card h3 i {
+        color: var(--primary);
+    }
+    .ep-products-commitment-card p {
+        color: #4a5568;
+        line-height: 1.75;
+        margin: 0;
+    }
+    .ep-products-closing {
+        text-align: center;
+        background: linear-gradient(135deg, rgba(255, 94, 20, 0.1) 0%, rgba(255, 94, 20, 0.04) 100%);
+        border: 1px solid rgba(255, 94, 20, 0.2);
+        border-radius: 14px;
+        padding: 1.75rem 2rem;
+        margin-bottom: 2rem;
+    }
+    .ep-products-closing p {
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #0b1c3e;
+        line-height: 1.7;
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .ep-products-catalog-divider {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1rem 0 2.5rem;
+    }
+    .ep-products-catalog-divider::before,
+    .ep-products-catalog-divider::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #e2e8f0;
+    }
+    .ep-products-catalog-divider span {
+        font-size: 0.88rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: #0b1c3e;
+        white-space: nowrap;
+    }
+    @media (max-width: 991px) {
+        .ep-products-categories {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .ep-products-commitment {
+            grid-template-columns: 1fr;
+        }
+    }
+    @media (max-width: 575px) {
+        .ep-products-categories {
+            grid-template-columns: 1fr;
+        }
+        .ep-products-about {
+            padding: 2rem 0 1rem;
+        }
+    }
+</style>
+@endpush
 
 @section('content')
-    @include('components.page-header', ['title' => 'Produtos'])
+    @include('components.page-header', ['title' => 'Nossos Produtos'])
 
-    <div class="container-xxl py-5">
+    <div class="ep-products-about">
         <div class="container">
+            <div class="ep-products-about-inner wow fadeInUp" data-wow-delay="0.1s">
+                <p class="fw-medium text-uppercase text-primary mb-2">Sobre os Nossos Produtos</p>
+                <h2 class="display-6 mb-4">Qualidade, segurança e conforto para o seu dia a dia</h2>
+                <p>
+                    Na Essencial Pro, selecionamos cuidadosamente cada produto para garantir elevados padrões de qualidade,
+                    segurança, conforto e durabilidade. Trabalhamos com fabricantes reconhecidos no setor dos Equipamentos
+                    de Proteção Individual (EPIs) e vestuário profissional, oferecendo soluções adequadas às necessidades
+                    de profissionais e empresas.
+                </p>
+                <p>
+                    O nosso catálogo é composto por produtos concebidos para proporcionar proteção e desempenho em diversos
+                    setores de atividade, incluindo indústria, construção, logística, manutenção, saúde, hotelaria, serviços
+                    e outras áreas profissionais.
+                </p>
+                <div class="ep-products-sectors">
+                    <span class="ep-products-sector">Indústria</span>
+                    <span class="ep-products-sector">Construção</span>
+                    <span class="ep-products-sector">Logística</span>
+                    <span class="ep-products-sector">Manutenção</span>
+                    <span class="ep-products-sector">Saúde</span>
+                    <span class="ep-products-sector">Hotelaria</span>
+                    <span class="ep-products-sector">Serviços</span>
+                </div>
+            </div>
+
+            <div class="text-center mb-3 wow fadeInUp" data-wow-delay="0.15s">
+                <p class="fw-medium text-uppercase text-primary mb-2">Categorias</p>
+                <h3 class="h4 fw-bold text-dark">As nossas principais categorias</h3>
+            </div>
+
+            <div class="ep-products-categories wow fadeInUp" data-wow-delay="0.2s">
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-box-seam"></i></div>
+                    <span>Calçado de Segurança</span>
+                </div>
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-person-badge"></i></div>
+                    <span>Vestuário Profissional</span>
+                </div>
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-brightness-high"></i></div>
+                    <span>Vestuário de Alta Visibilidade</span>
+                </div>
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-shield-check"></i></div>
+                    <span>Equipamentos de Proteção Individual (EPIs)</span>
+                </div>
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-hand-index-thumb"></i></div>
+                    <span>Luvas de Proteção</span>
+                </div>
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-wind"></i></div>
+                    <span>Proteção Respiratória</span>
+                </div>
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-volume-up"></i></div>
+                    <span>Proteção Auditiva</span>
+                </div>
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-eye"></i></div>
+                    <span>Proteção Ocular e Facial</span>
+                </div>
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-shield"></i></div>
+                    <span>Capacetes e Proteção da Cabeça</span>
+                </div>
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-arrow-down-circle"></i></div>
+                    <span>Proteção Antiqueda</span>
+                </div>
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-fire"></i></div>
+                    <span>Vestuário Ignífugo e Multinorma</span>
+                </div>
+                <div class="ep-products-category">
+                    <div class="ep-products-category-icon"><i class="bi bi-tools"></i></div>
+                    <span>Acessórios e Complementos Profissionais</span>
+                </div>
+            </div>
+
+            <div class="ep-products-standards wow fadeInUp" data-wow-delay="0.25s">
+                <p>
+                    Todos os produtos comercializados pela Essencial Pro procuram cumprir as normas europeias aplicáveis
+                    e são selecionados com foco na segurança, funcionalidade e conforto dos utilizadores.
+                </p>
+            </div>
+
+            <div class="ep-products-commitment">
+                <div class="ep-products-commitment-card wow fadeInUp" data-wow-delay="0.3s">
+                    <h3><i class="bi bi-award"></i> Compromisso com a Qualidade</h3>
+                    <p>
+                        Procuramos disponibilizar produtos fiáveis, resistentes e adequados às exigências do ambiente profissional,
+                        contribuindo para locais de trabalho mais seguros e produtivos.
+                    </p>
+                </div>
+                <div class="ep-products-commitment-card wow fadeInUp" data-wow-delay="0.35s">
+                    <h3><i class="bi bi-graph-up-arrow"></i> Evolução Contínua</h3>
+                    <p>
+                        A nossa equipa trabalha continuamente para ampliar a oferta de produtos e acompanhar a evolução das
+                        necessidades do mercado, disponibilizando soluções inovadoras e de elevada qualidade.
+                    </p>
+                </div>
+            </div>
+
+            <div class="ep-products-closing wow fadeInUp" data-wow-delay="0.4s">
+                <p>
+                    Na Essencial Pro acreditamos que a proteção é um investimento na segurança, no bem-estar
+                    e no desempenho de cada profissional.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-xxl pb-5">
+        <div class="container">
+            <div class="ep-products-catalog-divider wow fadeInUp" data-wow-delay="0.1s">
+                <span>Explore o nosso catálogo</span>
+            </div>
             <div class="row">
                 <!-- Sidebar de Filtros -->
                 <div class="col-lg-3 mb-4">

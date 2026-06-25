@@ -21,6 +21,12 @@ Route::get('/quem-somos', [PageController::class, 'quemSomos'])->name('quem-somo
 Route::get('/about', fn () => redirect()->route('quem-somos'))->name('about');
 Route::get('/service', [PageController::class, 'service'])->name('service');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::get('/politica-de-envios-e-entregas', [PageController::class, 'shippingPolicy'])->name('shipping-policy');
+Route::get('/trocas-devolucoes-reembolsos', [PageController::class, 'returnsPolicy'])->name('returns-policy');
+Route::get('/termos-e-condicoes', [PageController::class, 'terms'])->name('terms');
+Route::get('/politica-de-privacidade', [PageController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('/personalizacao', [PageController::class, 'personalization'])->name('personalization');
+Route::get('/suporte', [PageController::class, 'support'])->name('support');
 Route::post('/contact', [QuoteController::class, 'store'])->name('contact.submit');
 Route::get('/pedir-orcamento', [PageController::class, 'quote'])->name('quote');
 Route::get('/procurar', [PageController::class, 'search'])->name('search');

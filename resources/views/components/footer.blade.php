@@ -177,12 +177,13 @@
                 <h5 class="ep-footer-col-title">Links rápidos</h5>
                 <a class="ep-quick-link" href="{{ route('about') }}"><i class="bi bi-chevron-right"></i> Sobre nós</a>
                 <a class="ep-quick-link" href="{{ route('product') }}"><i class="bi bi-chevron-right"></i> Nossos produtos</a>
-                <a class="ep-quick-link" href="{{ route('contact') }}"><i class="bi bi-chevron-right"></i> Personalização</a>
+                <a class="ep-quick-link" href="{{ route('personalization') }}"><i class="bi bi-chevron-right"></i> Personalização</a>
                 <a class="ep-quick-link" href="{{ route('contact') }}"><i class="bi bi-chevron-right"></i> Contato</a>
-                <a class="ep-quick-link" href="#"><i class="bi bi-chevron-right"></i> Termos e condições</a>
-                <a class="ep-quick-link" href="#"><i class="bi bi-chevron-right"></i> Política de privacidade</a>
-                <a class="ep-quick-link" href="#"><i class="bi bi-chevron-right"></i> Trocas e devoluções</a>
-                <a class="ep-quick-link" href="{{ route('contact') }}"><i class="bi bi-chevron-right"></i> Suporte</a>
+                <a class="ep-quick-link" href="{{ route('terms') }}"><i class="bi bi-chevron-right"></i> Termos e condições</a>
+                <a class="ep-quick-link" href="{{ route('privacy-policy') }}"><i class="bi bi-chevron-right"></i> Política de privacidade</a>
+                <a class="ep-quick-link" href="{{ route('returns-policy') }}"><i class="bi bi-chevron-right"></i> Trocas e devoluções</a>
+                <a class="ep-quick-link" href="{{ route('shipping-policy') }}"><i class="bi bi-chevron-right"></i> Política de envios e entregas</a>
+                <a class="ep-quick-link" href="{{ route('support') }}"><i class="bi bi-chevron-right"></i> Suporte</a>
             </div>
 
             {{-- Col 3: Atendimento --}}
@@ -289,11 +290,11 @@
     <div class="container ep-footer-copyright">
         <span>© {{ date('Y') }} <a href="{{ route('home') }}">Essencial Pro</a>. Todos os direitos reservados.</span>
         <div class="ep-footer-copyright-links">
-            <a href="#">Política de Privacidade</a>
+            <a href="{{ route('privacy-policy') }}">Política de Privacidade</a>
             <span>|</span>
-            <a href="#">Termos e Condições</a>
+            <a href="{{ route('terms') }}">Termos e Condições</a>
             <span>|</span>
-            <a href="#">Trocas e Devoluções</a>
+            <a href="{{ route('returns-policy') }}">Trocas e Devoluções</a>
         </div>
         <span>Desenvolvido com <i class="bi bi-heart-fill ep-heart"></i> para sua segurança.</span>
     </div>

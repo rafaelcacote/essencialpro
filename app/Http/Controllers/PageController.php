@@ -40,6 +40,36 @@ class PageController extends Controller
         return view('pages.contact');
     }
 
+    public function shippingPolicy()
+    {
+        return view('pages.shipping-policy');
+    }
+
+    public function returnsPolicy()
+    {
+        return view('pages.returns-policy');
+    }
+
+    public function terms()
+    {
+        return view('pages.terms');
+    }
+
+    public function privacyPolicy()
+    {
+        return view('pages.privacy-policy');
+    }
+
+    public function personalization()
+    {
+        return view('pages.personalization');
+    }
+
+    public function support()
+    {
+        return view('pages.support');
+    }
+
     public function project()
     {
         return view('pages.project');
