@@ -103,7 +103,8 @@
         line-height: 1.75;
         margin-bottom: 0.85rem;
     }
-    .ep-shipping-section p:last-child {
+    .ep-shipping-section p:last-child,
+    .ep-shipping-section ul:last-child {
         margin-bottom: 0;
     }
     .ep-shipping-badge {
@@ -212,18 +213,18 @@
         <div class="ep-shipping-highlights wow fadeInUp" data-wow-delay="0.2s">
             <div class="ep-shipping-highlight">
                 <div class="ep-shipping-highlight-icon"><i class="bi bi-clock-history"></i></div>
-                <strong>7 a 10 dias úteis</strong>
-                <span>Prazo estimado após confirmação do pagamento</span>
+                <strong>Prazo de Entrega</strong>
+                <span>7 a 10 dias úteis após confirmação do pagamento</span>
             </div>
             <div class="ep-shipping-highlight">
                 <div class="ep-shipping-highlight-icon"><i class="bi bi-truck"></i></div>
                 <strong>Transportadora GLS</strong>
-                <span>Serviço fiável com rastreamento sempre que disponível</span>
+                <span>Entrega fiável com rastreamento sempre que disponível</span>
             </div>
             <div class="ep-shipping-highlight">
-                <div class="ep-shipping-highlight-icon"><i class="bi bi-gift"></i></div>
-                <strong>Portes gratuitos</strong>
-                <span>Em encomendas de valor igual ou superior a 80,00 €</span>
+                <div class="ep-shipping-highlight-icon"><i class="bi bi-tag"></i></div>
+                <strong>Custos de Envio</strong>
+                <span>Calculados e apresentados antes da confirmação da compra</span>
             </div>
         </div>
 
@@ -231,42 +232,79 @@
             <div class="col-lg-10">
                 <div class="ep-shipping-section wow fadeInUp" data-wow-delay="0.25s">
                     <div class="ep-shipping-section-header">
-                        <div class="ep-shipping-section-icon"><i class="bi bi-box-seam"></i></div>
-                        <h2>Entregas</h2>
+                        <div class="ep-shipping-section-icon"><i class="bi bi-clock-history"></i></div>
+                        <h2>Prazo de Entrega</h2>
                     </div>
                     <p>
                         O prazo estimado de entrega é de <strong>7 a 10 dias úteis</strong> após a confirmação do pagamento.
-                        Em situações excecionais, este prazo poderá sofrer alterações, sendo o cliente devidamente informado.
                     </p>
+                    <p>
+                        Em situações excecionais, nomeadamente devido a fatores logísticos, disponibilidade de stock ou outros
+                        motivos alheios à Essencial Pro, este prazo poderá sofrer alterações, sendo o cliente devidamente informado.
+                    </p>
+                </div>
+
+                <div class="ep-shipping-section wow fadeInUp" data-wow-delay="0.28s">
+                    <div class="ep-shipping-section-header">
+                        <div class="ep-shipping-section-icon"><i class="bi bi-truck"></i></div>
+                        <h2>Transportadora GLS</h2>
+                    </div>
                     <p>
                         As encomendas são expedidas através da <strong>GLS</strong>, garantindo um serviço de entrega fiável
-                        e acompanhado sempre que disponível.
+                        e com rastreamento sempre que disponível.
                     </p>
                 </div>
 
-                <div class="ep-shipping-section wow fadeInUp" data-wow-delay="0.3s">
+                <div class="ep-shipping-section wow fadeInUp" data-wow-delay="0.31s">
                     <div class="ep-shipping-section-header">
-                        <div class="ep-shipping-section-icon"><i class="bi bi-geo-alt"></i></div>
-                        <h2>Entregas em Portugal Continental</h2>
-                    </div>
-                    <div class="ep-shipping-badge">
-                        <i class="bi bi-check-circle-fill"></i>
-                        Portes gratuitos em encomendas de valor igual ou superior a 80,00 €
-                    </div>
-                </div>
-
-                <div class="ep-shipping-section wow fadeInUp" data-wow-delay="0.35s">
-                    <div class="ep-shipping-section-header">
-                        <div class="ep-shipping-section-icon"><i class="bi bi-globe-europe-africa"></i></div>
-                        <h2>Entregas para a Europa</h2>
+                        <div class="ep-shipping-section-icon"><i class="bi bi-cash-coin"></i></div>
+                        <h2>Custos de Envio</h2>
                     </div>
                     <p>
-                        Efetuamos envios para diversos países da União Europeia. Os custos de envio e o prazo de entrega
-                        variam consoante o país de destino e serão apresentados durante o processo de compra.
+                        Os custos de envio variam consoante o destino da encomenda e são apresentados de forma clara
+                        antes da confirmação da compra.
+                    </p>
+                </div>
+
+                <div class="ep-shipping-section wow fadeInUp" data-wow-delay="0.34s">
+                    <div class="ep-shipping-section-header">
+                        <div class="ep-shipping-section-icon"><i class="bi bi-geo-alt"></i></div>
+                        <h2>Portugal Continental</h2>
+                    </div>
+                    <ul class="ep-shipping-list">
+                        <li>
+                            <i class="bi bi-check2-circle"></i>
+                            <span><strong>5,90 € + IVA</strong> para encomendas de valor inferior a 80,00 €.</span>
+                        </li>
+                        <li>
+                            <i class="bi bi-check2-circle"></i>
+                            <span>Portes gratuitos em encomendas de valor igual ou superior a <strong>80,00 €</strong> (válido exclusivamente para Portugal Continental).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ep-shipping-section wow fadeInUp" data-wow-delay="0.37s">
+                    <div class="ep-shipping-section-header">
+                        <div class="ep-shipping-section-icon"><i class="bi bi-water"></i></div>
+                        <h2>Madeira e Açores</h2>
+                    </div>
+                    <p>
+                        Os custos de envio são calculados de acordo com o destino da encomenda e apresentados durante o processo de compra.
                     </p>
                 </div>
 
                 <div class="ep-shipping-section wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="ep-shipping-section-header">
+                        <div class="ep-shipping-section-icon"><i class="bi bi-globe-europe-africa"></i></div>
+                        <h2>Espanha e Restantes Países da União Europeia</h2>
+                    </div>
+                    <p>
+                        Efetuamos envios para diversos países da União Europeia. Os custos de envio variam consoante o país de destino
+                        e serão calculados automaticamente, sendo apresentados antes da confirmação da encomenda.
+                    </p>
+                </div>
+
+                <div class="ep-shipping-section wow fadeInUp" data-wow-delay="0.43s">
                     <div class="ep-shipping-section-header">
                         <div class="ep-shipping-section-icon"><i class="bi bi-info-circle"></i></div>
                         <h2>Informações de Entrega</h2>
@@ -292,9 +330,12 @@
                     </p>
                 </div>
 
-                <div class="ep-shipping-contact wow fadeInUp" data-wow-delay="0.45s">
+                <div class="ep-shipping-contact wow fadeInUp" data-wow-delay="0.48s">
                     <h3>Precisa de ajuda com a sua encomenda?</h3>
-                    <p>Contacte-nos e teremos todo o gosto em ajudar.</p>
+                    <p>
+                        Se tiver alguma dúvida sobre a sua encomenda ou necessitar de apoio, contacte-nos através do e-mail abaixo.
+                        A nossa equipa terá todo o gosto em ajudar.
+                    </p>
                     <a href="mailto:essencialprotection@gmail.com">
                         <i class="bi bi-envelope-fill"></i>
                         essencialprotection@gmail.com

@@ -302,8 +302,8 @@
             </div>
             <div class="ep-terms-highlight">
                 <div class="ep-terms-highlight-icon"><i class="bi bi-percent"></i></div>
-                <strong>IVA incluído</strong>
-                <span>Preços com IVA à taxa legal em vigor</span>
+                <strong>Preços sem IVA</strong>
+                <span>IVA discriminado antes da confirmação da encomenda</span>
             </div>
             <div class="ep-terms-highlight">
                 <div class="ep-terms-highlight-icon"><i class="bi bi-lock"></i></div>
@@ -370,7 +370,15 @@
                         <h2>Preços</h2>
                     </div>
                     <p>
-                        Todos os preços apresentados incluem IVA à taxa legal em vigor, salvo indicação em contrário.
+                        Os preços apresentados no website da Essencial Pro são indicados <em>sem IVA</em>, salvo indicação expressa em contrário.
+                    </p>
+                    <p>
+                        O IVA será aplicado à taxa legal em vigor e apresentado de forma discriminada durante o processo de compra,
+                        antes da confirmação da encomenda.
+                    </p>
+                    <p>
+                        A Essencial Pro reserva-se o direito de alterar os preços dos produtos a qualquer momento, sem aviso prévio.
+                        No entanto, as alterações de preço não afetarão encomendas já confirmadas e pagas pelo cliente.
                     </p>
                 </div>
 
