@@ -1,23 +1,24 @@
 @extends('layouts.admin')
 
 @section('title', 'Admin - Editar Produto')
+@section('page_title', 'Editar Produto')
 
 @section('content')
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <div>
-            <h3 class="mb-1">Editar Produto</h3>
-            <div class="text-muted">
-                Página pública: <a href="{{ url('/product/' . $product->slug) }}" target="_blank">{{ url('/product/' . $product->slug) }}</a>
-            </div>
-        </div>
-        <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">Voltar</a>
-    </div>
+    @include('admin.partials.page-header', [
+        'title' => 'Editar Produto',
+        'meta' => 'Página pública: <a href="' . url('/product/' . $product->slug) . '" target="_blank">' . url('/product/' . $product->slug) . '</a>',
+        'actions' => '<a href="' . route('admin.products.index') . '" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Voltar</a>',
+    ])
 
     <form method="POST" action="{{ route('admin.products.update', $product) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         @include('admin.products.partials.form', ['product' => $product])
-        <button class="btn btn-primary" type="submit">Salvar alterações</button>
+        <div class="admin-form-actions">
+            <button class="btn btn-primary" type="submit">
+                <i class="bi bi-check-lg"></i> Salvar alterações
+            </button>
+            <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
     </form>
 @endsection
-

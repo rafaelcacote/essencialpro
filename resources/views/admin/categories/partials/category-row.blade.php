@@ -1,36 +1,47 @@
 <tr>
     <td>
         @if ($level > 0)
-            <span class="text-muted">{{ str_repeat('— ', $level) }}</span>
+            <span class="text-muted" style="opacity: 0.5;">{{ str_repeat('└ ', $level) }}</span>
         @endif
-        <strong>{{ $category->name }}</strong>
+        <span class="fw-semibold">{{ $category->name }}</span>
     </td>
     <td><code>{{ $category->slug }}</code></td>
     <td>
         @if ($category->parent)
-            <span class="badge bg-info">{{ $category->parent->name }}</span>
+            <span class="admin-badge admin-badge--info">{{ $category->parent->name }}</span>
         @else
             <span class="text-muted">—</span>
         @endif
     </td>
     <td>
-        <span class="badge bg-secondary">{{ $category->products_count }}</span>
+        <span class="admin-badge admin-badge--secondary">{{ $category->products_count }}</span>
     </td>
-    <td>{{ $category->sort_order }}</td>
+    <td class="text-muted">{{ $category->sort_order }}</td>
     <td>
         @if ($category->is_active)
-            <span class="badge bg-success">Ativo</span>
+            <span class="admin-badge admin-badge--success">Ativo</span>
         @else
-            <span class="badge bg-secondary">Inativo</span>
+            <span class="admin-badge admin-badge--secondary">Inativo</span>
         @endif
     </td>
     <td class="text-end">
-        <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.categories.edit', $category) }}">Editar</a>
-        <form class="d-inline" method="POST" action="{{ route('admin.categories.destroy', $category) }}" onsubmit="return confirm('Remover esta categoria?');">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-sm btn-outline-danger" type="submit">Excluir</button>
-        </form>
+        <div class="admin-actions">
+            <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.categories.edit', $category) }}">
+                <i class="bi bi-pencil"></i> Editar
+            </a>
+            <form method="POST"
+                  action="{{ route('admin.categories.destroy', $category) }}"
+                  class="admin-delete-form"
+                  data-confirm-title="Excluir categoria"
+                  data-confirm-message="Tem certeza que deseja remover esta categoria?"
+                  data-confirm-item="{{ $category->name }}">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-sm btn-outline-danger admin-btn-icon" type="submit" title="Excluir">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </form>
+        </div>
     </td>
 </tr>
 @foreach ($category->activeChildren->sortBy('sort_order') as $child)

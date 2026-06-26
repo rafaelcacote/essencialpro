@@ -3,29 +3,51 @@
 @section('title', 'Recuperar Senha - Essencial Pro')
 
 @section('content')
-    <div class="w-100" style="max-width: 420px;">
-        <div class="card shadow-sm border-0">
-            <div class="card-body p-4 p-md-5">
-                <h1 class="h4 text-center mb-3 fw-bold">Recuperar senha</h1>
-                <p class="text-muted small text-center mb-4">Informe seu email para receber o link de redefinição.</p>
-                <form method="POST" action="{{ route('password.email') }}">
-                    @csrf
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
-                        @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+    <div class="auth-card">
+        <div class="auth-card-body">
+            <h1 class="auth-heading">Recuperar senha</h1>
+            <p class="auth-subheading">Informe seu email para receber o link de redefinição</p>
+
+            <form method="POST" action="{{ route('password.email') }}" novalidate>
+                @csrf
+
+                <div class="mb-3">
+                    <label class="auth-field-label" for="email">Email</label>
+                    <div class="auth-input-wrap">
+                        <i class="bi bi-envelope auth-input-icon" aria-hidden="true"></i>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            class="form-control @error('email') is-invalid @enderror"
+                            value="{{ old('email') }}"
+                            placeholder="seu@email.com"
+                            required
+                            autocomplete="email"
+                        >
                     </div>
-                    <button class="btn btn-primary w-100" type="submit">Enviar link</button>
-                </form>
-                <div class="mt-3 text-center small">
-                    <a href="{{ route('login') }}">Voltar ao login</a>
+                    @error('email')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
-            </div>
+
+                <button class="btn btn-primary auth-submit-btn w-100" type="submit">
+                    Enviar link
+                </button>
+            </form>
+
+            <div class="auth-divider">ou</div>
+
+            <p class="auth-footer-link mb-0">
+                Lembrou a senha? <a href="{{ route('login') }}">Voltar ao login</a>
+            </p>
         </div>
-        <p class="text-center mt-4 mb-0">
-            <a href="{{ route('home') }}" class="text-muted small text-decoration-none">← Voltar ao site</a>
-        </p>
+    </div>
+
+    <div class="auth-back-wrap">
+        <a href="{{ route('home') }}" class="auth-back-link">
+            <i class="bi bi-arrow-left" aria-hidden="true"></i>
+            Voltar ao site
+        </a>
     </div>
 @endsection

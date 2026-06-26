@@ -1,49 +1,50 @@
 @extends('layouts.admin')
 
 @section('title', 'Admin - Produtos')
+@section('page_title', 'Produtos')
+@section('page_subtitle', 'Gerenciar catálogo de produtos')
 
 @section('content')
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <div>
-            <h3 class="mb-0">Produtos</h3>
-            @if ($products->total() > 0)
-                <small class="text-muted">
-                    Mostrando {{ $products->firstItem() }} a {{ $products->lastItem() }} de {{ $products->total() }} produtos
-                </small>
-            @endif
-        </div>
-        <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
-            <i class="fa fa-plus me-1"></i> Novo produto
-        </a>
-    </div>
+    @php
+        $subtitle = $products->total() > 0
+            ? 'Mostrando ' . $products->firstItem() . ' a ' . $products->lastItem() . ' de ' . $products->total() . ' produtos'
+            : 'Nenhum produto cadastrado';
+        $actions = '<a href="' . route('admin.products.create') . '" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Novo produto</a>';
+    @endphp
 
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
+    @include('admin.partials.page-header', [
+        'title' => 'Produtos',
+        'subtitle' => $subtitle,
+        'actions' => $actions,
+    ])
+
+    <div class="admin-card admin-filter-bar">
+        <div class="admin-card-body">
             <form method="GET" action="{{ route('admin.products.index') }}" class="row g-3 align-items-end">
                 <div class="col-md-4">
-                    <label class="form-label small text-muted">Buscar</label>
+                    <label class="form-label">Buscar</label>
                     <input type="text" name="q" class="form-control" placeholder="Título, código ou slug..." value="{{ request('q') }}">
                 </div>
                 <div class="col-md-3">
-                    <label class="form-label small text-muted">Categoria</label>
+                    <label class="form-label">Categoria</label>
                     <select name="category_id" class="form-select">
-                        <option value="">— Todas —</option>
+                        <option value="">Todas as categorias</option>
                         @foreach ($categories as $cat)
                             <option value="{{ $cat->id }}" @selected(request('category_id') == $cat->id)>{{ $cat->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label class="form-label small text-muted">Status</label>
+                    <label class="form-label">Status</label>
                     <select name="status" class="form-select">
-                        <option value="">— Todos —</option>
+                        <option value="">Todos</option>
                         <option value="active" @selected(request('status') === 'active')>Ativos</option>
                         <option value="inactive" @selected(request('status') === 'inactive')>Inativos</option>
                     </select>
                 </div>
                 <div class="col-md-3 d-flex gap-2">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-search me-1"></i> Filtrar
+                        <i class="bi bi-search"></i> Filtrar
                     </button>
                     <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">Limpar</a>
                 </div>
@@ -51,17 +52,17 @@
         </div>
     </div>
 
-    <div class="card shadow-sm">
-        <div class="table-responsive">
-            <table class="table table-striped mb-0">
-                <thead class="table-dark">
+    <div class="admin-card">
+        <div class="admin-table-wrap">
+            <table class="admin-table">
+                <thead>
                     <tr>
-                        <th style="width: 80px;">Imagem</th>
+                        <th style="width: 70px;">Imagem</th>
                         <th>Título</th>
                         <th>Código</th>
                         <th>Slug</th>
                         <th>Status</th>
-                        <th style="width: 180px;"></th>
+                        <th style="width: 120px;"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -69,40 +70,49 @@
                         <tr>
                             <td>
                                 @if ($product->cover_image_url)
-                                    <img src="{{ $product->cover_image_url }}" alt="{{ $product->title }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                    <img src="{{ $product->cover_image_url }}" alt="{{ $product->title }}" class="admin-table-img">
                                 @else
-                                    <div class="bg-light d-flex align-items-center justify-content-center" style="width: 60px; height: 60px; border-radius: 4px;">
-                                        <i class="fa fa-image text-muted"></i>
+                                    <div class="admin-table-img-placeholder">
+                                        <i class="bi bi-image"></i>
                                     </div>
                                 @endif
                             </td>
-                            <td class="fw-medium">{{ $product->title }}</td>
-                            <td>{{ $product->code ?? '—' }}</td>
+                            <td><span class="fw-semibold">{{ $product->title }}</span></td>
+                            <td class="text-muted">{{ $product->code ?? '—' }}</td>
                             <td><code>{{ $product->slug }}</code></td>
                             <td>
                                 @if ($product->is_active)
-                                    <span class="badge bg-success">Ativo</span>
+                                    <span class="admin-badge admin-badge--success"><i class="bi bi-check-circle"></i> Ativo</span>
                                 @else
-                                    <span class="badge bg-secondary">Inativo</span>
+                                    <span class="admin-badge admin-badge--secondary">Inativo</span>
                                 @endif
                             </td>
                             <td class="text-end">
-                                <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.products.edit', $product) }}" title="Editar">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <form class="d-inline" method="POST" action="{{ route('admin.products.destroy', $product) }}" onsubmit="return confirm('Remover este produto?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-outline-danger" type="submit" title="Excluir">
-                                        <i class="fa fa-trash"></i>
-                                    </button>
-                                </form>
+                                <div class="admin-actions">
+                                    <a class="btn btn-sm btn-outline-primary admin-btn-icon" href="{{ route('admin.products.edit', $product) }}" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <form method="POST"
+                                          action="{{ route('admin.products.destroy', $product) }}"
+                                          class="admin-delete-form"
+                                          data-confirm-title="Excluir produto"
+                                          data-confirm-message="Tem certeza que deseja remover este produto do catálogo?"
+                                          data-confirm-item="{{ $product->title }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-outline-danger admin-btn-icon" type="submit" title="Excluir">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center py-4 text-muted">
-                                Nenhum produto cadastrado ainda.
+                            <td colspan="6" class="admin-table-empty">
+                                <i class="bi bi-bag"></i>
+                                <div class="fw-semibold mb-1">Nenhum produto cadastrado</div>
+                                <div class="small">Comece adicionando seu primeiro produto ao catálogo.</div>
                             </td>
                         </tr>
                     @endforelse
@@ -112,9 +122,8 @@
     </div>
 
     @if ($products->hasPages())
-        <div class="mt-3 d-flex justify-content-center">
+        <div class="admin-pagination">
             {{ $products->links() }}
         </div>
     @endif
 @endsection
-

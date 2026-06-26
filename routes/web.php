@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminQuoteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\EasypayWebhookController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -49,9 +50,15 @@ Route::patch('/cart/items/{item}', [CartController::class, 'update'])->name('car
 Route::delete('/cart/items/{item}', [CartController::class, 'destroy'])->name('cart.items.destroy');
 Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
 
+// Webhook do easypay — sem autenticação nem CSRF (excluído em bootstrap/app.php)
+Route::post('/webhook/easypay', [EasypayWebhookController::class, 'handle'])->name('webhook.easypay');
+
 Route::middleware('auth')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/checkout/pagamento/retorno/{order}', [CheckoutController::class, 'paymentReturn'])->name('checkout.payment.return');
+    Route::get('/checkout/pagamento/falha/{order}', [CheckoutController::class, 'paymentFailure'])->name('checkout.payment.failure');
+    Route::get('/checkout/pagamento/cancelado/{order}', [CheckoutController::class, 'paymentCancel'])->name('checkout.payment.cancel');
     Route::get('/checkout/success/{order}', [CheckoutController::class, 'success'])->name('checkout.success');
 
     Route::get('/minha-conta', [AccountController::class, 'dashboard'])->name('dashboard');

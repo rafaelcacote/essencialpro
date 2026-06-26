@@ -62,21 +62,13 @@
     }
 @endphp
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <div class="fw-bold mb-1">Corrija os campos abaixo:</div>
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 <div class="row g-4">
     <div class="col-lg-8">
-        <div class="card shadow-sm">
-            <div class="card-body">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h2 class="admin-card-title"><i class="bi bi-info-circle me-2"></i> Informações do produto</h2>
+            </div>
+            <div class="admin-card-body">
                 <div class="row g-3">
                     <div class="col-md-8">
                         <label class="form-label">Título</label>
@@ -236,9 +228,11 @@
         </div>
 
         @if ($product)
-            <div class="card shadow-sm mt-4">
-                <div class="card-body">
-                    <h5 class="mb-3">Imagens atuais</h5>
+            <div class="admin-card mt-4">
+                <div class="admin-card-header">
+                    <h2 class="admin-card-title"><i class="bi bi-images me-2"></i> Imagens atuais</h2>
+                </div>
+                <div class="admin-card-body">
                     @if ($product->images->isEmpty())
                         <div class="text-muted">Nenhuma imagem cadastrada ainda.</div>
                     @else
@@ -275,9 +269,11 @@
     </div>
 
     <div class="col-lg-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="mb-3">Publicação</h5>
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h2 class="admin-card-title"><i class="bi bi-toggle-on me-2"></i> Publicação</h2>
+            </div>
+            <div class="admin-card-body">
                 <div class="form-check form-switch mb-3">
                     <input class="form-check-input" type="checkbox" name="is_active" value="1" id="is_active"
                         @checked(old('is_active', $product?->is_active ?? true))>

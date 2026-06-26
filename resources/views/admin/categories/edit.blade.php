@@ -1,17 +1,24 @@
 @extends('layouts.admin')
 
 @section('title', 'Admin - Editar Categoria')
+@section('page_title', 'Editar Categoria')
 
 @section('content')
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <h3 class="mb-0">Editar Categoria</h3>
-        <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary">Voltar</a>
-    </div>
+    @include('admin.partials.page-header', [
+        'title' => 'Editar Categoria',
+        'subtitle' => $category->name,
+        'actions' => '<a href="' . route('admin.categories.index') . '" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Voltar</a>',
+    ])
 
     <form method="POST" action="{{ route('admin.categories.update', $category) }}">
         @csrf
         @method('PUT')
         @include('admin.categories.partials.form', ['category' => $category])
-        <button class="btn btn-primary" type="submit">Salvar</button>
+        <div class="admin-form-actions">
+            <button class="btn btn-primary" type="submit">
+                <i class="bi bi-check-lg"></i> Salvar alterações
+            </button>
+            <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
     </form>
 @endsection

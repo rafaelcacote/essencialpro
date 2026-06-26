@@ -1,16 +1,24 @@
 @extends('layouts.admin')
 
 @section('title', 'Admin - Nova Categoria')
+@section('page_title', 'Nova Categoria')
+@section('page_subtitle', 'Criar categoria no catálogo')
 
 @section('content')
-    <div class="d-flex align-items-center justify-content-between mb-3">
-        <h3 class="mb-0">Nova Categoria</h3>
-        <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary">Voltar</a>
-    </div>
+    @include('admin.partials.page-header', [
+        'title' => 'Nova Categoria',
+        'subtitle' => 'Organize seus produtos em categorias',
+        'actions' => '<a href="' . route('admin.categories.index') . '" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Voltar</a>',
+    ])
 
     <form method="POST" action="{{ route('admin.categories.store') }}">
         @csrf
         @include('admin.categories.partials.form', ['category' => null])
-        <button class="btn btn-primary" type="submit">Salvar</button>
+        <div class="admin-form-actions">
+            <button class="btn btn-primary" type="submit">
+                <i class="bi bi-check-lg"></i> Salvar categoria
+            </button>
+            <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+        </div>
     </form>
 @endsection

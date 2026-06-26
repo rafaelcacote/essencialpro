@@ -1,16 +1,8 @@
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <div class="fw-bold mb-1">Corrija os campos abaixo:</div>
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+<div class="admin-card">
+    <div class="admin-card-header">
+        <h2 class="admin-card-title"><i class="bi bi-folder me-2"></i> Dados da categoria</h2>
     </div>
-@endif
-
-<div class="card shadow-sm">
-    <div class="card-body">
+    <div class="admin-card-body">
         <div class="row g-3">
             <div class="col-md-8">
                 <label class="form-label">Nome da Categoria</label>

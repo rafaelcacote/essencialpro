@@ -27,7 +27,19 @@ class Order extends Model
         'discount_total',
         'grand_total',
         'status',
+        'payment_id',
+        'payment_method',
+        'payment_status',
+        'easypay_checkout_id',
+        'paid_at',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'paid_at' => 'datetime',
+        ];
+    }
 
     public function user(): BelongsTo
     {

@@ -1,164 +1,169 @@
 @extends('layouts.admin')
 
 @section('title', 'Admin - Dashboard')
+@section('page_title', 'Dashboard')
+@section('page_subtitle', 'Visão geral do site')
 
 @section('content')
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <div>
-            <h3 class="mb-1">Dashboard</h3>
-            <div class="text-muted">Visão geral do site</div>
-        </div>
-        <a class="btn btn-outline-primary" href="{{ route('home') }}" target="_blank">
-            <i class="bi bi-box-arrow-up-right me-1"></i> Ver site
-        </a>
-    </div>
+    @include('admin.partials.page-header', [
+        'title' => 'Bem-vindo ao painel',
+        'subtitle' => 'Acompanhe produtos, orçamentos e pedidos em tempo real',
+        'actions' => '<a class="btn btn-outline-primary btn-sm" href="' . route('home') . '" target="_blank"><i class="bi bi-box-arrow-up-right"></i> Ver site</a>',
+    ])
 
-    <div class="row g-3">
-        <div class="col-md-6 col-xl-3">
-            <div class="card admin-stat-card shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <div class="text-muted small">Produtos cadastrados</div>
-                            <div class="display-6 fw-bold mb-0">{{ $totalProducts }}</div>
-                        </div>
-                        <div class="admin-stat-icon bg-primary text-white">
-                            <i class="bi bi-bag"></i>
-                        </div>
-                    </div>
-                    <div class="mt-2 text-muted small">Ativos: {{ $activeProducts }}</div>
+    <div class="admin-stat-grid">
+        <div class="admin-stat-card admin-stat-card--primary">
+            <div class="admin-stat-card__top">
+                <div>
+                    <div class="admin-stat-label">Produtos</div>
+                    <div class="admin-stat-value">{{ $totalProducts }}</div>
                 </div>
+                <div class="admin-stat-icon admin-stat-icon--primary">
+                    <i class="bi bi-bag"></i>
+                </div>
+            </div>
+            <div class="admin-stat-footer">
+                <strong>{{ $activeProducts }}</strong> ativos no catálogo
             </div>
         </div>
 
-        <div class="col-md-6 col-xl-3">
-            <div class="card admin-stat-card shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <div class="text-muted small">Destaques (home)</div>
-                            <div class="display-6 fw-bold mb-0">{{ $featuredProducts }}</div>
-                        </div>
-                        <div class="admin-stat-icon bg-warning text-dark">
-                            <i class="bi bi-stars"></i>
-                        </div>
-                    </div>
-                    <div class="mt-2 text-muted small">Produtos marcados como destaque</div>
+        <div class="admin-stat-card admin-stat-card--warning">
+            <div class="admin-stat-card__top">
+                <div>
+                    <div class="admin-stat-label">Destaques</div>
+                    <div class="admin-stat-value">{{ $featuredProducts }}</div>
                 </div>
+                <div class="admin-stat-icon admin-stat-icon--warning">
+                    <i class="bi bi-stars"></i>
+                </div>
+            </div>
+            <div class="admin-stat-footer">
+                Produtos em destaque na home
             </div>
         </div>
 
-        <div class="col-md-6 col-xl-3">
-            <div class="card admin-stat-card shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <div class="text-muted small">Orçamentos</div>
-                            <div class="display-6 fw-bold mb-0">{{ $totalQuotes }}</div>
-                        </div>
-                        <div class="admin-stat-icon bg-dark text-white">
-                            <i class="bi bi-chat-dots"></i>
-                        </div>
-                    </div>
-                    <div class="mt-2 text-muted small">Pendentes: {{ $pendingQuotes }}</div>
+        <div class="admin-stat-card admin-stat-card--dark">
+            <div class="admin-stat-card__top">
+                <div>
+                    <div class="admin-stat-label">Orçamentos</div>
+                    <div class="admin-stat-value">{{ $totalQuotes }}</div>
                 </div>
+                <div class="admin-stat-icon admin-stat-icon--dark">
+                    <i class="bi bi-chat-dots"></i>
+                </div>
+            </div>
+            <div class="admin-stat-footer">
+                <strong>{{ $pendingQuotes }}</strong> aguardando resposta
             </div>
         </div>
 
-        <div class="col-md-6 col-xl-3">
-            <div class="card admin-stat-card shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <div class="text-muted small">Pedidos</div>
-                            <div class="display-6 fw-bold mb-0">{{ $totalOrders }}</div>
-                        </div>
-                        <div class="admin-stat-icon bg-success text-white">
-                            <i class="bi bi-receipt"></i>
-                        </div>
-                    </div>
-                    <div class="mt-2 text-muted small">Pendentes: {{ $pendingOrders }}</div>
+        <div class="admin-stat-card admin-stat-card--success">
+            <div class="admin-stat-card__top">
+                <div>
+                    <div class="admin-stat-label">Pedidos</div>
+                    <div class="admin-stat-value">{{ $totalOrders }}</div>
                 </div>
+                <div class="admin-stat-icon admin-stat-icon--success">
+                    <i class="bi bi-receipt"></i>
+                </div>
+            </div>
+            <div class="admin-stat-footer">
+                <strong>{{ $pendingOrders }}</strong> pendentes
             </div>
         </div>
     </div>
 
-    <div class="row g-4 mt-1">
+    <div class="row g-4">
         <div class="col-lg-7">
-            <div class="card shadow-sm">
-                <div class="card-header bg-white d-flex align-items-center justify-content-between">
-                    <div class="fw-bold">Mensagens novas (orçamentos pendentes)</div>
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h2 class="admin-card-title">
+                        <i class="bi bi-envelope me-2 text-primary"></i>
+                        Orçamentos pendentes
+                    </h2>
                     <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.quotes.index', ['status' => 'pending']) }}">
                         Ver todos
                     </a>
                 </div>
-                <div class="card-body">
-                    @if ($latestPendingQuotes->isEmpty())
-                        <div class="text-muted">Nenhuma mensagem nova.</div>
-                    @else
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
+                @if ($latestPendingQuotes->isEmpty())
+                    <div class="admin-empty">
+                        <div class="admin-empty__icon"><i class="bi bi-inbox"></i></div>
+                        <div class="admin-empty__title">Nenhuma mensagem nova</div>
+                        <p class="admin-empty__text">Os orçamentos pendentes aparecerão aqui.</p>
+                    </div>
+                @else
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cliente</th>
+                                    <th>Email</th>
+                                    <th>Data</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($latestPendingQuotes as $q)
                                     <tr>
-                                        <th>#</th>
-                                        <th>Cliente</th>
-                                        <th>Email</th>
-                                        <th>Data</th>
-                                        <th></th>
+                                        <td><span class="text-muted">#{{ $q->id }}</span></td>
+                                        <td>
+                                            <div class="fw-semibold">{{ $q->contact_name }}</div>
+                                            @if ($q->client_type === 'company' && $q->company_name)
+                                                <div class="text-muted small">{{ $q->company_name }}</div>
+                                            @endif
+                                        </td>
+                                        <td class="text-muted">{{ $q->email }}</td>
+                                        <td class="text-muted">{{ $q->created_at?->format('d/m/Y H:i') }}</td>
+                                        <td class="text-end">
+                                            <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.quotes.show', $q) }}">
+                                                <i class="bi bi-eye"></i> Abrir
+                                            </a>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($latestPendingQuotes as $q)
-                                        <tr>
-                                            <td>{{ $q->id }}</td>
-                                            <td class="fw-medium">
-                                                {{ $q->contact_name }}
-                                                @if ($q->client_type === 'company' && $q->company_name)
-                                                    <div class="text-muted small">{{ $q->company_name }}</div>
-                                                @endif
-                                            </td>
-                                            <td>{{ $q->email }}</td>
-                                            <td class="text-muted">{{ $q->created_at?->format('d/m/Y H:i') }}</td>
-                                            <td class="text-end">
-                                                <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.quotes.show', $q) }}">Abrir</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
-                </div>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
             </div>
         </div>
 
         <div class="col-lg-5">
-            <div class="card shadow-sm">
-                <div class="card-header bg-white d-flex align-items-center justify-content-between">
-                    <div class="fw-bold">Pedidos pendentes recentes</div>
-                    <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.orders.index', ['status' => 'pending']) }}">Ver todos</a>
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h2 class="admin-card-title">
+                        <i class="bi bi-clock-history me-2 text-primary"></i>
+                        Pedidos recentes
+                    </h2>
+                    <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.orders.index', ['status' => 'pending']) }}">
+                        Ver todos
+                    </a>
                 </div>
-                <div class="card-body">
-                    @if ($latestPendingOrders->isEmpty())
-                        <div class="text-muted">Nenhum pedido pendente no momento.</div>
-                    @else
-                        <div class="list-group list-group-flush">
-                            @foreach ($latestPendingOrders as $o)
-                                <div class="list-group-item d-flex align-items-start justify-content-between">
-                                    <div>
-                                        <div class="fw-medium">{{ $o->order_number }}</div>
-                                        <div class="text-muted small">
-                                            {{ $o->contact_name }} - {{ $o->created_at?->format('d/m/Y H:i') }}
-                                        </div>
+                @if ($latestPendingOrders->isEmpty())
+                    <div class="admin-empty">
+                        <div class="admin-empty__icon"><i class="bi bi-receipt"></i></div>
+                        <div class="admin-empty__title">Nenhum pedido pendente</div>
+                        <p class="admin-empty__text">Pedidos aguardando processamento aparecerão aqui.</p>
+                    </div>
+                @else
+                    <ul class="admin-list">
+                        @foreach ($latestPendingOrders as $o)
+                            <li class="admin-list-item">
+                                <div>
+                                    <div class="admin-list-item__title">{{ $o->order_number }}</div>
+                                    <div class="admin-list-item__meta">
+                                        {{ $o->contact_name }} · {{ $o->created_at?->format('d/m/Y H:i') }}
                                     </div>
-                                    <a class="btn btn-sm btn-outline-secondary" href="{{ route('admin.orders.show', $o) }}">Abrir</a>
                                 </div>
-                            @endforeach
-                        </div>
-                    @endif
-                </div>
+                                <a class="btn btn-sm btn-outline-secondary" href="{{ route('admin.orders.show', $o) }}">
+                                    Abrir
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
         </div>
     </div>
 @endsection
-

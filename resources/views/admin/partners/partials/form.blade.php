@@ -2,21 +2,13 @@
     /** @var \App\Models\Partner|null $partner */
 @endphp
 
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <div class="fw-bold mb-1">Corrija os campos abaixo:</div>
-        <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 <div class="row g-4">
     <div class="col-lg-8">
-        <div class="card shadow-sm">
-            <div class="card-body">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h2 class="admin-card-title"><i class="bi bi-award me-2"></i> Dados do parceiro</h2>
+            </div>
+            <div class="admin-card-body">
                 <div class="row g-3">
                     <div class="col-md-8">
                         <label class="form-label">Nome</label>
@@ -53,9 +45,11 @@
     </div>
 
     <div class="col-lg-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="mb-3">Publicação</h5>
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h2 class="admin-card-title"><i class="bi bi-toggle-on me-2"></i> Publicação</h2>
+            </div>
+            <div class="admin-card-body">
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" name="is_active" value="1" id="is_active"
                         @checked(old('is_active', $partner?->is_active ?? true))>
