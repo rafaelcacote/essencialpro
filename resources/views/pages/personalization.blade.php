@@ -193,7 +193,7 @@
 @endpush
 
 @section('content')
-@include('components.page-header', ['title' => 'Personalização'])
+@include('components.page-header', ['title' => 'Personalização', 'quicklink' => true])
 
 <div class="container-xxl py-5">
     <div class="container">

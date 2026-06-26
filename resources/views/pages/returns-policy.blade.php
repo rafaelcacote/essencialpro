@@ -234,7 +234,7 @@
 @endpush
 
 @section('content')
-@include('components.page-header', ['title' => 'Trocas, Devoluções e Reembolsos'])
+@include('components.page-header', ['title' => 'Trocas, Devoluções e Reembolsos', 'quicklink' => true])
 
 <div class="container-xxl py-5">
     <div class="container">

@@ -152,7 +152,7 @@
 @endpush
 
 @section('content')
-@include('components.page-header', ['title' => 'Contactos'])
+@include('components.page-header', ['title' => 'Contactos', 'quicklink' => true])
 
 <!-- Contact Start -->
 <div class="container-xxl py-5">

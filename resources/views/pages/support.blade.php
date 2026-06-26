@@ -197,7 +197,7 @@
 @endpush
 
 @section('content')
-@include('components.page-header', ['title' => 'Suporte'])
+@include('components.page-header', ['title' => 'Suporte', 'quicklink' => true])
 
 <div class="container-xxl py-5">
     <div class="container">

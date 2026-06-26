@@ -35,7 +35,12 @@
     .ep-terms-company-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem 2rem;
+        gap: 1.5rem 2.5rem;
+    }
+    .ep-terms-company-col {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
     }
     .ep-terms-company-item {
         display: flex;
@@ -247,7 +252,7 @@
 @endpush
 
 @section('content')
-@include('components.page-header', ['title' => 'Termos e Condições'])
+@include('components.page-header', ['title' => 'Termos e Condições', 'quicklink' => true])
 
 <div class="container-xxl py-5">
     <div class="container">
@@ -261,34 +266,52 @@
         </div>
 
         <div class="ep-terms-company wow fadeInUp" data-wow-delay="0.15s">
-            <div class="ep-terms-company-title">Dados da Empresa</div>
+            <div class="ep-terms-company-title">Dados da Entidade</div>
             <div class="ep-terms-company-grid">
-                <div class="ep-terms-company-item">
-                    <i class="bi bi-building"></i>
-                    <div>
-                        <strong>NIF</strong>
-                        <span>326876715</span>
+                <div class="ep-terms-company-col">
+                    <div class="ep-terms-company-item">
+                        <i class="bi bi-person-badge"></i>
+                        <div>
+                            <strong>Titular (ENI)</strong>
+                            <span>Célio Barbosa da Silva</span>
+                        </div>
+                    </div>
+                    <div class="ep-terms-company-item">
+                        <i class="bi bi-shop"></i>
+                        <div>
+                            <strong>Nome Comercial</strong>
+                            <span>Essencial Pro</span>
+                        </div>
+                    </div>
+                    <div class="ep-terms-company-item">
+                        <i class="bi bi-geo-alt"></i>
+                        <div>
+                            <strong>Morada</strong>
+                            <span>Travessa Professora Adélia Campos, 42, Serafão, 4820-770</span>
+                        </div>
                     </div>
                 </div>
-                <div class="ep-terms-company-item">
-                    <i class="bi bi-geo-alt"></i>
-                    <div>
-                        <strong>Morada</strong>
-                        <span>Travessa Professora Adélia Campos, 42, Serafão, 4820-770</span>
+                <div class="ep-terms-company-col">
+                    <div class="ep-terms-company-item">
+                        <i class="bi bi-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <a href="mailto:essencialprotection@gmail.com">essencialprotection@gmail.com</a>
+                        </div>
                     </div>
-                </div>
-                <div class="ep-terms-company-item">
-                    <i class="bi bi-envelope"></i>
-                    <div>
-                        <strong>Email</strong>
-                        <a href="mailto:essencialprotection@gmail.com">essencialprotection@gmail.com</a>
+                    <div class="ep-terms-company-item">
+                        <i class="bi bi-card-text"></i>
+                        <div>
+                            <strong>NIF</strong>
+                            <span>326876715</span>
+                        </div>
                     </div>
-                </div>
-                <div class="ep-terms-company-item">
-                    <i class="bi bi-telephone"></i>
-                    <div>
-                        <strong>Telefone</strong>
-                        <a href="tel:+351922026198">+351 922 026 198</a>
+                    <div class="ep-terms-company-item">
+                        <i class="bi bi-telephone"></i>
+                        <div>
+                            <strong>Telefone</strong>
+                            <a href="tel:+351922026198">+351 922 026 198</a>
+                        </div>
                     </div>
                 </div>
             </div>

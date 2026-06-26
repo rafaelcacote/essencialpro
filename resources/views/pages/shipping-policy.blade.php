@@ -197,7 +197,7 @@
 @endpush
 
 @section('content')
-@include('components.page-header', ['title' => 'Política de Envios e Entregas'])
+@include('components.page-header', ['title' => 'Política de Envios e Entregas', 'quicklink' => true])
 
 <div class="container-xxl py-5">
     <div class="container">

@@ -222,17 +222,27 @@
     }
     .ep-privacy-company-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem 2.5rem;
+        text-align: left;
+    }
+    .ep-privacy-company-col {
+        display: flex;
+        flex-direction: column;
         gap: 1.25rem;
-        text-align: center;
+    }
+    .ep-privacy-company-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
     }
     .ep-privacy-company-item i {
         color: var(--primary);
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-        display: block;
+        font-size: 1.1rem;
+        margin-top: 0.15rem;
+        flex-shrink: 0;
     }
-    .ep-privacy-company-item strong {
+    .ep-privacy-company-item div strong {
         display: block;
         color: #fff;
         font-size: 0.82rem;
@@ -244,6 +254,7 @@
     .ep-privacy-company-item a {
         color: #b8c9e1;
         font-size: 0.95rem;
+        line-height: 1.5;
         text-decoration: none;
     }
     .ep-privacy-company-item a:hover {
@@ -302,7 +313,7 @@
 @endpush
 
 @section('content')
-@include('components.page-header', ['title' => 'Política de Privacidade'])
+@include('components.page-header', ['title' => 'Política de Privacidade', 'quicklink' => true])
 
 <div class="container-xxl py-5">
     <div class="container">
@@ -355,7 +366,13 @@
                         <h2>Quem é o responsável pelo tratamento dos seus dados pessoais?</h2>
                     </div>
                     <p>
-                        A Essencial Pro é a entidade responsável pelo tratamento dos dados pessoais recolhidos através deste website.
+                        O responsável pelo tratamento dos dados pessoais recolhidos através deste website é
+                        <strong>Célio Barbosa da Silva</strong>, Empresário em Nome Individual (ENI), que exerce a sua atividade
+                        sob o nome comercial <strong>Essencial Pro</strong>.
+                    </p>
+                    <p>
+                        A identificação completa da entidade encontra-se disponível no
+                        <a href="#identificacao-entidade" class="text-primary fw-semibold">final desta página</a>.
                     </p>
                 </div>
 
@@ -481,23 +498,54 @@
                     </p>
                 </div>
 
-                <div class="ep-privacy-company wow fadeInUp" data-wow-delay="0.55s">
-                    <div class="ep-privacy-company-title">Dados da Empresa — Essencial Pro</div>
+                <div class="ep-privacy-company wow fadeInUp" data-wow-delay="0.55s" id="identificacao-entidade">
+                    <div class="ep-privacy-company-title">Dados da Entidade</div>
                     <div class="ep-privacy-company-grid">
-                        <div class="ep-privacy-company-item">
-                            <i class="bi bi-building"></i>
-                            <strong>Empresa</strong>
-                            <span>Essencial Pro</span>
+                        <div class="ep-privacy-company-col">
+                            <div class="ep-privacy-company-item">
+                                <i class="bi bi-person-badge"></i>
+                                <div>
+                                    <strong>Titular (Empresário em Nome Individual - ENI)</strong>
+                                    <span>Célio Barbosa da Silva</span>
+                                </div>
+                            </div>
+                            <div class="ep-privacy-company-item">
+                                <i class="bi bi-shop"></i>
+                                <div>
+                                    <strong>Nome Comercial</strong>
+                                    <span>Essencial Pro</span>
+                                </div>
+                            </div>
+                            <div class="ep-privacy-company-item">
+                                <i class="bi bi-card-text"></i>
+                                <div>
+                                    <strong>NIF</strong>
+                                    <span>326876715</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ep-privacy-company-item">
-                            <i class="bi bi-envelope"></i>
-                            <strong>Email</strong>
-                            <a href="mailto:essencialprotection@gmail.com">essencialprotection@gmail.com</a>
-                        </div>
-                        <div class="ep-privacy-company-item">
-                            <i class="bi bi-telephone"></i>
-                            <strong>Telefone</strong>
-                            <a href="tel:+351922026198">+351 922 026 198</a>
+                        <div class="ep-privacy-company-col">
+                            <div class="ep-privacy-company-item">
+                                <i class="bi bi-geo-alt"></i>
+                                <div>
+                                    <strong>Morada</strong>
+                                    <span>Travessa Professora Adélia Campos, 42, Serafão, 4820-770</span>
+                                </div>
+                            </div>
+                            <div class="ep-privacy-company-item">
+                                <i class="bi bi-envelope"></i>
+                                <div>
+                                    <strong>E-mail</strong>
+                                    <a href="mailto:essencialprotection@gmail.com">essencialprotection@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="ep-privacy-company-item">
+                                <i class="bi bi-telephone"></i>
+                                <div>
+                                    <strong>Telefone</strong>
+                                    <a href="tel:+351922026198">+351 922 026 198</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="ep-privacy-contact-cta">

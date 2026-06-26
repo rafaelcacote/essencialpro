@@ -182,7 +182,7 @@
 @endpush
 
 @section('content')
-    @include('components.page-header', ['title' => 'Nossos Produtos'])
+    @include('components.page-header', ['title' => 'Nossos Produtos', 'quicklink' => true])
 
     <div class="ep-products-about">
         <div class="container">

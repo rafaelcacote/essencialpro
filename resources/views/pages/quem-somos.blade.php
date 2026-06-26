@@ -302,7 +302,7 @@
 @endpush
 
 @section('content')
-@include('components.page-header', ['title' => 'Sobre Nós'])
+@include('components.page-header', ['title' => 'Sobre Nós', 'quicklink' => true])
 
 <div class="container-xxl py-5">
     <div class="container">

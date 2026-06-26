@@ -757,6 +757,22 @@ h6,
     background-size: cover;
 }
 
+.page-header--quicklinks {
+    background: linear-gradient(to right, rgba(11, 28, 62, 0.82) 0%, rgba(11, 28, 62, 0.35) 45%, rgba(11, 28, 62, 0.05) 100%), url(../img/banner_links_rapidos.jpeg) center center no-repeat;
+    background-size: cover;
+}
+
+.page-header-title {
+    font-size: clamp(2.3rem, 3.5vw, 3.3rem);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+}
+
+.page-header--quicklinks .page-header-title {
+    font-size: clamp(2rem, 3vw, 2.8rem);
+}
+
 .page-header .breadcrumb-item+.breadcrumb-item::before {
     color: var(--light);
 }
