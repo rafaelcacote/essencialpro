@@ -53,7 +53,7 @@ Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
 // Webhook do easypay — sem autenticação nem CSRF (excluído em bootstrap/app.php)
 Route::post('/webhook/easypay', [EasypayWebhookController::class, 'handle'])->name('webhook.easypay');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::get('/checkout/pagamento/retorno/{order}', [CheckoutController::class, 'paymentReturn'])->name('checkout.payment.return');
