@@ -6,10 +6,12 @@ Checklist do que **ainda falta fazer** para o site ficar pronto para vender com 
 
 ---
 
-## 1. Configuração do Easypay (obrigatório)
+## 1. Configuração do Easypay (aguardando credenciais)
+
+> **Status:** aguardando resposta do Easypay. Quando receber `AccountId` e `ApiKey`, avisar para finalizar a integração.
 
 ### 1.1 Criar conta e obter credenciais
-- [ ] Criar conta no Easypay (começar pelo **Sandbox** para testes)
+- [x] Pedido/conta em andamento com o Easypay
 - [ ] Obter `AccountId` e `ApiKey` no painel do Easypay
 - [ ] Documentação: [Developers — Easypay](https://www.easypay.pt/)
 
@@ -39,29 +41,15 @@ EASYPAY_METHODS=cc,mb,mbw
 
 ---
 
-## 2. E-mail (obrigatório para cadastro)
-
-A verificação de e-mail já está ativa no `User`, mas o envio ainda depende de configuração.
+## 2. E-mail
 
 ### 2.1 Configurar SMTP no `.env`
-```env
-MAIL_MAILER=smtp
-MAIL_HOST=...
-MAIL_PORT=587
-MAIL_USERNAME=...
-MAIL_PASSWORD=...
-MAIL_ENCRYPTION=tls
-MAIL_FROM_ADDRESS=noreply@seu-dominio.pt
-MAIL_FROM_NAME="Essencial Pro"
-```
+- [x] Conta criada: `naoresponda@essencialprotection.com`
+- [x] SMTP configurado no `.env` local — Hostinger: `smtp.hostinger.com:587` (TLS)
+- [ ] Testar cadastro e recebimento do link de verificação no servidor
 
-- [ ] Configurar servidor de e-mail (Gmail, SendGrid, Mailgun, etc.)
-- [ ] Testar cadastro e recebimento do link de verificação
-
-### 2.2 Exigir e-mail verificado para comprar (recomendado)
-Hoje o checkout só exige `auth`, **não** exige e-mail verificado.
-
-- [ ] Adicionar middleware `verified` nas rotas de checkout em `routes/web.php`
+### 2.2 Exigir e-mail verificado para comprar
+- [x] Middleware `verified` aplicado nas rotas de checkout e área do cliente
 - [ ] Testar fluxo: cadastro → verificar e-mail → só então conseguir finalizar compra
 
 ---

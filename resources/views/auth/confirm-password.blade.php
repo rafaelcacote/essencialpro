@@ -1,27 +1,48 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
-    </div>
+@extends('layouts.auth')
 
-    <form method="POST" action="{{ route('password.confirm') }}">
-        @csrf
+@section('title', 'Confirmar Senha - Essencial Pro')
 
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
+@section('content')
+    <div class="auth-card">
+        <div class="auth-card-body">
+            <h1 class="auth-heading">Confirmar senha</h1>
+            <p class="auth-subheading">
+                Esta é uma área segura. Confirme sua senha antes de continuar.
+            </p>
 
-            <x-text-input id="password" class="block mt-1 w-full"
+            <form method="POST" action="{{ route('password.confirm') }}" novalidate>
+                @csrf
+
+                <div class="mb-3">
+                    <label class="auth-field-label" for="password">Senha</label>
+                    <div class="auth-input-wrap">
+                        <i class="bi bi-lock auth-input-icon" aria-hidden="true"></i>
+                        <input
                             type="password"
                             name="password"
-                            required autocomplete="current-password" />
+                            id="password"
+                            class="form-control @error('password') is-invalid @enderror"
+                            placeholder="••••••••"
+                            required
+                            autocomplete="current-password"
+                        >
+                    </div>
+                    @error('password')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                <button class="btn btn-primary auth-submit-btn w-100" type="submit">
+                    Confirmar
+                </button>
+            </form>
         </div>
+    </div>
 
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    <div class="auth-back-wrap">
+        <a href="{{ route('home') }}" class="auth-back-link">
+            <i class="bi bi-arrow-left" aria-hidden="true"></i>
+            Voltar ao site
+        </a>
+    </div>
+@endsection
