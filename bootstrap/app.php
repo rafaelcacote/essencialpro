@@ -15,9 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin.auth' => \App\Http\Middleware\AdminAuthenticated::class,
         ]);
 
-        // Excluir webhook do easypay da verificação CSRF
+        // Excluir webhook do EuPago da verificação CSRF.
         $middleware->validateCsrfTokens(except: [
-            'webhook/easypay',
+            'webhook/eupago',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

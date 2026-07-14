@@ -31,7 +31,7 @@
                                                     Tamanho: {{ $item->selected_size ?: '-' }}
                                                 </td>
                                                 <td>{{ $item->quantity }}</td>
-                                                <td>R$ {{ number_format((float) $item->line_total, 2, ',', '.') }}</td>
+                                                <td>{{ number_format((float) $item->line_total, 2, ',', '.') }} €</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -46,7 +46,7 @@
                             <h5 class="mb-3">Resumo</h5>
                             <p class="mb-1"><strong>Status:</strong> {{ $order->status }}</p>
                             <p class="mb-1"><strong>Data:</strong> {{ $order->created_at?->format('d/m/Y H:i') }}</p>
-                            <p class="mb-1"><strong>Total:</strong> R$ {{ number_format((float) $order->grand_total, 2, ',', '.') }}</p>
+                            <p class="mb-1"><strong>Total:</strong> {{ number_format((float) $order->grand_total, 2, ',', '.') }} €</p>
                             <hr>
                             <p class="mb-1"><strong>Contato:</strong> {{ $order->contact_name }}</p>
                             <p class="mb-1"><strong>Email:</strong> {{ $order->email }}</p>

@@ -30,6 +30,22 @@
                                 Número do pedido: <strong>{{ $order->order_number }}</strong>
                             </p>
 
+                            @if($order->payment_method === 'multibanco' && $order->payment_status !== 'paid')
+                                <div class="alert alert-primary text-start mb-4">
+                                    <strong class="d-block mb-2">Dados para pagamento Multibanco</strong>
+                                    <div>Entidade: <strong>{{ $order->eupago_entity }}</strong></div>
+                                    <div>Referência: <strong>{{ $order->eupago_reference }}</strong></div>
+                                    <div>Valor: <strong>{{ number_format($order->grand_total, 2, ',', '.') }} €</strong></div>
+                                    @if($order->payment_expires_at)
+                                        <div class="small mt-2">Válido até {{ $order->payment_expires_at->format('d/m/Y') }}.</div>
+                                    @endif
+                                </div>
+                            @elseif($order->payment_method === 'mbway' && $order->payment_status !== 'paid')
+                                <div class="alert alert-primary text-start mb-4">
+                                    Confirme o pagamento na aplicação MB WAY. A confirmação pode demorar alguns instantes.
+                                </div>
+                            @endif
+
                             @if($order->items->isNotEmpty())
                                 <div class="table-responsive mb-4 text-start">
                                     <table class="table table-sm">

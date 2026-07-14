@@ -66,7 +66,7 @@
                                     {{ $statusLabels[$order->status] ?? $order->status }}
                                 </span>
                             </td>
-                            <td class="fw-semibold">R$ {{ number_format((float) $order->grand_total, 2, ',', '.') }}</td>
+                            <td class="fw-semibold">{{ number_format((float) $order->grand_total, 2, ',', '.') }} €</td>
                             <td class="text-muted">{{ $order->created_at?->format('d/m/Y H:i') }}</td>
                             <td class="text-end">
                                 <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-sm btn-outline-primary">

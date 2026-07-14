@@ -28,9 +28,12 @@ class Order extends Model
         'grand_total',
         'status',
         'payment_id',
+        'eupago_reference',
+        'eupago_entity',
         'payment_method',
         'payment_status',
         'easypay_checkout_id',
+        'payment_expires_at',
         'paid_at',
     ];
 
@@ -38,6 +41,7 @@ class Order extends Model
     {
         return [
             'paid_at' => 'datetime',
+            'payment_expires_at' => 'datetime',
         ];
     }
 

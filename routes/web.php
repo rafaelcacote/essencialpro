@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminQuoteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\EasypayWebhookController;
+use App\Http\Controllers\EupagoWebhookController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -50,8 +50,8 @@ Route::patch('/cart/items/{item}', [CartController::class, 'update'])->name('car
 Route::delete('/cart/items/{item}', [CartController::class, 'destroy'])->name('cart.items.destroy');
 Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
 
-// Webhook do easypay — sem autenticação nem CSRF (excluído em bootstrap/app.php)
-Route::post('/webhook/easypay', [EasypayWebhookController::class, 'handle'])->name('webhook.easypay');
+// Webhook do EuPago — sem autenticação nem CSRF (excluído em bootstrap/app.php).
+Route::post('/webhook/eupago', [EupagoWebhookController::class, 'handle'])->name('webhook.eupago');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');

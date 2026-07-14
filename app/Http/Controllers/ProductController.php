@@ -82,15 +82,38 @@ class ProductController extends Controller
             abort(404);
         }
 
-        $product->load('images');
+        $product->load(['images', 'category.parent.parent']);
 
-        $relatedProducts = Product::query()
+        $relatedQuery = Product::query()
             ->where('is_active', true)
             ->where('id', '!=', $product->id)
-            ->with('images')
-            ->inRandomOrder()
-            ->limit(3)
-            ->get();
+            ->with('images');
+
+        $relatedProducts = collect();
+
+        if ($product->category) {
+            $categoryIds = $this->getCategoryAndDescendantIds($product->category);
+
+            $relatedProducts = (clone $relatedQuery)
+                ->where(function ($q) use ($categoryIds) {
+                    $q->whereIn('category_id', $categoryIds)
+                        ->orWhereHas('categories', fn ($cq) => $cq->whereIn('categories.id', $categoryIds));
+                })
+                ->inRandomOrder()
+                ->limit(4)
+                ->get();
+        }
+
+        if ($relatedProducts->count() < 4) {
+            $needed = 4 - $relatedProducts->count();
+            $fillers = $relatedQuery
+                ->when($relatedProducts->isNotEmpty(), fn ($q) => $q->whereNotIn('id', $relatedProducts->pluck('id')))
+                ->inRandomOrder()
+                ->limit($needed)
+                ->get();
+
+            $relatedProducts = $relatedProducts->concat($fillers);
+        }
 
         return view('pages.product', compact('product', 'relatedProducts'));
     }

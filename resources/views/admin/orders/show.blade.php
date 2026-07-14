@@ -26,7 +26,7 @@
     @include('admin.partials.page-header', [
         'title' => $order->order_number,
         'subtitle' => $order->contact_name,
-        'meta' => 'Status: <span class="admin-badge ' . $badgeClass . '">' . ($statusLabels[$order->status] ?? $order->status) . '</span> · Total: <strong>R$ ' . number_format((float) $order->grand_total, 2, ',', '.') . '</strong>',
+        'meta' => 'Status: <span class="admin-badge ' . $badgeClass . '">' . ($statusLabels[$order->status] ?? $order->status) . '</span> · Total: <strong>' . number_format((float) $order->grand_total, 2, ',', '.') . ' €</strong>',
         'actions' => '<a href="' . route('admin.orders.index') . '" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Voltar</a>',
     ])
 
@@ -56,8 +56,8 @@
                                         Tamanho: {{ $item->selected_size ?: '—' }}
                                     </td>
                                     <td>{{ $item->quantity }}</td>
-                                    <td>R$ {{ number_format((float) $item->unit_price, 2, ',', '.') }}</td>
-                                    <td class="fw-semibold">R$ {{ number_format((float) $item->line_total, 2, ',', '.') }}</td>
+                                    <td>{{ number_format((float) $item->unit_price, 2, ',', '.') }} €</td>
+                                    <td class="fw-semibold">{{ number_format((float) $item->line_total, 2, ',', '.') }} €</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="admin-card-footer text-end">
                     <span class="text-muted me-2">Total do pedido:</span>
-                    <strong class="fs-5">R$ {{ number_format((float) $order->grand_total, 2, ',', '.') }}</strong>
+                    <strong class="fs-5">{{ number_format((float) $order->grand_total, 2, ',', '.') }} €</strong>
                 </div>
             </div>
         </div>
@@ -115,7 +115,7 @@
                         <div class="admin-detail-item">
                             <div class="admin-detail-item__label">Total</div>
                             <div class="admin-detail-item__value fw-bold text-primary">
-                                R$ {{ number_format((float) $order->grand_total, 2, ',', '.') }}
+                                {{ number_format((float) $order->grand_total, 2, ',', '.') }} €
                             </div>
                         </div>
                     </div>

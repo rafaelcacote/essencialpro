@@ -35,7 +35,7 @@
                                             <td>{{ $order->order_number }}</td>
                                             <td><span class="badge bg-secondary">{{ $order->status }}</span></td>
                                             <td>{{ $order->created_at?->format('d/m/Y H:i') }}</td>
-                                            <td>R$ {{ number_format((float) $order->grand_total, 2, ',', '.') }}</td>
+                                            <td>{{ number_format((float) $order->grand_total, 2, ',', '.') }} €</td>
                                             <td class="text-end">
                                                 <a href="{{ route('account.orders.show', $order) }}" class="btn btn-sm btn-outline-primary">Detalhes</a>
                                             </td>

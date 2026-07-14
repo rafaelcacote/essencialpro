@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Services\EasypayService;
+use App\Services\EupagoService;
 use App\Support\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class CheckoutController extends Controller
 {
@@ -20,19 +21,25 @@ class CheckoutController extends Controller
         return view('pages.checkout', compact('cart'));
     }
 
-    public function store(Request $request, CartService $cartService, EasypayService $easypay)
+    public function store(Request $request, CartService $cartService, EupagoService $eupago)
     {
         $validated = $request->validate([
             'contact_name' => ['required', 'string', 'max:255'],
             'email'        => ['required', 'email', 'max:255'],
-            'phone'        => ['nullable', 'string', 'max:50'],
+            'phone'        => [
+                Rule::requiredIf($request->input('payment_method') === 'mbway'),
+                'nullable',
+                'string',
+                'regex:/^(?:\+351)?9\d{8}$/',
+            ],
             'company_name' => ['nullable', 'string', 'max:255'],
             'tax_id'       => ['nullable', 'string', 'max:50'],
-            'address'      => ['nullable', 'string', 'max:255'],
-            'postal_code'  => ['nullable', 'string', 'max:30'],
-            'city'         => ['nullable', 'string', 'max:120'],
-            'country'      => ['nullable', 'string', 'max:120'],
+            'address'      => ['required', 'string', 'max:255'],
+            'postal_code'  => ['required', 'string', 'max:30'],
+            'city'         => ['required', 'string', 'max:120'],
+            'country'      => ['required', 'string', 'max:120'],
             'notes'        => ['nullable', 'string'],
+            'payment_method' => ['required', Rule::in(['multibanco', 'mbway', 'credit_card'])],
         ]);
 
         $cart = $cartService->getOrCreateCart($request);
@@ -64,6 +71,7 @@ class CheckoutController extends Controller
                 'grand_total'   => $subtotal,
                 'status'        => 'pending',
                 'payment_status' => 'pending',
+                'payment_method' => $validated['payment_method'],
             ]);
 
             foreach ($cart->items as $item) {
@@ -80,23 +88,35 @@ class CheckoutController extends Controller
                 ]);
             }
 
-            $cart->update(['status' => 'converted']);
-            $cart->items()->delete();
-
             return $order;
         });
 
-        // Redirecionar para o checkout do easypay
-        $checkout = $easypay->createCheckout($order);
+        try {
+            $payment = $eupago->createPayment($order, $validated['payment_method']);
 
-        if ($checkout && isset($checkout['url'])) {
-            $order->update(['easypay_checkout_id' => $checkout['id'] ?? null]);
-            return redirect()->away($checkout['url']);
+            DB::transaction(function () use ($cart, $order, $payment) {
+                $order->update([
+                    'payment_id' => $payment['transaction_id'] ?: null,
+                    'eupago_reference' => $payment['reference'] ?: null,
+                    'eupago_entity' => $payment['entity'] ?? null,
+                    'payment_expires_at' => $payment['expires_at'] ?? null,
+                ]);
+                $cart->update(['status' => 'converted']);
+                $cart->items()->delete();
+            });
+
+            if (filled($payment['redirect_url'] ?? null)) {
+                return redirect()->away($payment['redirect_url']);
+            }
+
+            return redirect()->route('checkout.success', $order);
+        } catch (\Throwable $exception) {
+            report($exception);
+
+            return back()
+                ->withInput()
+                ->with('error', 'Não foi possível iniciar o pagamento. Verifique os dados e tente novamente.');
         }
-
-        // Se a chamada ao easypay falhar, mostrar erro sem perder o pedido
-        return redirect()->route('checkout.payment.failure', $order)
-            ->with('error', 'Não foi possível iniciar o pagamento. Por favor, tente novamente ou entre em contacto connosco.');
     }
 
     public function paymentReturn(Order $order)
