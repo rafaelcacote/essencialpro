@@ -1,18 +1,18 @@
 @extends('layouts.auth')
 
-@section('title', 'Recuperar Senha - Essencial Pro')
+@section('title', 'Recuperar palavra-passe - Essencial Pro')
 
 @section('content')
     <div class="auth-card">
         <div class="auth-card-body">
-            <h1 class="auth-heading">Recuperar senha</h1>
-            <p class="auth-subheading">Informe seu email para receber o link de redefinição</p>
+            <h1 class="auth-heading">Recuperar palavra-passe</h1>
+            <p class="auth-subheading">Indique o seu e-mail para receber a ligação de redefinição</p>
 
             <form method="POST" action="{{ route('password.email') }}" novalidate>
                 @csrf
 
                 <div class="mb-3">
-                    <label class="auth-field-label" for="email">Email</label>
+                    <label class="auth-field-label" for="email">E-mail</label>
                     <div class="auth-input-wrap">
                         <i class="bi bi-envelope auth-input-icon" aria-hidden="true"></i>
                         <input
@@ -21,7 +21,7 @@
                             id="email"
                             class="form-control @error('email') is-invalid @enderror"
                             value="{{ old('email') }}"
-                            placeholder="seu@email.com"
+                        placeholder="o-seu@email.com"
                             required
                             autocomplete="email"
                         >
@@ -32,14 +32,14 @@
                 </div>
 
                 <button class="btn btn-primary auth-submit-btn w-100" type="submit">
-                    Enviar link
+                    Enviar ligação
                 </button>
             </form>
 
             <div class="auth-divider">ou</div>
 
             <p class="auth-footer-link mb-0">
-                Lembrou a senha? <a href="{{ route('login') }}">Voltar ao login</a>
+                Lembrou-se da palavra-passe? <a href="{{ route('login') }}">Voltar ao início de sessão</a>
             </p>
         </div>
     </div>

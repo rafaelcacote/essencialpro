@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Cadastro - Essencial Pro')
+@section('title', 'Registo - Essencial Pro')
 
 @section('content')
     <div class="auth-card">
@@ -21,7 +21,7 @@
                             id="name"
                             class="form-control @error('name') is-invalid @enderror"
                             value="{{ old('name') }}"
-                            placeholder="Seu nome completo"
+                            placeholder="O seu nome completo"
                             required
                             autofocus
                             autocomplete="name"
@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="auth-field-label" for="email">Email</label>
+                    <label class="auth-field-label" for="email">E-mail</label>
                     <div class="auth-input-wrap">
                         <i class="bi bi-envelope auth-input-icon" aria-hidden="true"></i>
                         <input
@@ -42,7 +42,7 @@
                             id="email"
                             class="form-control @error('email') is-invalid @enderror"
                             value="{{ old('email') }}"
-                            placeholder="seu@email.com"
+                            placeholder="o-seu@email.com"
                             required
                             autocomplete="email"
                         >
@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="auth-field-label" for="password">Senha</label>
+                    <label class="auth-field-label" for="password">Palavra-passe</label>
                     <div class="auth-input-wrap">
                         <i class="bi bi-lock auth-input-icon" aria-hidden="true"></i>
                         <input
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="auth-field-label" for="password_confirmation">Confirmar senha</label>
+                    <label class="auth-field-label" for="password_confirmation">Confirmar palavra-passe</label>
                     <div class="auth-input-wrap">
                         <i class="bi bi-lock-fill auth-input-icon" aria-hidden="true"></i>
                         <input
@@ -88,14 +88,14 @@
                 </div>
 
                 <button class="btn btn-primary auth-submit-btn w-100" type="submit">
-                    Cadastrar
+                    Registar
                 </button>
             </form>
 
             <div class="auth-divider">ou</div>
 
             <p class="auth-footer-link mb-0">
-                Já tem conta? <a href="{{ route('login') }}">Entrar</a>
+                Já tem conta? <a href="{{ route('login') }}">Iniciar sessão</a>
             </p>
         </div>
     </div>

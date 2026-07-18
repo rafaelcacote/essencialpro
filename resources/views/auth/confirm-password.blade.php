@@ -1,20 +1,20 @@
 @extends('layouts.auth')
 
-@section('title', 'Confirmar Senha - Essencial Pro')
+@section('title', 'Confirmar palavra-passe - Essencial Pro')
 
 @section('content')
     <div class="auth-card">
         <div class="auth-card-body">
-            <h1 class="auth-heading">Confirmar senha</h1>
+            <h1 class="auth-heading">Confirmar palavra-passe</h1>
             <p class="auth-subheading">
-                Esta é uma área segura. Confirme sua senha antes de continuar.
+                Esta é uma área segura. Confirme a sua palavra-passe antes de continuar.
             </p>
 
             <form method="POST" action="{{ route('password.confirm') }}" novalidate>
                 @csrf
 
                 <div class="mb-3">
-                    <label class="auth-field-label" for="password">Senha</label>
+                    <label class="auth-field-label" for="password">Palavra-passe</label>
                     <div class="auth-input-wrap">
                         <i class="bi bi-lock auth-input-icon" aria-hidden="true"></i>
                         <input

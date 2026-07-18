@@ -1,18 +1,18 @@
 @extends('layouts.auth')
 
-@section('title', 'Entrar - Essencial Pro')
+@section('title', 'Iniciar sessão - Essencial Pro')
 
 @section('content')
     <div class="auth-card">
         <div class="auth-card-body">
-            <h1 class="auth-heading">Entrar</h1>
-            <p class="auth-subheading">Acesse sua conta para continuar</p>
+            <h1 class="auth-heading">Iniciar sessão</h1>
+            <p class="auth-subheading">Aceda à sua conta para continuar</p>
 
             <form method="POST" action="{{ route('login') }}" novalidate>
                 @csrf
 
                 <div class="mb-3">
-                    <label class="auth-field-label" for="email">Email</label>
+                    <label class="auth-field-label" for="email">E-mail</label>
                     <div class="auth-input-wrap">
                         <i class="bi bi-envelope auth-input-icon" aria-hidden="true"></i>
                         <input
@@ -21,7 +21,7 @@
                             id="email"
                             class="form-control @error('email') is-invalid @enderror"
                             value="{{ old('email') }}"
-                            placeholder="seu@email.com"
+                            placeholder="o-seu@email.com"
                             required
                             autofocus
                             autocomplete="email"
@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="auth-field-label" for="password">Senha</label>
+                    <label class="auth-field-label" for="password">Palavra-passe</label>
                     <div class="auth-input-wrap">
                         <i class="bi bi-lock auth-input-icon" aria-hidden="true"></i>
                         <input
@@ -45,7 +45,7 @@
                             required
                             autocomplete="current-password"
                         >
-                        <button type="button" class="auth-password-toggle" id="togglePassword" aria-label="Mostrar senha">
+                        <button type="button" class="auth-password-toggle" id="togglePassword" aria-label="Mostrar palavra-passe">
                             <i class="bi bi-eye" id="togglePasswordIcon" aria-hidden="true"></i>
                         </button>
                     </div>
@@ -57,13 +57,13 @@
                 <div class="auth-remember">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" id="remember" @checked(old('remember'))>
-                        <label class="form-check-label" for="remember">Lembrar de mim</label>
+                        <label class="form-check-label" for="remember">Manter sessão iniciada</label>
                     </div>
-                    <a href="{{ route('password.request') }}" class="auth-forgot-link">Esqueci a senha</a>
+                    <a href="{{ route('password.request') }}" class="auth-forgot-link">Esqueci-me da palavra-passe</a>
                 </div>
 
                 <button class="btn btn-primary auth-submit-btn w-100" type="submit">
-                    Entrar
+                    Iniciar sessão
                 </button>
             </form>
 
@@ -99,7 +99,7 @@
             input.type = isPassword ? 'text' : 'password';
             icon.classList.toggle('bi-eye', !isPassword);
             icon.classList.toggle('bi-eye-slash', isPassword);
-            toggle.setAttribute('aria-label', isPassword ? 'Ocultar senha' : 'Mostrar senha');
+            toggle.setAttribute('aria-label', isPassword ? 'Ocultar palavra-passe' : 'Mostrar palavra-passe');
         });
     })();
 </script>
