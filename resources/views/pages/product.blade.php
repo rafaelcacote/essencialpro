@@ -865,7 +865,7 @@
                         Adicionar ao Carrinho
                     </button>
 
-                    <a href="{{ route('personalization', ['produto' => $product->title]) }}#pedido-personalizacao" class="pd-btn-personalize">
+                    <a href="{{ route('personalization', ['produto' => $product->slug]) }}#pedido-personalizacao" class="pd-btn-personalize">
                         <span class="main">
                             <i class="fa fa-tshirt"></i>
                             Personalizar este Produto

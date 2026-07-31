@@ -60,9 +60,20 @@ class PageController extends Controller
         return view('pages.privacy-policy');
     }
 
-    public function personalization()
+    public function personalization(Request $request)
     {
-        return view('pages.personalization');
+        $product = null;
+        $slug = $request->query('produto');
+
+        if (filled($slug)) {
+            $product = Product::query()
+                ->where('is_active', true)
+                ->where('slug', $slug)
+                ->with('images')
+                ->first();
+        }
+
+        return view('pages.personalization', compact('product'));
     }
 
     public function support()
