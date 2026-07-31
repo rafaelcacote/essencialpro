@@ -1,0 +1,89 @@
+name: Deploy Homolog
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-homolog
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to Hostinger (homolog)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install & build frontend assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USER }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          script_stop: true
+          script: |
+            set -e
+            chmod +x ~/apps/homologacao/scripts/deploy-homolog.sh 2>/dev/null || true
+            # O script ainda não existe no servidor no 1º deploy após este commit —
+            # por isso corremos os passos inline + usamos o script nos deploys seguintes.
+            APP_DIR="$HOME/apps/homologacao"
+            BRANCH="develop"
+
+            if [ ! -d "$APP_DIR/.git" ]; then
+              echo "ERRO: $APP_DIR não existe. Faz o clone inicial no servidor primeiro."
+              exit 1
+            fi
+
+            cd "$APP_DIR"
+            php artisan down --retry=60 || true
+            git fetch origin
+            git checkout "$BRANCH"
+            git reset --hard "origin/$BRANCH"
+            composer install --no-dev --optimize-autoloader --no-interaction
+            php artisan migrate --force
+            php artisan storage:link 2>/dev/null || true
+
+      - name: Upload Vite build (public/build)
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USER }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          # Resultado: ~/apps/homologacao/public/build
+          source: "public/build"
+          target: "apps/homologacao"
+
+      - name: Finalize caches
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.HOSTINGER_HOST }}
+          username: ${{ secrets.HOSTINGER_USER }}
+          key: ${{ secrets.HOSTINGER_SSH_KEY }}
+          port: ${{ secrets.HOSTINGER_PORT }}
+          script_stop: true
+          script: |
+            set -e
+            cd ~/apps/homologacao
+            php artisan optimize:clear
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan up
+            echo "Deploy homolog concluído."
