@@ -93,7 +93,7 @@ class QuoteController extends Controller
         });
 
         return redirect()
-            ->route('contact')
+            ->route('quote')
             ->with('status', 'Pedido de orçamento enviado com sucesso! Responderemos por email entre 24h a 48h.');
     }
 }

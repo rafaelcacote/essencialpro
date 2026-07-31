@@ -118,7 +118,7 @@ class PageController extends Controller
 
     public function quote()
     {
-        return view('pages.placeholder', ['title' => 'Pedir Orçamento']);
+        return view('pages.quote');
     }
 
     public function search()
