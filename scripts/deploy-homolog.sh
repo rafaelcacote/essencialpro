@@ -4,13 +4,13 @@ set -euo pipefail
 # Deploy Homolog — branch develop
 # Corre no servidor Hostinger (via SSH / GitHub Actions).
 
-APP_DIR="${HOME}/apps/homologacao"
+APP_DIR="${HOME}/domains/essencialprotection.com/apps/homolog"
 BRANCH="develop"
 
 if [[ ! -d "${APP_DIR}/.git" ]]; then
   echo "ERRO: ${APP_DIR} não existe ou não é um repositório git."
   echo "Faz primeiro o clone (uma vez):"
-  echo "  mkdir -p ~/apps && git clone -b develop <URL_DO_REPO> ~/apps/homologacao"
+  echo "  git clone -b develop <URL_DO_REPO> ~/domains/essencialprotection.com/apps/homolog"
   exit 1
 fi
 

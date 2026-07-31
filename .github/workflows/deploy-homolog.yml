@@ -39,10 +39,7 @@ jobs:
           script_stop: true
           script: |
             set -e
-            chmod +x ~/apps/homologacao/scripts/deploy-homolog.sh 2>/dev/null || true
-            # O script ainda não existe no servidor no 1º deploy após este commit —
-            # por isso corremos os passos inline + usamos o script nos deploys seguintes.
-            APP_DIR="$HOME/apps/homologacao"
+            APP_DIR="$HOME/domains/essencialprotection.com/apps/homolog"
             BRANCH="develop"
 
             if [ ! -d "$APP_DIR/.git" ]; then
@@ -66,9 +63,9 @@ jobs:
           username: ${{ secrets.HOSTINGER_USER }}
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           port: ${{ secrets.HOSTINGER_PORT }}
-          # Resultado: ~/apps/homologacao/public/build
+          # Resultado: ~/domains/essencialprotection.com/apps/homolog/public/build
           source: "public/build"
-          target: "apps/homologacao"
+          target: "domains/essencialprotection.com/apps/homolog"
 
       - name: Finalize caches
         uses: appleboy/ssh-action@v1.2.0
@@ -80,7 +77,7 @@ jobs:
           script_stop: true
           script: |
             set -e
-            cd ~/apps/homologacao
+            cd ~/domains/essencialprotection.com/apps/homolog
             php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
