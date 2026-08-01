@@ -296,6 +296,5 @@
             <span>|</span>
             <a href="{{ route('returns-policy') }}">Trocas e Devoluções</a>
         </div>
-        <span>Desenvolvido com <i class="bi bi-heart-fill ep-heart"></i> para sua segurança.</span>
     </div>
 </footer>
