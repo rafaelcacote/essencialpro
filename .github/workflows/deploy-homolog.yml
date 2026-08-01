@@ -52,7 +52,9 @@ jobs:
             git fetch origin
             git checkout "$BRANCH"
             git reset --hard "origin/$BRANCH"
-            composer install --no-dev --optimize-autoloader --no-interaction
+            # --no-scripts: Composer no Hostinger usa proc_open nos scripts e falha.
+            composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+            php artisan package:discover --ansi
             php artisan migrate --force
             php artisan storage:link 2>/dev/null || true
 

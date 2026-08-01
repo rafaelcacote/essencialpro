@@ -25,7 +25,10 @@ git checkout "${BRANCH}"
 git reset --hard "origin/${BRANCH}"
 
 echo "==> Composer"
-composer install --no-dev --optimize-autoloader --no-interaction
+# --no-scripts: no Hostinger o Composer falha em scripts porque usa proc_open.
+# Corremos package:discover via php artisan em seguida.
+composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
+php artisan package:discover --ansi
 
 echo "==> Migrations"
 php artisan migrate --force
