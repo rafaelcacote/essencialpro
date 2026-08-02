@@ -9,7 +9,7 @@
     .ep-footer-main { padding: 2.5rem 0 1.4rem; }
     .ep-footer-grid {
         display: grid;
-        grid-template-columns: 1.25fr 0.85fr 1fr 0.85fr 1fr;
+        grid-template-columns: 1.25fr 0.85fr 1fr 0.85fr;
         gap: 1.5rem;
     }
 
@@ -75,21 +75,6 @@
     }
     .ep-diferencial-text strong { color: #fff; font-size: 0.87rem; display: block; line-height: 1.2; }
     .ep-diferencial-text span { color: #8da5c5; font-size: 0.81rem; line-height: 1.35; }
-
-    /* Col 5 - newsletter */
-    .ep-newsletter-desc { color: #b8c9e1; line-height: 1.5; margin-bottom: 0.9rem; }
-    .ep-newsletter-input {
-        width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18);
-        border-radius: 8px; color: #fff; padding: 0.6rem 0.85rem; margin-bottom: 0.6rem;
-        outline: none; font-size: 0.9rem;
-    }
-    .ep-newsletter-input::placeholder { color: #6e8dad; }
-    .ep-newsletter-btn {
-        width: 100%; border: none; border-radius: 8px; background: #f97316;
-        color: #fff; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;
-        padding: 0.65rem; font-size: 0.88rem; cursor: pointer; transition: background 0.18s;
-    }
-    .ep-newsletter-btn:hover { background: #ea580c; }
 
     /* Bottom bar */
     .ep-footer-bottom {
@@ -246,13 +231,6 @@
                 </div>
             </div>
 
-            {{-- Col 5: Newsletter --}}
-            <div>
-                <h5 class="ep-footer-col-title">Newsletter</h5>
-                <p class="ep-newsletter-desc">Receba nossas ofertas, novidades e conteúdos exclusivos.</p>
-                <input type="email" class="ep-newsletter-input" placeholder="Seu melhor e-mail">
-                <button type="button" class="ep-newsletter-btn">Inscrever-se</button>
-            </div>
         </div>
     </div>
 
