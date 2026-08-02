@@ -28,17 +28,49 @@ jobs:
         run: |
           npm ci
           npm run build
+          tar -czf /tmp/vite-build.tar.gz -C public build
 
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.2.0
+      - name: Prepare SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/hostinger_deploy
+          chmod 600 ~/.ssh/hostinger_deploy
+          cat > ~/.ssh/config << EOF
+          Host hostinger
+          HostName ${{ secrets.HOSTINGER_HOST }}
+          User ${{ secrets.HOSTINGER_USER }}
+          Port ${{ secrets.HOSTINGER_PORT }}
+          IdentityFile ~/.ssh/hostinger_deploy
+          IdentitiesOnly yes
+          StrictHostKeyChecking accept-new
+          ConnectTimeout 60
+          ConnectionAttempts 3
+          ServerAliveInterval 15
+          ServerAliveCountMax 4
+          EOF
+          # Remove indentação acidental do YAML
+          sed -i 's/^[[:space:]]*//' ~/.ssh/config
+          chmod 600 ~/.ssh/config
+
+      - name: Deploy via SSH (with retries)
+        uses: nick-fields/retry@v3
         with:
-          host: ${{ secrets.HOSTINGER_HOST }}
-          username: ${{ secrets.HOSTINGER_USER }}
-          key: ${{ secrets.HOSTINGER_SSH_KEY }}
-          port: ${{ secrets.HOSTINGER_PORT }}
-          script_stop: true
-          script: |
-            set -e
+          timeout_minutes: 15
+          max_attempts: 5
+          retry_wait_seconds: 45
+          warning_on_retry: true
+          command: |
+            set -euo pipefail
+
+            echo "==> Testar SSH"
+            ssh hostinger 'echo SSH_OK && hostname'
+
+            echo "==> Enviar assets Vite"
+            scp /tmp/vite-build.tar.gz hostinger:~/domains/essencialprotection.com/apps/homolog/vite-build.tar.gz
+
+            echo "==> Atualizar aplicação"
+            ssh hostinger 'bash -s' << 'REMOTE'
+            set -euo pipefail
             APP_DIR="$HOME/domains/essencialprotection.com/apps/homolog"
             BRANCH="develop"
 
@@ -49,40 +81,28 @@ jobs:
 
             cd "$APP_DIR"
             php artisan down --retry=60 || true
+
             git fetch origin
             git checkout "$BRANCH"
             git reset --hard "origin/$BRANCH"
+
             # --no-scripts: Composer no Hostinger usa proc_open nos scripts e falha.
             composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
             php artisan package:discover --ansi
             php artisan migrate --force
             php artisan storage:link 2>/dev/null || true
 
-      - name: Upload Vite build (public/build)
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.HOSTINGER_HOST }}
-          username: ${{ secrets.HOSTINGER_USER }}
-          key: ${{ secrets.HOSTINGER_SSH_KEY }}
-          port: ${{ secrets.HOSTINGER_PORT }}
-          # Resultado: ~/domains/essencialprotection.com/apps/homolog/public/build
-          source: "public/build"
-          target: "domains/essencialprotection.com/apps/homolog"
+            if [ -f vite-build.tar.gz ]; then
+              rm -rf public/build
+              tar -xzf vite-build.tar.gz -C public
+              rm -f vite-build.tar.gz
+            fi
 
-      - name: Finalize caches
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.HOSTINGER_HOST }}
-          username: ${{ secrets.HOSTINGER_USER }}
-          key: ${{ secrets.HOSTINGER_SSH_KEY }}
-          port: ${{ secrets.HOSTINGER_PORT }}
-          script_stop: true
-          script: |
-            set -e
-            cd ~/domains/essencialprotection.com/apps/homolog
             php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
             php artisan up
+
             echo "Deploy homolog concluído."
+            REMOTE
