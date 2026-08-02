@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # Deploy Homolog — branch develop
-# Corre no servidor Hostinger (via SSH / GitHub Actions).
+# Corre no servidor Hostinger via SSH (manual).
 
 APP_DIR="${HOME}/domains/essencialprotection.com/apps/homolog"
 BRANCH="develop"

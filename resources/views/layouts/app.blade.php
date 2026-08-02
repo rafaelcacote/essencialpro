@@ -5,7 +5,6 @@
     <title>@yield('title', 'Essencial Pro')</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="x-deploy-test" content="homolog-2026-08-02">
 
     <link href="{{ asset('favicon.ico') }}" rel="icon">
     <link href="https://fonts.googleapis.com" rel="preconnect">
