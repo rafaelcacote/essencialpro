@@ -18,6 +18,7 @@
     @stack('styles')
 </head>
 <body>
+    @include('components.env-banner')
     @if (session('status'))
         <div class="container position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1050; max-width: 540px;">
             <div class="alert alert-success mb-0 shadow-sm border-0" style="border-radius: 10px;">{{ session('status') }}</div>

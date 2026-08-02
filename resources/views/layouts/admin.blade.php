@@ -21,6 +21,7 @@
 </head>
 
 <body class="admin-body">
+    @include('components.env-banner')
     <div class="admin-shell">
         <aside class="admin-sidebar">
             <div class="admin-sidebar-header">
