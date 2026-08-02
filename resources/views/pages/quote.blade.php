@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Contactos - Essencial Pro')
+@section('title', 'Pedir Orçamento - Essencial Pro')
 
 @push('styles')
 <style>
@@ -133,6 +133,36 @@
         margin: 0;
         line-height: 1.65;
     }
+    .ep-quote-steps {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.25rem;
+    }
+    .ep-quote-steps li {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        margin-bottom: 0.9rem;
+        color: #b8c9e1;
+        font-size: 0.92rem;
+        line-height: 1.45;
+    }
+    .ep-quote-steps li:last-child {
+        margin-bottom: 0;
+    }
+    .ep-quote-step-num {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: rgba(255, 94, 20, 0.2);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
     @media (max-width: 991px) {
         .ep-contact-sidebar {
             position: relative;
@@ -152,9 +182,8 @@
 @endpush
 
 @section('content')
-@include('components.page-header', ['title' => 'Contactos', 'quicklink' => true])
+@include('components.page-header', ['title' => 'Pedir Orçamento', 'quicklink' => true])
 
-<!-- Contact Start -->
 <div class="container-xxl py-5">
     <div class="container">
         @if (session('status'))
@@ -163,11 +192,23 @@
             </div>
         @endif
 
+        @if ($errors->any())
+            <div class="alert alert-danger mb-4">
+                <strong>Não foi possível enviar o pedido.</strong> Verifique os campos assinalados e tente novamente.
+                <ul class="mb-0 mt-2">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="ep-contact-intro wow fadeInUp" data-wow-delay="0.1s">
-            <p class="fw-medium text-uppercase text-primary mb-2">Contactos</p>
-            <h1 class="display-6 mb-4">Estamos disponíveis para o ajudar</h1>
+            <p class="fw-medium text-uppercase text-primary mb-2">Orçamento</p>
+            <h1 class="display-6 mb-4">Peça o seu orçamento</h1>
             <p>
-                Se pretender entrar em contacto com a Essencial Pro, poderá utilizar qualquer um dos seguintes meios.
+                Indique os produtos pretendidos, quantidades e, se desejar, os logótipos para personalização.
+                A nossa equipa analisa o pedido e responde por email.
             </p>
         </div>
 
@@ -175,7 +216,21 @@
             <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.15s">
                 <div class="ep-contact-sidebar">
                     <div class="ep-contact-card">
-                        <div class="ep-contact-card-title">Dados de Contacto</div>
+                        <div class="ep-contact-card-title">Como funciona</div>
+                        <ul class="ep-quote-steps">
+                            <li>
+                                <span class="ep-quote-step-num">1</span>
+                                <span>Preencha os seus dados e os produtos pretendidos.</span>
+                            </li>
+                            <li>
+                                <span class="ep-quote-step-num">2</span>
+                                <span>Anexe logótipos se precisar de personalização.</span>
+                            </li>
+                            <li>
+                                <span class="ep-quote-step-num">3</span>
+                                <span>Receba a proposta por email em 24h a 48h.</span>
+                            </li>
+                        </ul>
 
                         <div class="ep-contact-item">
                             <div class="ep-contact-item-icon"><i class="bi bi-telephone-fill"></i></div>
@@ -190,22 +245,6 @@
                             <div>
                                 <strong>E-mail</strong>
                                 <a href="mailto:essencialprotection@gmail.com">essencialprotection@gmail.com</a>
-                            </div>
-                        </div>
-
-                        <div class="ep-contact-item">
-                            <div class="ep-contact-item-icon"><i class="bi bi-geo-alt-fill"></i></div>
-                            <div>
-                                <strong>Morada</strong>
-                                <span>Travessa Professora Adélia Campos, 42<br>Serafão<br>4820-770</span>
-                            </div>
-                        </div>
-
-                        <div class="ep-contact-item">
-                            <div class="ep-contact-item-icon"><i class="bi bi-clock-fill"></i></div>
-                            <div>
-                                <strong>Horário de Atendimento</strong>
-                                <span>Segunda a Sexta-feira<br>09:00 às 18:00<br><small class="text-white-50">(dias úteis)</small></span>
                             </div>
                         </div>
                     </div>
@@ -224,17 +263,15 @@
             </div>
 
             <div class="col-lg-8 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="ep-contact-form-wrap" id="formulario-contacto">
+                <div class="ep-contact-form-wrap" id="formulario-orcamento">
                     @include('partials.quote-form', [
-                        'formTitle' => 'Formulário de Contacto',
-                        'formSubtitle' => 'Também poderá utilizar o formulário de contacto disponível nesta página. A nossa equipa responderá com a maior brevidade possível.',
-                        'submitLabel' => 'Enviar Mensagem',
+                        'formTitle' => 'Formulário de Orçamento',
+                        'formSubtitle' => 'Campos marcados com * são obrigatórios. Os orçamentos são habitualmente respondidos entre 24h a 48h.',
+                        'submitLabel' => 'Enviar Pedido de Orçamento',
                     ])
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Contact End -->
-
 @endsection

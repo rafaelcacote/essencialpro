@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <div class="admin-stat-card admin-stat-card--success">
+        <a class="admin-stat-card admin-stat-card--success" href="{{ route('admin.orders.index') }}">
             <div class="admin-stat-card__top">
                 <div>
                     <div class="admin-stat-label">Pedidos</div>
@@ -70,7 +70,7 @@
             <div class="admin-stat-footer">
                 <strong>{{ $pendingOrders }}</strong> pendentes
             </div>
-        </div>
+        </a>
     </div>
 
     <div class="row g-4">

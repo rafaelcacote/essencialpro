@@ -37,22 +37,34 @@
     .pers-note { display: flex; gap: .5rem; padding: .6rem; background: #fff8f5; color: #62514a; font-size: .68rem; line-height: 1.45; }
     .pers-note i { color: var(--pers-orange); margin-top: .15rem; }
     .pers-mockup { min-height: 320px; display: grid; place-items: center; padding: 1.2rem; background: radial-gradient(circle at center, #fff 0%, #fafafa 64%, #f1f1f1 100%); position: relative; overflow: hidden; }
-    .pers-mockup::before { content: 'MAQUETE DO PRODUTO'; position: absolute; top: .7rem; left: .8rem; color: #aaa; font-size: .61rem; letter-spacing: .08em; font-weight: 700; }
+    .pers-mockup::before { content: 'MAQUETE DO PRODUTO'; position: absolute; top: .7rem; left: .8rem; color: #aaa; font-size: .61rem; letter-spacing: .08em; font-weight: 700; z-index: 1; }
     .pers-mockup-placeholder { width: 70%; aspect-ratio: 4 / 5; display: grid; place-items: center; text-align: center; color: #9aa0a6; border: 1px dashed #cbd0d5; background: rgba(255,255,255,.65); font-size: .78rem; line-height: 1.45; }
     .pers-mockup-placeholder i { font-size: 2.2rem; color: var(--pers-orange); display: block; margin-bottom: .5rem; }
+    .pers-mockup-product { width: 100%; height: 100%; min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .65rem; padding-top: 1rem; }
+    .pers-mockup-product img { max-width: 88%; max-height: 280px; width: auto; height: auto; object-fit: contain; display: block; }
+    .pers-mockup-product strong { color: #222; font-size: .78rem; font-weight: 800; text-align: center; line-height: 1.3; max-width: 90%; }
+    .pers-selected-product { display: flex; gap: .65rem; align-items: center; margin-bottom: .85rem; padding: .55rem; border: 1px solid #ececec; background: #fafafa; }
+    .pers-selected-product img { width: 52px; height: 52px; object-fit: contain; background: #fff; border: 1px solid #eee; flex-shrink: 0; }
+    .pers-selected-product span { display: block; color: var(--pers-orange); font-size: .58rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+    .pers-selected-product strong { display: block; color: #222; font-size: .72rem; font-weight: 800; line-height: 1.3; margin-top: .1rem; }
     .pers-methods { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem; }
-    .pers-method { min-height: 150px; padding: 1.25rem; color: #fff; position: relative; overflow: hidden; background: #202020; }
-    .pers-method::after { content: ''; position: absolute; inset: 0; background: linear-gradient(120deg, rgba(0,0,0,.12), rgba(0,0,0,.72)); }
+    .pers-method { min-height: 260px; padding: 1.4rem; color: #fff; position: relative; overflow: hidden; background: #202020; display: flex; flex-direction: column; justify-content: flex-end; }
+    .pers-method::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 55%, rgba(0,0,0,.82) 100%); }
     .pers-method > * { position: relative; z-index: 1; }
     .pers-method-icon { width: 30px; height: 30px; display: inline-grid; place-items: center; color: #fff; background: var(--pers-orange); border-radius: 50%; font-size: .8rem; }
     .pers-method h3 { font-size: 1rem; font-weight: 800; margin: .55rem 0 .3rem; }
-    .pers-method p { font-size: .72rem; line-height: 1.4; margin: 0; max-width: 260px; }
-    .pers-method--dtf { background: linear-gradient(115deg, #343434, #111); }
-    .pers-method--emb { background: linear-gradient(115deg, #42362d, #111); }
+    .pers-method p { font-size: .72rem; line-height: 1.4; margin: 0; max-width: 280px; }
+    .pers-method--dtf { background: #111 url('{{ asset('img/personalizacao/dft_transfer.jpeg') }}') center 35% / cover no-repeat; color: #fff; }
+    .pers-method--dtf::after,
+    .pers-method--emb::after { background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.04) 50%, rgba(0,0,0,.28) 100%); }
+    .pers-method--dtf h3,
+    .pers-method--dtf p,
+    .pers-method--emb h3,
+    .pers-method--emb p { color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.55); }
+    .pers-method--emb { background: #111 url('{{ asset('img/personalizacao/bordado.jpeg') }}') center 40% / cover no-repeat; color: #fff; }
     .pers-examples { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
-    .pers-example { aspect-ratio: 1.2; background: #e7e7e7; position: relative; overflow: hidden; display: grid; place-items: center; color: #858585; text-align: center; font-size: .7rem; border: 1px solid #ddd; }
-    .pers-example i { display: block; font-size: 1.6rem; color: #aaa; margin-bottom: .4rem; }
-    .pers-example-badge { position: absolute; inset: auto 0 0; padding: .32rem; color: #fff; background: var(--pers-orange); font-size: .62rem; font-weight: 800; text-transform: uppercase; }
+    .pers-example { aspect-ratio: 3 / 2; background: #e7e7e7; position: relative; overflow: hidden; border: 1px solid #ddd; }
+    .pers-example img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .pers-benefits { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid #e8e8e8; }
     .pers-benefit { padding: 1.1rem .75rem; text-align: center; border-right: 1px solid #e8e8e8; }
     .pers-benefit:last-child { border-right: 0; }
@@ -133,7 +145,14 @@
                                 <div class="pers-note"><i class="fa fa-info-circle"></i><span>A produção só começa depois da sua aprovação.</span></div>
                             </div>
                             <div class="pers-mockup">
-                                <div class="pers-mockup-placeholder"><div><i class="fa fa-image"></i>Área reservada para a maquete<br>do produto personalizado</div></div>
+                                @if($product && $product->cover_image_url)
+                                    <div class="pers-mockup-product">
+                                        <img src="{{ $product->cover_image_url }}" alt="{{ $product->title }}">
+                                        <strong>{{ $product->title }}</strong>
+                                    </div>
+                                @else
+                                    <div class="pers-mockup-placeholder"><div><i class="fa fa-image"></i>Área reservada para a maquete<br>do produto personalizado</div></div>
+                                @endif
                             </div>
                         </div>
                     </section>
@@ -149,9 +168,9 @@
                     <section class="pers-section">
                         <div class="pers-section-title"><div class="pers-kicker">Exemplos de personalização</div><h2>A sua marca, em destaque</h2></div>
                         <div class="pers-examples">
-                            <div class="pers-example"><div><i class="fa fa-image"></i>Exemplo de personalização</div><span class="pers-example-badge">Antes / Depois</span></div>
-                            <div class="pers-example"><div><i class="fa fa-image"></i>Exemplo de personalização</div><span class="pers-example-badge">Antes / Depois</span></div>
-                            <div class="pers-example"><div><i class="fa fa-image"></i>Exemplo de personalização</div><span class="pers-example-badge">Antes / Depois</span></div>
+                            <div class="pers-example"><img src="{{ asset('img/personalizacao/01.jpeg') }}" alt="Exemplo de personalização — antes e depois"></div>
+                            <div class="pers-example"><img src="{{ asset('img/personalizacao/02.jpeg') }}" alt="Exemplo de personalização — antes e depois"></div>
+                            <div class="pers-example"><img src="{{ asset('img/personalizacao/03.jpeg') }}" alt="Exemplo de personalização — antes e depois"></div>
                         </div>
                     </section>
 
@@ -181,10 +200,21 @@
                     <form action="{{ route('contact.submit') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="client_type" value="company">
-                        <input type="hidden" name="products[0][name]" value="{{ request('produto', 'Produto a personalizar') }}">
-                        <input type="hidden" name="products[0][reference]" value="">
+                        <input type="hidden" name="products[0][name]" value="{{ $product?->title ?? 'Produto a personalizar' }}">
+                        <input type="hidden" name="products[0][reference]" value="{{ $product?->code ?? '' }}">
                         <input type="hidden" name="products[0][color]" value="">
                         <div class="pers-form-body">
+                            @if($product)
+                                <div class="pers-selected-product">
+                                    @if($product->cover_image_url)
+                                        <img src="{{ $product->cover_image_url }}" alt="{{ $product->title }}">
+                                    @endif
+                                    <div>
+                                        <span>Produto selecionado</span>
+                                        <strong>{{ $product->title }}</strong>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="pers-form-group"><label class="pers-form-label" for="company_name">1. Dados de contacto</label><input class="pers-form-control" id="company_name" name="company_name" placeholder="Nome da empresa *" required></div>
                             <div class="pers-form-row"><div class="pers-form-group"><input class="pers-form-control" name="contact_name" placeholder="Nome completo *" required></div><div class="pers-form-group"><input class="pers-form-control" type="email" name="email" placeholder="E-mail *" required></div></div>
                             <div class="pers-form-row"><div class="pers-form-group"><input class="pers-form-control" name="phone" placeholder="Telefone *" required></div><div class="pers-form-group"><input class="pers-form-control" name="tax_id" placeholder="NIF *" required></div></div>
