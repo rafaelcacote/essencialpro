@@ -192,7 +192,7 @@
                         <span>Atendimento Rápido</span>
                     </div>
                     <div class="ep-att-desc">Fale conosco pelo WhatsApp e receba um atendimento ágil e personalizado.</div>
-                    <a href="{{ route('contact') }}" class="ep-whatsapp-btn">
+                    <a href="https://wa.me/351922026198" target="_blank" rel="noopener noreferrer" class="ep-whatsapp-btn">
                         <i class="bi bi-whatsapp"></i> Falar no WhatsApp
                     </a>
                 </div>
