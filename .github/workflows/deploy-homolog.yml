@@ -52,6 +52,65 @@ jobs:
           sed -i 's/^[[:space:]]*//' ~/.ssh/config
           chmod 600 ~/.ssh/config
 
+      - name: Diagnose SSH connectivity
+        env:
+          HOST: ${{ secrets.HOSTINGER_HOST }}
+          PORT: ${{ secrets.HOSTINGER_PORT }}
+          SSH_USER: ${{ secrets.HOSTINGER_USER }}
+        run: |
+          set -euo pipefail
+
+          echo "==> Secrets (comprimento; valores saem mascarados no log)"
+          echo "HOST length: ${#HOST}"
+          echo "PORT length: ${#PORT}"
+          echo "USER length: ${#SSH_USER}"
+          echo "KEY file: $(test -s ~/.ssh/hostinger_deploy && echo OK || echo MISSING)"
+          echo "KEY lines: $(wc -l < ~/.ssh/hostinger_deploy | tr -d ' ')"
+
+          if [ -z "${HOST}" ]; then
+            echo "ERRO: HOSTINGER_HOST está vazio."
+            exit 1
+          fi
+          if [ -z "${PORT}" ]; then
+            echo "ERRO: HOSTINGER_PORT está vazio (SSH cai na porta 22 → timeout na Hostinger)."
+            exit 1
+          fi
+          if [ "${PORT}" != "65002" ]; then
+            echo "AVISO: HOSTINGER_PORT não é 65002 (valor mascarado no log). Na Hostinger shared deve ser 65002."
+          else
+            echo "PORT check: 65002 OK"
+          fi
+          if [ -z "${SSH_USER}" ]; then
+            echo "ERRO: HOSTINGER_USER está vazio."
+            exit 1
+          fi
+
+          echo "==> Config SSH efetiva"
+          ssh -G hostinger | awk '/^(hostname|port|user|identityfile) /{print}'
+
+          echo "==> IP de saída do runner (GitHub Actions)"
+          curl -4 -fsS --max-time 10 https://api.ipify.org || curl -4 -fsS --max-time 10 https://ifconfig.me/ip || echo "(falhou obter IP)"
+          echo
+
+          echo "==> Teste TCP host:porta (10s)"
+          python3 - <<'PY'
+          import os, socket, sys
+          host = os.environ["HOST"]
+          port = int(os.environ["PORT"])
+          s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+          s.settimeout(10)
+          try:
+              s.connect((host, port))
+              print(f"TCP {host}:{port}: OPEN")
+          except Exception as e:
+              print(f"TCP {host}:{port}: FAIL ({e})")
+              print("Se FAIL com timeout e PORT!=65002, corrige HOSTINGER_PORT.")
+              print("Se FAIL com timeout e PORT=65002, pode ser bloqueio pontual do IP do runner.")
+              sys.exit(1)
+          finally:
+              s.close()
+          PY
+
       - name: Deploy via SSH (with retries)
         uses: nick-fields/retry@v3
         with:
