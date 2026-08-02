@@ -18,6 +18,7 @@
     @stack('styles')
 </head>
 <body>
+    @include('components.env-banner')
     <div class="auth-shell">
         <aside class="auth-brand-panel auth-brand-panel--admin" aria-hidden="true">
             <div class="auth-brand-content">

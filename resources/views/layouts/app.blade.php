@@ -21,6 +21,7 @@
     @stack('styles')
 </head>
 <body>
+    @include('components.env-banner')
     @include('components.topbar')
     @include('components.navbar')
 

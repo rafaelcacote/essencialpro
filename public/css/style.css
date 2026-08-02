@@ -1578,3 +1578,32 @@ h6,
     color: #B0B9AE;
     border-top: 1px solid rgba(255, 255, 255, .1);
 }
+/* Homolog / non-production environment banner */
+.env-banner {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem 0.5rem;
+    padding: 0.45rem 1rem;
+    background: #c45c26;
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    font-size: 0.8125rem;
+    line-height: 1.35;
+    text-align: center;
+}
+
+.env-banner strong {
+    font-family: Rubik, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.env-banner span {
+    opacity: 0.95;
+}
