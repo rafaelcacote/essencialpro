@@ -45,11 +45,14 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        $guestSessionId = $request->session()->getId();
+
         Auth::login($user);
 
-        // Associar carrinho de convidado ao novo utilizador
-        app(CartService::class)->mergeGuestCartIntoUser($request, $user);
+        // Associar carrinho de convidado ao novo utilizador (antes de regenerar a sessão)
+        app(CartService::class)->mergeGuestCartIntoUser($request, $user, $guestSessionId);
+        $request->session()->regenerate();
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->intended(route('dashboard', absolute: false));
     }
 }

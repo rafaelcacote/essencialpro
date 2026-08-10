@@ -128,7 +128,7 @@
                                 @auth
                                     <a href="{{ route('checkout.create') }}" class="cart-checkout"><i class="bi bi-lock-fill"></i> Finalizar pedido</a>
                                 @else
-                                    <a href="{{ route('login') }}" class="cart-checkout"><i class="bi bi-person-circle"></i> Entrar para finalizar</a>
+                                    <a href="{{ route('login', ['redirect' => route('checkout.create', absolute: false)]) }}" class="cart-checkout"><i class="bi bi-person-circle"></i> Entrar para finalizar</a>
                                 @endauth
                                 <form method="POST" action="{{ route('cart.clear') }}" class="text-center mt-3">@csrf @method('DELETE')<button type="submit" class="cart-remove"><i class="bi bi-trash3"></i> Limpar carrinho</button></form>
                                 <p class="cart-secure"><i class="bi bi-shield-lock-fill"></i> Pagamento 100% seguro</p>
