@@ -381,9 +381,29 @@
                                     </div>
                                 </article>
                             @endforeach
-                            <div class="checkout-success-total">
-                                <span>Total</span>
-                                <strong>{{ number_format((float) $order->grand_total, 2, ',', '.') }} €</strong>
+                            <div class="checkout-success-total" style="flex-direction: column; align-items: stretch; gap: .55rem;">
+                                <div class="d-flex justify-content-between">
+                                    <span class="fw-normal text-muted">Subtotal (s/ IVA)</span>
+                                    <strong style="color:#1d2b41;font-size:.95rem;">{{ number_format((float) $order->subtotal, 2, ',', '.') }} €</strong>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="fw-normal text-muted">Envio</span>
+                                    <strong style="color:#1d2b41;font-size:.95rem;">
+                                        @if ((float) $order->shipping_total > 0)
+                                            {{ number_format((float) $order->shipping_total, 2, ',', '.') }} €
+                                        @else
+                                            Gratuito
+                                        @endif
+                                    </strong>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span class="fw-normal text-muted">IVA</span>
+                                    <strong style="color:#1d2b41;font-size:.95rem;">{{ number_format((float) ($order->tax_total ?? 0), 2, ',', '.') }} €</strong>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center pt-2" style="border-top:1px solid #e7ebf0;">
+                                    <span>Total</span>
+                                    <strong>{{ number_format((float) $order->grand_total, 2, ',', '.') }} €</strong>
+                                </div>
                             </div>
                         </section>
                     @endif

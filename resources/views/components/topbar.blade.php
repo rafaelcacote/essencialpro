@@ -7,7 +7,7 @@
                     <i class="fas fa-shipping-fast"></i>
                 </span>
                 <span class="site-topbar-text">
-                    Portes grátis para Portugal Continental a partir de 80€
+                    Portes grátis para Portugal Continental a partir de {{ number_format((float) config('checkout.free_shipping_threshold'), 0, ',', '.') }}€
                 </span>
             </div>
 

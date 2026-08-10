@@ -72,8 +72,10 @@
                 </div>
             @else
                 @php
-                    $subtotal = $cart->items->sum(fn ($item) => ((float) ($item->product?->price ?? 0)) * $item->quantity);
-                    $remainingForFreeShipping = max(0, 80 - $subtotal);
+                    $totals = \App\Support\CheckoutTotals::fromCart($cart);
+                    $subtotal = $totals['subtotal'];
+                    $remainingForFreeShipping = $totals['remaining_for_free_shipping'];
+                    $freeShippingThreshold = $totals['free_shipping_threshold'];
                 @endphp
                 <div class="cart-note">
                     <i class="bi bi-info-circle-fill"></i>
@@ -120,8 +122,9 @@
                             <section class="cart-summary">
                                 <h2>Resumo da encomenda</h2>
                                 <div class="cart-row"><span>Subtotal (s/ IVA)</span><strong>{{ number_format($subtotal, 2, ',', '.') }} €</strong></div>
-                                <div class="cart-row cart-row--shipping"><span>Envio</span><strong>A calcular</strong></div>
-                                <div class="cart-total"><span>Total</span><div><strong>{{ number_format($subtotal, 2, ',', '.') }} €</strong><small>s/ IVA e envio</small></div></div>
+                                <div class="cart-row cart-row--shipping"><span>Envio</span><strong>{{ $totals['has_free_shipping'] ? 'Gratuito' : number_format($totals['shipping_total'], 2, ',', '.') . ' €' }}</strong></div>
+                                <div class="cart-row"><span>IVA ({{ (int) round($totals['tax_rate'] * 100) }}%)</span><strong>{{ number_format($totals['tax_total'], 2, ',', '.') }} €</strong></div>
+                                <div class="cart-total"><span>Total</span><div><strong>{{ number_format($totals['grand_total'], 2, ',', '.') }} €</strong><small>IVA incluído</small></div></div>
                                 @auth
                                     <a href="{{ route('checkout.create') }}" class="cart-checkout"><i class="bi bi-lock-fill"></i> Finalizar pedido</a>
                                 @else
@@ -139,7 +142,7 @@
                         </aside>
                     </div>
                 </div>
-                <div class="cart-free"><i class="bi bi-truck"></i><span><strong>Portes gratuitos</strong> em encomendas iguais ou superiores a 80,00 € (valor s/ IVA) para Portugal Continental.</span></div>
+                <div class="cart-free"><i class="bi bi-truck"></i><span><strong>Portes gratuitos</strong> em encomendas iguais ou superiores a {{ number_format($freeShippingThreshold, 2, ',', '.') }} € (valor s/ IVA) para Portugal Continental.</span></div>
                 <section class="cart-trust">
                     <div><i class="bi bi-shield-check"></i><span><strong>Compra 100% segura</strong><span>Os seus dados estão protegidos com encriptação SSL.</span></span></div>
                     <div><i class="bi bi-arrow-repeat"></i><span><strong>Devoluções fáceis</strong><span>Até 14 dias para devolver a sua encomenda.</span></span></div>
