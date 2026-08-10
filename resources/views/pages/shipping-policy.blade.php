@@ -274,7 +274,7 @@
                     <ul class="ep-shipping-list">
                         <li>
                             <i class="bi bi-check2-circle"></i>
-                            <span><strong>5,90 € + IVA</strong> para encomendas de valor inferior a 80,00 €.</span>
+                            <span><strong>7,00 €</strong> (sem IVA) para encomendas de valor inferior a 80,00 €.</span>
                         </li>
                         <li>
                             <i class="bi bi-check2-circle"></i>

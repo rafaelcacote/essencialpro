@@ -62,9 +62,9 @@ class CheckoutTotals
         $subtotal = round($subtotal, 2);
         $shippingTotal = $subtotal >= $threshold ? 0.0 : round($shippingFee, 2);
         $discountTotal = 0.0;
-        $taxable = round($subtotal + $shippingTotal - $discountTotal, 2);
+        $taxable = round($subtotal - $discountTotal, 2);
         $taxTotal = round($taxable * $taxRate, 2);
-        $grandTotal = round($taxable + $taxTotal, 2);
+        $grandTotal = round($taxable + $taxTotal + $shippingTotal, 2);
 
         return [
             'subtotal' => $subtotal,

@@ -6,10 +6,10 @@ return [
     | Frete — Portugal Continental
     |--------------------------------------------------------------------------
     | O limiar de portes gratuitos compara o subtotal sem IVA.
-    | Abaixo do limiar cobra-se a taxa líquida (s/ IVA); o IVA aplica-se depois.
+    | Abaixo do limiar cobra-se a taxa fixa de envio (sem IVA).
     */
     'free_shipping_threshold' => 80.00,
-    'shipping_fee' => 5.90,
+    'shipping_fee' => 7.00,
 
     /*
     |--------------------------------------------------------------------------
