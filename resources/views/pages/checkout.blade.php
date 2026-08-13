@@ -182,6 +182,16 @@
         background: #ffe8db;
         color: var(--primary);
     }
+    .ck-pay-option__icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 4px;
+        border-radius: 6px;
+    }
+    .ck-pay-option:has(input:checked) .ck-pay-option__icon--logo {
+        background: #fff;
+    }
     .ck-pay-option__text { flex: 1; min-width: 0; }
     .ck-pay-option__text strong {
         display: flex;
@@ -575,7 +585,9 @@
                                 <div class="ck-pay">
                                     <label class="ck-pay-option">
                                         <input type="radio" name="payment_method" value="mbway" @checked(old('payment_method', 'mbway') === 'mbway')>
-                                        <span class="ck-pay-option__icon"><i class="bi bi-phone"></i></span>
+                                        <span class="ck-pay-option__icon ck-pay-option__icon--logo">
+                                            <img src="{{ asset('img/metodos_pagamentos/mb_way.jpeg') }}" alt="MB WAY">
+                                        </span>
                                         <span class="ck-pay-option__text">
                                             <strong>MB WAY <span class="ck-badge">Recomendado</span></strong>
                                             <small>Receba uma notificação no telemóvel para confirmar o pagamento.</small>
@@ -583,7 +595,9 @@
                                     </label>
                                     <label class="ck-pay-option">
                                         <input type="radio" name="payment_method" value="multibanco" @checked(old('payment_method') === 'multibanco')>
-                                        <span class="ck-pay-option__icon"><i class="bi bi-upc"></i></span>
+                                        <span class="ck-pay-option__icon ck-pay-option__icon--logo">
+                                            <img src="{{ asset('img/metodos_pagamentos/mb_multibanco.jpeg') }}" alt="Multibanco">
+                                        </span>
                                         <span class="ck-pay-option__text">
                                             <strong>Referência Multibanco</strong>
                                             <small>Receba uma entidade e referência para pagar no Multibanco ou homebanking.</small>

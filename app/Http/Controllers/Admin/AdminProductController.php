@@ -47,7 +47,6 @@ class AdminProductController extends Controller
         $products = $query->latest()->paginate(20)->withQueryString();
 
         $categories = Category::where('is_active', true)
-            ->orderBy('sort_order')
             ->orderBy('name')
             ->get();
 
@@ -134,6 +133,7 @@ class AdminProductController extends Controller
             'sizes.*' => ['nullable', 'string', 'max:255'],
             'is_active' => ['nullable', 'boolean'],
             'is_featured' => ['nullable', 'boolean'],
+            'sort_order' => ['nullable', 'integer', 'min:0', 'max:9999'],
             'images' => ['nullable', 'array'],
             'images.*' => ['file', 'image', 'max:6144'],
         ]);
@@ -196,6 +196,7 @@ class AdminProductController extends Controller
             'sizes' => $sizes ?: null,
             'is_active' => (bool) ($validated['is_active'] ?? false),
             'is_featured' => (bool) ($validated['is_featured'] ?? false),
+            'sort_order' => (int) ($validated['sort_order'] ?? 0),
         ];
     }
 

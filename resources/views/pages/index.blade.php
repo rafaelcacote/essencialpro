@@ -1313,8 +1313,10 @@
         background: rgba(15, 23, 42, 0.86);
     }
     .hero-slide-btn.whatsapp:hover {
-        background: rgba(15, 23, 42, 1);
+        background: #25d366;
+        border-color: #25d366;
         color: #fff;
+        box-shadow: 0 8px 18px rgba(37, 211, 102, 0.35);
     }
     @media (max-width: 991.98px) {
         .category-explorer {
@@ -1542,11 +1544,16 @@
             backdrop-filter: blur(4px);
         }
         .hero-slide-btn.whatsapp:hover {
-            background: rgba(15, 23, 42, 0.9);
-            border-color: #fb923c;
+            background: #25d366;
+            border-color: #25d366;
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(37, 211, 102, 0.35);
         }
         .hero-slide-btn.whatsapp i {
             color: #25d366;
+        }
+        .hero-slide-btn.whatsapp:hover i {
+            color: #fff;
         }
     }
     @media (min-width: 992px) {
@@ -1600,7 +1607,7 @@
                             <i class="bi bi-bag" aria-hidden="true"></i>
                             Ver Produtos
                         </a>
-                        <a href="{{ route('contact') }}" class="hero-slide-btn whatsapp">
+                        <a href="https://wa.me/351922026198" class="hero-slide-btn whatsapp" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-whatsapp" aria-hidden="true"></i>
                             Falar no WhatsApp
                         </a>
@@ -1714,7 +1721,7 @@
             subtitle="Tudo para a sua segurança no trabalho."
         />
         <div class="professional-solutions-grid home-section-carousel" data-carousel-label="Soluções">
-            <a href="/categoria/protecao-de-cabeca" class="professional-solution-card">
+            <a href="/categoria/epis" class="professional-solution-card">
                 <img class="professional-solution-card-image" src="{{ asset('img/solutions/equipamentos-protecao.png') }}" alt="Equipamentos de proteção">
                 <div class="professional-solution-card-body">
                     <h3 class="professional-solution-card-title">
@@ -1747,7 +1754,7 @@
                     <span class="professional-solution-card-cta">Ver produtos <i class="bi bi-arrow-right-short"></i></span>
                 </div>
             </a>
-            <a href="/categoria/protecao-anti-queda" class="professional-solution-card">
+            <a href="/categoria/equipamentos-anti-queda" class="professional-solution-card">
                 <img class="professional-solution-card-image" src="{{ asset('img/solutions/antiqueda.jpeg') }}" alt="Proteção anti-queda">
                 <div class="professional-solution-card-body">
                     <h3 class="professional-solution-card-title">
@@ -1813,7 +1820,7 @@
                     <span class="custom-brand-banner-title-line">Personalizamos</span>
                     <span class="custom-brand-banner-title-line">Sua <span class="custom-brand-banner-title-accent">Marca</span></span>
                 </h2>
-                <a href="{{ route('contact') }}" class="custom-brand-cta">Solicite o seu orçamento</a>
+                <a href="{{ route('personalization') }}#pedido-personalizacao" class="custom-brand-cta">Solicite o seu orçamento</a>
             </div>
         </div>
     </div>
@@ -2353,7 +2360,33 @@ Our Products End -->
                 };
             }
 
+            $carousel.data('carouselAutoplayTimeout', config.autoplayTimeout);
             $carousel.addClass('owl-carousel').owlCarousel(config);
+
+            // Owl Carousel 2 bug: when autoplayHoverPause is on, the timeout can fire
+            // while paused and never reschedule; mouseleave play() then no-ops because
+            // state is still "rotating". Same issue when the tab is hidden. Force restart.
+            $carousel.off('.owl.autoplayFix');
+            $carousel.on('mouseleave.owl.autoplayFix touchend.owl.autoplayFix', function () {
+                if (!config.autoplay) {
+                    return;
+                }
+                $carousel.trigger('stop.owl.autoplay');
+                $carousel.trigger('play.owl.autoplay', [config.autoplayTimeout]);
+            });
+        });
+    }
+
+    function resumeHomeSectionAutoplay() {
+        if (document.hidden || typeof jQuery === 'undefined') {
+            return;
+        }
+
+        jQuery('.home-section-carousel.owl-loaded').each(function () {
+            var $carousel = jQuery(this);
+            var timeout = parseInt($carousel.data('carouselAutoplayTimeout'), 10) || 4500;
+            $carousel.trigger('stop.owl.autoplay');
+            $carousel.trigger('play.owl.autoplay', [timeout]);
         });
     }
 
@@ -2364,6 +2397,8 @@ Our Products End -->
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(initHomeSectionCarousels, 180);
         });
+
+        document.addEventListener('visibilitychange', resumeHomeSectionAutoplay);
     });
 })();
 

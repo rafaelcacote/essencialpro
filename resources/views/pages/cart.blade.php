@@ -39,6 +39,7 @@
     .cart-summary h2, .cart-shipping h2 { color:#1d2b41; font-size:1rem; font-weight:700; margin:0 0 1.1rem; }
     .cart-row { display:flex; justify-content:space-between; gap:1rem; color:#526075; font-size:.84rem; margin-bottom:.85rem; }
     .cart-row strong { color:#1d2b41; } .cart-row--shipping strong { color:#c86a2d; font-size:.75rem; text-transform:uppercase; }
+    .cart-row--shipping strong.cart-shipping-free { color:#198754; }
     .cart-total { display:flex; justify-content:space-between; align-items:end; border-top:1px solid #e7ebf0; margin-top:1.1rem; padding-top:1.1rem; }
     .cart-total span { color:#1e2c42; font-size:.9rem; font-weight:700; }
     .cart-total strong { color:var(--primary); font-size:1.5rem; line-height:1; }
@@ -130,7 +131,7 @@
                             <section class="cart-summary">
                                 <h2>Resumo da encomenda</h2>
                                 <div class="cart-row"><span>Subtotal (s/ IVA)</span><strong>{{ number_format($subtotal, 2, ',', '.') }} €</strong></div>
-                                <div class="cart-row cart-row--shipping"><span>Envio</span><strong>{{ $totals['has_free_shipping'] ? 'Gratuito' : number_format($totals['shipping_total'], 2, ',', '.') . ' €' }}</strong></div>
+                                <div class="cart-row cart-row--shipping"><span>Envio</span><strong @class(['cart-shipping-free' => $totals['has_free_shipping']])>{{ $totals['has_free_shipping'] ? 'Gratuito' : number_format($totals['shipping_total'], 2, ',', '.') . ' €' }}</strong></div>
                                 <div class="cart-row"><span>IVA ({{ (int) round($totals['tax_rate'] * 100) }}%)</span><strong>{{ number_format($totals['tax_total'], 2, ',', '.') }} €</strong></div>
                                 <div class="cart-total"><span>Total</span><div><strong>{{ number_format($totals['grand_total'], 2, ',', '.') }} €</strong><small>IVA incluído</small></div></div>
                                 <div class="cart-checkout-wrap">
