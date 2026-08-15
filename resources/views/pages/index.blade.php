@@ -1702,11 +1702,11 @@
             subtitle="Explore todas as nossas soluções completas para empresas e profissionais."
         />
         <div class="professional-catalogs-grid">
-            <a href="#" class="professional-catalog-card professional-catalog-card--base" target="_blank" rel="noopener noreferrer">
+            <a href="{{ asset('img/catalogs/CATALOGO-BASE-PROTECTION-web-ES_PT.pdf') }}" class="professional-catalog-card professional-catalog-card--base" target="_blank" rel="noopener noreferrer">
                 <img src="{{ asset('img/catalogs/catalogo-base.png') }}" alt="Catálogo Base — Feel the comfort">
                 <span class="professional-catalog-cta">Ver catálogo Base</span>
             </a>
-            <a href="#" class="professional-catalog-card professional-catalog-card--portwest" target="_blank" rel="noopener noreferrer">
+            <a href="{{ asset('img/catalogs/Portwest Catalogue - Portuguese.pdf') }}" class="professional-catalog-card professional-catalog-card--portwest" target="_blank" rel="noopener noreferrer">
                 <img src="{{ asset('img/catalogs/catalogo-portwest.png') }}" alt="Catálogo Portwest — Peak Protection">
                 <span class="professional-catalog-cta">Ver catálogo Portwest</span>
             </a>
@@ -1839,11 +1839,11 @@
                 </div>
                 <div class="contact-highlight-actions">
                     <div class="contact-highlight-btns-row">
-                        <a href="{{ route('contact') }}" class="contact-highlight-btn quote">
+                        <a href="{{ route('quote') }}" class="contact-highlight-btn quote">
                             <i class="bi bi-file-earmark-text"></i>
                             Pedir Orçamento
                         </a>
-                        <a href="{{ route('contact') }}" class="contact-highlight-btn whatsapp">
+                        <a href="https://wa.me/351922026198" class="contact-highlight-btn whatsapp" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-whatsapp"></i>
                             Falar no WhatsApp
                         </a>

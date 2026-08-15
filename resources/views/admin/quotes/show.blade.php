@@ -50,33 +50,45 @@
                             <div class="admin-detail-item__label">Telefone</div>
                             <div class="admin-detail-item__value">{{ $quote->phone }}</div>
                         </div>
-                        <div class="admin-detail-item">
-                            <div class="admin-detail-item__label">NIF / Contribuinte</div>
-                            <div class="admin-detail-item__value">{{ $quote->tax_id }}</div>
-                        </div>
+                        @if ($quote->tax_id)
+                            <div class="admin-detail-item">
+                                <div class="admin-detail-item__label">NIF / Contribuinte</div>
+                                <div class="admin-detail-item__value">{{ $quote->tax_id }}</div>
+                            </div>
+                        @endif
                     </div>
 
+                    @if ($quote->address || $quote->postal_code || $quote->city || $quote->country)
                     <hr class="admin-divider">
 
                     <h3 class="admin-card-title mb-3"><i class="bi bi-geo-alt me-2"></i> Morada</h3>
                     <div class="admin-detail-grid">
+                        @if ($quote->address)
                         <div class="admin-detail-item" style="grid-column: 1 / -1;">
                             <div class="admin-detail-item__label">Morada</div>
                             <div class="admin-detail-item__value">{{ $quote->address }}</div>
                         </div>
+                        @endif
+                        @if ($quote->postal_code)
                         <div class="admin-detail-item">
                             <div class="admin-detail-item__label">Código Postal</div>
                             <div class="admin-detail-item__value">{{ $quote->postal_code }}</div>
                         </div>
+                        @endif
+                        @if ($quote->city)
                         <div class="admin-detail-item">
                             <div class="admin-detail-item__label">Cidade</div>
                             <div class="admin-detail-item__value">{{ $quote->city }}</div>
                         </div>
+                        @endif
+                        @if ($quote->country)
                         <div class="admin-detail-item">
                             <div class="admin-detail-item__label">País</div>
                             <div class="admin-detail-item__value">{{ $quote->country }}</div>
                         </div>
+                        @endif
                     </div>
+                    @endif
 
                     @if ($quote->notes)
                         <hr class="admin-divider">
