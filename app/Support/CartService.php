@@ -34,17 +34,18 @@ class CartService
         ]);
     }
 
-    public function mergeGuestCartIntoUser(Request $request, ?Authenticatable $user): void
+    public function mergeGuestCartIntoUser(Request $request, ?Authenticatable $user, ?string $guestSessionId = null): void
     {
         if (!$user) {
             return;
         }
 
-        $sessionId = $request->session()->getId();
+        $sessionId = $guestSessionId ?: $request->session()->getId();
         $guestCart = Cart::query()
             ->where('status', 'active')
             ->whereNull('user_id')
             ->where('session_id', $sessionId)
+            ->with('items')
             ->latest('id')
             ->first();
 
@@ -59,7 +60,10 @@ class CartService
             ->first();
 
         if (!$userCart) {
-            $guestCart->update(['user_id' => $user->id]);
+            $guestCart->update([
+                'user_id' => $user->id,
+                'session_id' => $request->session()->getId(),
+            ]);
             return;
         }
 
@@ -73,6 +77,7 @@ class CartService
 
             if ($existing) {
                 $existing->increment('quantity', $item->quantity);
+                $item->delete();
                 continue;
             }
 
@@ -80,6 +85,7 @@ class CartService
             $item->save();
         }
 
+        $userCart->update(['session_id' => $request->session()->getId()]);
         $guestCart->delete();
     }
 

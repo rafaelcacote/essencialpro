@@ -39,11 +39,20 @@
     .cart-summary h2, .cart-shipping h2 { color:#1d2b41; font-size:1rem; font-weight:700; margin:0 0 1.1rem; }
     .cart-row { display:flex; justify-content:space-between; gap:1rem; color:#526075; font-size:.84rem; margin-bottom:.85rem; }
     .cart-row strong { color:#1d2b41; } .cart-row--shipping strong { color:#c86a2d; font-size:.75rem; text-transform:uppercase; }
+    .cart-row--shipping strong.cart-shipping-free { color:#198754; }
     .cart-total { display:flex; justify-content:space-between; align-items:end; border-top:1px solid #e7ebf0; margin-top:1.1rem; padding-top:1.1rem; }
     .cart-total span { color:#1e2c42; font-size:.9rem; font-weight:700; }
     .cart-total strong { color:var(--primary); font-size:1.5rem; line-height:1; }
     .cart-total small { display:block; color:#778498; font-size:.65rem; text-align:right; }
-    .cart-checkout { display:flex; justify-content:center; align-items:center; gap:.55rem; width:100%; margin-top:1.4rem; border-radius:4px; padding:.9rem; background:var(--primary); color:#fff; font-size:.88rem; font-weight:700; text-decoration:none; }
+    .cart-checkout-wrap { margin-top:1.4rem; }
+    .cart-checkout-free {
+        display:flex; gap:.55rem; align-items:flex-start;
+        margin-bottom:.65rem; padding:.7rem .8rem;
+        border:1px solid #b7e4c7; border-radius:4px;
+        background:#edf9f1; color:#1b5e36; font-size:.72rem; line-height:1.4;
+    }
+    .cart-checkout-free i { color:#198754; font-size:.95rem; margin-top:.05rem; flex-shrink:0; }
+    .cart-checkout { display:flex; justify-content:center; align-items:center; gap:.55rem; width:100%; border-radius:4px; padding:.9rem; background:var(--primary); color:#fff; font-size:.88rem; font-weight:700; text-decoration:none; }
     .cart-checkout:hover { color:#fff; filter:brightness(.94); }
     .cart-secure { color:#738096; font-size:.7rem; text-align:center; margin: .8rem 0 0; } .cart-secure i { color:var(--primary); }
     .cart-shipping { margin-top:1rem; } .cart-shipping h2 { display:flex; gap:.55rem; align-items:center; }
@@ -72,8 +81,10 @@
                 </div>
             @else
                 @php
-                    $subtotal = $cart->items->sum(fn ($item) => ((float) ($item->product?->price ?? 0)) * $item->quantity);
-                    $remainingForFreeShipping = max(0, 80 - $subtotal);
+                    $totals = \App\Support\CheckoutTotals::fromCart($cart);
+                    $subtotal = $totals['subtotal'];
+                    $remainingForFreeShipping = $totals['remaining_for_free_shipping'];
+                    $freeShippingThreshold = $totals['free_shipping_threshold'];
                 @endphp
                 <div class="cart-note">
                     <i class="bi bi-info-circle-fill"></i>
@@ -120,26 +131,36 @@
                             <section class="cart-summary">
                                 <h2>Resumo da encomenda</h2>
                                 <div class="cart-row"><span>Subtotal (s/ IVA)</span><strong>{{ number_format($subtotal, 2, ',', '.') }} €</strong></div>
-                                <div class="cart-row cart-row--shipping"><span>Envio</span><strong>A calcular</strong></div>
-                                <div class="cart-total"><span>Total</span><div><strong>{{ number_format($subtotal, 2, ',', '.') }} €</strong><small>s/ IVA e envio</small></div></div>
-                                @auth
-                                    <a href="{{ route('checkout.create') }}" class="cart-checkout"><i class="bi bi-lock-fill"></i> Finalizar pedido</a>
-                                @else
-                                    <a href="{{ route('login') }}" class="cart-checkout"><i class="bi bi-person-circle"></i> Entrar para finalizar</a>
-                                @endauth
+                                <div class="cart-row cart-row--shipping"><span>Envio</span><strong @class(['cart-shipping-free' => $totals['has_free_shipping']])>{{ $totals['has_free_shipping'] ? 'Gratuito' : number_format($totals['shipping_total'], 2, ',', '.') . ' €' }}</strong></div>
+                                <div class="cart-row"><span>IVA ({{ (int) round($totals['tax_rate'] * 100) }}%)</span><strong>{{ number_format($totals['tax_total'], 2, ',', '.') }} €</strong></div>
+                                <div class="cart-total"><span>Total</span><div><strong>{{ number_format($totals['grand_total'], 2, ',', '.') }} €</strong><small>IVA incluído</small></div></div>
+                                <div class="cart-checkout-wrap">
+                                    @if ($totals['has_free_shipping'])
+                                        <div class="cart-checkout-free">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            <span>Parabéns! A sua encomenda é elegível para portes gratuitos em Portugal Continental.</span>
+                                        </div>
+                                    @endif
+                                    @auth
+                                        <a href="{{ route('checkout.create') }}" class="cart-checkout"><i class="bi bi-lock-fill"></i> Finalizar pedido</a>
+                                    @else
+                                        <a href="{{ route('login', ['redirect' => route('checkout.create', absolute: false)]) }}" class="cart-checkout"><i class="bi bi-person-circle"></i> Entrar para finalizar</a>
+                                    @endauth
+                                </div>
                                 <form method="POST" action="{{ route('cart.clear') }}" class="text-center mt-3">@csrf @method('DELETE')<button type="submit" class="cart-remove"><i class="bi bi-trash3"></i> Limpar carrinho</button></form>
                                 <p class="cart-secure"><i class="bi bi-shield-lock-fill"></i> Pagamento 100% seguro</p>
                             </section>
                             <section class="cart-shipping">
                                 <h2><i class="bi bi-truck"></i> Envio</h2>
                                 <div class="cart-shipping-line"><span>Transportadora</span><strong>GLS</strong></div>
-                                <div class="cart-shipping-line"><span>Prazo estimado</span><strong>7–10 dias úteis</strong></div>
-                                <div class="cart-promo"><i class="bi bi-check-circle-fill"></i><span>@if ($remainingForFreeShipping > 0)Adicione <strong>{{ number_format($remainingForFreeShipping, 2, ',', '.') }} €</strong> para portes gratuitos em Portugal Continental.@else Parabéns! A sua encomenda é elegível para portes gratuitos em Portugal Continental.@endif</span></div>
+                                @if ($remainingForFreeShipping > 0)
+                                    <div class="cart-promo"><i class="bi bi-check-circle-fill"></i><span>Adicione <strong>{{ number_format($remainingForFreeShipping, 2, ',', '.') }} €</strong> para portes gratuitos em Portugal Continental.</span></div>
+                                @endif
                             </section>
                         </aside>
                     </div>
                 </div>
-                <div class="cart-free"><i class="bi bi-truck"></i><span><strong>Portes gratuitos</strong> em encomendas iguais ou superiores a 80,00 € (valor s/ IVA) para Portugal Continental.</span></div>
+                <div class="cart-free"><i class="bi bi-truck"></i><span><strong>Portes gratuitos</strong> em encomendas iguais ou superiores a {{ number_format($freeShippingThreshold, 2, ',', '.') }} € (valor s/ IVA) para Portugal Continental.</span></div>
                 <section class="cart-trust">
                     <div><i class="bi bi-shield-check"></i><span><strong>Compra 100% segura</strong><span>Os seus dados estão protegidos com encriptação SSL.</span></span></div>
                     <div><i class="bi bi-arrow-repeat"></i><span><strong>Devoluções fáceis</strong><span>Até 14 dias para devolver a sua encomenda.</span></span></div>

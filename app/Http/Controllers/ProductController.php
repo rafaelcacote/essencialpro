@@ -54,7 +54,7 @@ class ProductController extends Controller
                 break;
             case 'popularity':
             default:
-                $query->orderBy('is_featured', 'desc')->latest();
+                $query->orderBy('sort_order')->orderBy('is_featured', 'desc')->latest();
                 break;
         }
 
@@ -165,7 +165,7 @@ class ProductController extends Controller
                 break;
             case 'popularity':
             default:
-                $query->orderBy('is_featured', 'desc')->latest();
+                $query->orderBy('sort_order')->orderBy('is_featured', 'desc')->latest();
                 break;
         }
 

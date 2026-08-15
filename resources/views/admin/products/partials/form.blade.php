@@ -261,7 +261,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="form-text mt-2">A imagem com menor “Ordem” aparece primeiro (e vira a principal).</div>
+                        <div class="form-text mt-2">A imagem com menor “Ordem” aparece primeiro na galeria (e vira a principal). Isto não altera a ordem do produto na listagem da loja.</div>
                     @endif
                 </div>
             </div>
@@ -284,6 +284,13 @@
                     <input class="form-check-input" type="checkbox" name="is_featured" value="1" id="is_featured"
                         @checked(old('is_featured', $product?->is_featured ?? false))>
                     <label class="form-check-label" for="is_featured">Em destaque (home)</label>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Ordem de exibição</label>
+                    <input type="number" class="form-control" name="sort_order" min="0" max="9999"
+                           value="{{ old('sort_order', $product?->sort_order ?? 0) }}">
+                    <div class="form-text">Menor número aparece primeiro na listagem da loja.</div>
                 </div>
 
                 <div class="mb-3">

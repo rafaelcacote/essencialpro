@@ -420,18 +420,26 @@
                                 <span>Subtotal</span>
                                 <strong>{{ number_format((float) $order->subtotal, 2, ',', '.') }} €</strong>
                             </div>
-                            @if ((float) $order->shipping_total > 0)
-                                <div class="order-show-row">
-                                    <span>Envio</span>
-                                    <strong>{{ number_format((float) $order->shipping_total, 2, ',', '.') }} €</strong>
-                                </div>
-                            @endif
+                            <div class="order-show-row">
+                                <span>Envio</span>
+                                <strong>
+                                    @if ((float) $order->shipping_total > 0)
+                                        {{ number_format((float) $order->shipping_total, 2, ',', '.') }} €
+                                    @else
+                                        Gratuito
+                                    @endif
+                                </strong>
+                            </div>
                             @if ((float) $order->discount_total > 0)
                                 <div class="order-show-row">
                                     <span>Desconto</span>
                                     <strong>-{{ number_format((float) $order->discount_total, 2, ',', '.') }} €</strong>
                                 </div>
                             @endif
+                            <div class="order-show-row">
+                                <span>IVA</span>
+                                <strong>{{ number_format((float) ($order->tax_total ?? 0), 2, ',', '.') }} €</strong>
+                            </div>
                             @if ($order->payment_status)
                                 <div class="order-show-row">
                                     <span>Pagamento</span>

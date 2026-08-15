@@ -15,8 +15,13 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create(Request $request): View
     {
+        $redirect = $request->query('redirect');
+        if (is_string($redirect) && str_starts_with($redirect, '/') && ! str_starts_with($redirect, '//')) {
+            $request->session()->put('url.intended', $redirect);
+        }
+
         return view('auth.login');
     }
 
@@ -25,10 +30,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $guestSessionId = $request->session()->getId();
+
         $request->authenticate();
 
+        // Merge before regenerate: guest cart is keyed by the pre-login session id.
+        app(CartService::class)->mergeGuestCartIntoUser($request, $request->user(), $guestSessionId);
+
         $request->session()->regenerate();
-        app(CartService::class)->mergeGuestCartIntoUser($request, $request->user());
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

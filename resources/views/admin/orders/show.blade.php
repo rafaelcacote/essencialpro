@@ -64,6 +64,11 @@
                     </table>
                 </div>
                 <div class="admin-card-footer text-end">
+                    <div class="d-flex flex-column align-items-end gap-1 mb-2 small text-muted">
+                        <div>Subtotal: <strong class="text-dark">{{ number_format((float) $order->subtotal, 2, ',', '.') }} €</strong></div>
+                        <div>Envio: <strong class="text-dark">{{ (float) $order->shipping_total > 0 ? number_format((float) $order->shipping_total, 2, ',', '.') . ' €' : 'Gratuito' }}</strong></div>
+                        <div>IVA: <strong class="text-dark">{{ number_format((float) ($order->tax_total ?? 0), 2, ',', '.') }} €</strong></div>
+                    </div>
                     <span class="text-muted me-2">Total do pedido:</span>
                     <strong class="fs-5">{{ number_format((float) $order->grand_total, 2, ',', '.') }} €</strong>
                 </div>

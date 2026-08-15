@@ -14,7 +14,33 @@
     }
 
     /* Col 1 - brand */
-    .ep-footer-brand-logo { max-width: 190px; margin-bottom: 0.75rem; display: block; }
+    .ep-footer-brand-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        margin-bottom: 0.75rem;
+        text-decoration: none;
+        max-width: 260px;
+    }
+    .ep-footer-brand-icon {
+        width: 46px;
+        height: 46px;
+        object-fit: contain;
+        flex-shrink: 0;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
+    }
+    .ep-footer-wordmark {
+        font-family: Rubik, sans-serif;
+        font-weight: 700;
+        font-size: 1.12rem;
+        letter-spacing: 0.02em;
+        color: #fff;
+        line-height: 1;
+        white-space: nowrap;
+    }
+    .ep-footer-wordmark span { color: #ff7800; }
     .ep-footer-brand p { line-height: 1.55; margin-bottom: 1rem; color: #b8c9e1; }
     .ep-footer-contact-item {
         display: flex; gap: 0.6rem; align-items: flex-start; margin-bottom: 0.6rem; color: #b8c9e1;
@@ -133,8 +159,9 @@
 
             {{-- Col 1: Marca --}}
             <div class="ep-footer-brand">
-                <a href="{{ route('home') }}">
-                    <img src="{{ asset('img/logo_essencial_branco.svg') }}" alt="Essencial Pro" class="ep-footer-brand-logo">
+                <a href="{{ route('home') }}" class="ep-footer-brand-logo">
+                    <img src="{{ asset('img/logo_e_icon.png') }}" alt="" class="ep-footer-brand-icon">
+                    <span class="ep-footer-wordmark">ESSENCIAL <span>PRO</span></span>
                 </a>
                 <p>Fornecemos equipamentos de proteção individual e vestuário profissional para empresas que valorizam segurança, qualidade e desempenho no dia a dia.</p>
                 <div class="ep-footer-contact-item">

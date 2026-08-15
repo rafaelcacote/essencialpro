@@ -25,6 +25,7 @@ class Product extends Model
         'sizes',
         'is_active',
         'is_featured',
+        'sort_order',
     ];
 
     protected $casts = [
@@ -35,6 +36,7 @@ class Product extends Model
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
         'price' => 'decimal:2',
+        'sort_order' => 'integer',
     ];
 
     public function category(): BelongsTo
