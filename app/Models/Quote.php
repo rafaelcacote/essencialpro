@@ -19,6 +19,7 @@ class Quote extends Model
         'city',
         'country',
         'notes',
+        'mockup_path',
         'status',
     ];
 

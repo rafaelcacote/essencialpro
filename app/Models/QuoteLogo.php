@@ -18,4 +18,11 @@ class QuoteLogo extends Model
     {
         return $this->belongsTo(Quote::class);
     }
+
+    public function isImage(): bool
+    {
+        $extension = strtolower((string) pathinfo((string) $this->file_path, PATHINFO_EXTENSION));
+
+        return in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp'], true);
+    }
 }
