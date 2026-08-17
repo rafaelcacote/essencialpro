@@ -49,6 +49,7 @@ class AdminQuoteController extends Controller
             foreach ($quote->logos as $logo) {
                 $this->deleteLogoFile($logo);
             }
+            $this->deleteMockupFile($quote);
             $quote->delete();
         });
 
@@ -58,6 +59,18 @@ class AdminQuoteController extends Controller
     private function deleteLogoFile(QuoteLogo $logo): void
     {
         $fullPath = public_path($logo->file_path);
+        if (is_file($fullPath)) {
+            @unlink($fullPath);
+        }
+    }
+
+    private function deleteMockupFile(Quote $quote): void
+    {
+        if (! $quote->mockup_path) {
+            return;
+        }
+
+        $fullPath = public_path($quote->mockup_path);
         if (is_file($fullPath)) {
             @unlink($fullPath);
         }

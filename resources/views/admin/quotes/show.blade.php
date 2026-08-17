@@ -126,22 +126,48 @@
                 </div>
             </div>
 
+            @if ($quote->mockup_path)
+                <div class="admin-card mt-4">
+                    <div class="admin-card-header">
+                        <h2 class="admin-card-title"><i class="bi bi-easel2 me-2"></i> Maquete personalizada</h2>
+                    </div>
+                    <div class="admin-card-body">
+                        <a href="{{ asset($quote->mockup_path) }}" target="_blank" rel="noopener" class="admin-mockup-link">
+                            <img class="admin-mockup-preview" src="{{ asset($quote->mockup_path) }}" alt="Maquete do produto personalizado">
+                        </a>
+                        <p class="text-muted small mb-0 mt-3">Pré-visualização com o logótipo na posição definida pelo cliente. Clique para abrir em tamanho real.</p>
+                    </div>
+                </div>
+            @endif
+
             @if ($quote->logos->isNotEmpty())
                 <div class="admin-card mt-4">
                     <div class="admin-card-header">
-                        <h2 class="admin-card-title"><i class="bi bi-image me-2"></i> Logotipos</h2>
+                        <h2 class="admin-card-title"><i class="bi bi-image me-2"></i> Ficheiro original do logótipo</h2>
                     </div>
                     <div class="admin-card-body">
                         <div class="row g-3">
                             @foreach ($quote->logos as $logo)
                                 <div class="col-md-4">
                                     <div class="admin-logo-card">
-                                        <a href="{{ asset($logo->file_path) }}" target="_blank">
-                                            <img src="{{ asset($logo->file_path) }}" alt="Logo">
+                                        <a href="{{ asset($logo->file_path) }}" target="_blank" rel="noopener">
+                                            @if ($logo->isImage())
+                                                <img src="{{ asset($logo->file_path) }}" alt="Logótipo">
+                                            @else
+                                                <div class="admin-logo-file">
+                                                    <i class="bi bi-file-earmark-pdf"></i>
+                                                    <span>Abrir {{ strtoupper(pathinfo($logo->file_path, PATHINFO_EXTENSION) ?: 'ficheiro') }}</span>
+                                                </div>
+                                            @endif
                                         </a>
                                         <div class="admin-logo-card__body">
-                                            <div><span class="text-muted">Localização:</span> {{ $logo->location ?? '—' }}</div>
-                                            <div><span class="text-muted">Peças:</span> {{ $logo->pieces ?? '—' }}</div>
+                                            @if ($logo->location)
+                                                <div><span class="text-muted">Local:</span> {{ $logo->location }}</div>
+                                            @endif
+                                            @if ($logo->pieces)
+                                                <div><span class="text-muted">Peça:</span> {{ $logo->pieces }}</div>
+                                            @endif
+                                            <a href="{{ asset($logo->file_path) }}" target="_blank" rel="noopener" class="small">Descarregar ficheiro</a>
                                         </div>
                                     </div>
                                 </div>
