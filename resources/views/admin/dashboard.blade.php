@@ -71,6 +71,21 @@
                 <strong>{{ $pendingOrders }}</strong> pendentes
             </div>
         </a>
+
+        <a class="admin-stat-card admin-stat-card--info" href="{{ route('admin.customers.index') }}">
+            <div class="admin-stat-card__top">
+                <div>
+                    <div class="admin-stat-label">Clientes</div>
+                    <div class="admin-stat-value">{{ $totalCustomers }}</div>
+                </div>
+                <div class="admin-stat-icon admin-stat-icon--info">
+                    <i class="bi bi-people"></i>
+                </div>
+            </div>
+            <div class="admin-stat-footer">
+                <strong>{{ $recentCustomers }}</strong> nos últimos 30 dias
+            </div>
+        </a>
     </div>
 
     <div class="row g-4">

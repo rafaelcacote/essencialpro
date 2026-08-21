@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Quote;
+use App\Models\User;
 
 class AdminDashboardController extends Controller
 {
@@ -19,6 +20,8 @@ class AdminDashboardController extends Controller
         $pendingQuotes = Quote::query()->where('status', 'pending')->count();
         $totalOrders = Order::query()->count();
         $pendingOrders = Order::query()->where('status', 'pending')->count();
+        $totalCustomers = User::query()->customers()->count();
+        $recentCustomers = User::query()->customers()->where('created_at', '>=', now()->subDays(30))->count();
 
         $latestPendingQuotes = Quote::query()
             ->where('status', 'pending')
@@ -45,6 +48,8 @@ class AdminDashboardController extends Controller
             'pendingQuotes',
             'totalOrders',
             'pendingOrders',
+            'totalCustomers',
+            'recentCustomers',
             'latestPendingQuotes',
             'latestPendingOrders',
             'latestProducts',

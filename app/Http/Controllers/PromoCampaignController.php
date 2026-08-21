@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class PromoCampaignController extends Controller
 {
+    public const PENDING_NOTICE_KEY = 'promo_coupon_pending_notice';
+
+    /** Kept until the notice modal is rendered (survives verified-middleware redirects). */
+    public const NOTICE_KEY = 'promo_coupon_notice';
+
     public function unlock(Request $request, PromoCampaign $promoCampaign, CouponService $coupons): RedirectResponse
     {
         abort_unless(
@@ -23,20 +28,40 @@ class PromoCampaignController extends Controller
             $coupons->remember($promoCampaign->coupon->code);
         }
 
-        $status = $promoCampaign->coupon
-            ? 'Cupom ' . $promoCampaign->coupon->code . ' guardado. Crie a sua conta para o usar no checkout.'
+        $notice = $promoCampaign->coupon
+            ? 'Cupom '.$promoCampaign->coupon->code.' guardado. Aplique-o no checkout.'
             : 'Promoção desbloqueada.';
 
         $url = $promoCampaign->button_url ?: route('register');
         $path = parse_url($url, PHP_URL_PATH) ?: '/';
 
-        // Já autenticado: não precisa de cadastro — segue para o checkout.
-        if ($request->user() && in_array($path, ['/register', '/cadastro'], true)) {
-            return redirect()->route('checkout.create')->with('status', $promoCampaign->coupon
-                ? 'Cupom ' . $promoCampaign->coupon->code . ' guardado. Aplique-o no checkout.'
-                : 'Promoção desbloqueada.');
+        if ($request->user()) {
+            $request->session()->put(self::NOTICE_KEY, $notice);
+
+            // Checkout exige e-mail verificado — evita erro/redirect forçado.
+            if (! $request->user()->hasVerifiedEmail()) {
+                return redirect()->route('home');
+            }
+
+            if (in_array($path, ['/register', '/cadastro'], true)) {
+                return redirect()->route('checkout.create');
+            }
+
+            return redirect()->to($url);
         }
 
-        return redirect()->to($url)->with('status', $status);
+        // Convidado: guarda o cupom e adia a mensagem até depois do login/cadastro.
+        $request->session()->put(self::PENDING_NOTICE_KEY, $notice);
+
+        return redirect()->to($url);
+    }
+
+    public static function promotePendingNotice(Request $request): void
+    {
+        $notice = $request->session()->pull(self::PENDING_NOTICE_KEY);
+
+        if (is_string($notice) && $notice !== '') {
+            $request->session()->put(self::NOTICE_KEY, $notice);
+        }
     }
 }

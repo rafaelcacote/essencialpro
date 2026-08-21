@@ -51,7 +51,13 @@
                         <tr>
                             <td><span class="text-muted">#{{ $order->id }}</span></td>
                             <td><span class="fw-semibold">{{ $order->order_number }}</span></td>
-                            <td>{{ $order->contact_name }}</td>
+                            <td>
+                                @if ($order->user && ! $order->user->is_admin)
+                                    <a href="{{ route('admin.customers.show', $order->user) }}">{{ $order->contact_name }}</a>
+                                @else
+                                    {{ $order->contact_name }}
+                                @endif
+                            </td>
                             <td>
                                 @php
                                     $badgeClass = match($order->status) {

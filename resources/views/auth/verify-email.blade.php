@@ -15,6 +15,16 @@
                 <div class="alert alert-success">
                     Foi enviada uma nova ligação de verificação para o endereço de e-mail indicado no registo.
                 </div>
+            @elseif (session('status'))
+                <div class="alert alert-warning">
+                    {{ session('status') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
             @endif
 
             <div class="d-flex flex-column flex-sm-row gap-2 mt-4">

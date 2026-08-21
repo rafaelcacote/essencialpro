@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminCouponController;
+use App\Http\Controllers\Admin\AdminCustomerController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminPartnerController;
@@ -94,6 +95,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('coupons', AdminCouponController::class)->except(['show']);
         Route::resource('promo-campaigns', AdminPromoCampaignController::class)->except(['show']);
         Route::resource('orders', AdminOrderController::class)->only(['index', 'show', 'update', 'destroy']);
+        Route::resource('customers', AdminCustomerController::class)->only(['index', 'show']);
     });
 });
 

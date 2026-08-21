@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PromoCampaignController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Support\CartService;
 use Illuminate\Http\RedirectResponse;
@@ -38,6 +39,7 @@ class AuthenticatedSessionController extends Controller
         app(CartService::class)->mergeGuestCartIntoUser($request, $request->user(), $guestSessionId);
 
         $request->session()->regenerate();
+        PromoCampaignController::promotePendingNotice($request);
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

@@ -64,6 +64,10 @@
                 </a>
 
                 <div class="admin-nav-section">Atendimento</div>
+                <a class="admin-nav-link @if (request()->routeIs('admin.customers.*')) active @endif" href="{{ route('admin.customers.index') }}">
+                    <i class="bi bi-people"></i>
+                    <span>Clientes</span>
+                </a>
                 <a class="admin-nav-link @if (request()->routeIs('admin.quotes.*')) active @endif" href="{{ route('admin.quotes.index') }}">
                     <i class="bi bi-chat-dots"></i>
                     <span>Orçamentos</span>
