@@ -40,7 +40,7 @@ class FirstPurchasePromoSeeder extends Seeder
             [
                 'image_path' => $imagePath,
                 'button_text' => 'DESBLOQUEIE O SEU DESCONTO',
-                'button_url' => '/',
+                'button_url' => '/register',
                 'audience' => PromoCampaign::AUDIENCE_GUESTS,
                 'coupon_id' => $coupon->id,
                 'is_active' => true,
