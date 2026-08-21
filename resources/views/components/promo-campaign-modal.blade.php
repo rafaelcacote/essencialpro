@@ -111,8 +111,9 @@
 <script>
     (() => {
         const campaignId = @json($promoCampaign->id);
+        // sessionStorage: reaparece ao fechar o browser; some numa mesma visita.
         const storageKey = `promo_campaign_dismissed_${campaignId}`;
-        if (window.localStorage.getItem(storageKey) === '1') {
+        if (window.sessionStorage.getItem(storageKey) === '1') {
             return;
         }
 
@@ -125,6 +126,7 @@
             backdrop: 'static',
             keyboard: false,
         });
+        const dismiss = () => window.sessionStorage.setItem(storageKey, '1');
         const show = () => modal.show();
 
         if (document.readyState === 'complete') {
@@ -133,13 +135,8 @@
             window.addEventListener('load', () => setTimeout(show, 600));
         }
 
-        modalEl.addEventListener('hidden.bs.modal', () => {
-            window.localStorage.setItem(storageKey, '1');
-        });
-
-        document.getElementById('promoCampaignCta')?.addEventListener('click', () => {
-            window.localStorage.setItem(storageKey, '1');
-        });
+        modalEl.addEventListener('hidden.bs.modal', dismiss);
+        document.getElementById('promoCampaignCta')?.addEventListener('click', dismiss);
     })();
 </script>
 @endpush

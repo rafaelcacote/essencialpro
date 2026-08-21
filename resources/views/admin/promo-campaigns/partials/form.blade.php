@@ -22,8 +22,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">URL do botão</label>
-                        <input class="form-control" name="button_url" value="{{ old('button_url', $campaign?->button_url ?? '/register') }}" required maxlength="255" placeholder="/register">
-                        <div class="form-text">Ex.: /register para cadastro. O cupom fica guardado na sessão.</div>
+                        <input class="form-control" name="button_url" value="{{ old('button_url', $campaign?->button_url ?? '/') }}" required maxlength="255" placeholder="/">
+                        <div class="form-text">Ex.: / para continuar a comprar. O cupom fica guardado; login só no checkout.</div>
                     </div>
 
                     <div class="col-md-6">

@@ -23,16 +23,23 @@ class PromoCampaignController extends Controller
             $coupons->remember($promoCampaign->coupon->code);
         }
 
-        $url = $promoCampaign->button_url ?: route('register');
+        $status = $promoCampaign->coupon
+            ? 'Cupom ' . $promoCampaign->coupon->code . ' guardado. Pode comprar normalmente e usá-lo no checkout.'
+            : 'Promoção desbloqueada.';
 
-        if ($request->user() && in_array(parse_url($url, PHP_URL_PATH), ['/register', '/cadastro'], true)) {
-            return redirect()
-                ->route('checkout.create')
-                ->with('status', $promoCampaign->coupon
-                    ? 'Cupom ' . $promoCampaign->coupon->code . ' guardado. Aplique-o no checkout.'
-                    : 'Promoção desbloqueada.');
+        $url = $promoCampaign->button_url ?: route('home');
+        $path = parse_url($url, PHP_URL_PATH) ?: '/';
+        $isAuthPage = in_array($path, ['/register', '/cadastro', '/login'], true);
+
+        // Visitante desbloqueia o cupom e segue a comprar; login só no checkout.
+        if (! $request->user() && $isAuthPage) {
+            return redirect()->route('home')->with('status', $status);
         }
 
-        return redirect()->to($url);
+        if ($request->user() && in_array($path, ['/register', '/cadastro'], true)) {
+            return redirect()->route('checkout.create')->with('status', $status);
+        }
+
+        return redirect()->to($url)->with('status', $status);
     }
 }
