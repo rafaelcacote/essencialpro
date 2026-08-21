@@ -5,19 +5,56 @@
 @if ($promoCampaign)
 <style>
     .promo-modal-dialog {
-        max-width: min(920px, 92vw);
-        width: 92vw;
+        max-width: min(760px, 90vw);
+        width: auto;
         margin: 1rem auto;
     }
     .promo-modal-content {
         position: relative;
+        width: fit-content;
+        max-width: 100%;
+        margin: 0 auto;
         border-radius: 10px;
         overflow: hidden;
+        background: #fff;
     }
     .promo-modal-image {
-        max-height: min(62vh, 540px);
+        display: block;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: min(72vh, 620px);
         object-fit: contain;
         background: #fff;
+    }
+    .promo-modal-actions {
+        display: flex;
+        justify-content: center;
+        padding: .55rem .75rem .7rem;
+        background: #fff;
+    }
+    .promo-modal-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 100%;
+        padding: .38rem 1rem;
+        border-radius: 6px;
+        background: #ff4500;
+        color: #fff !important;
+        font-size: .75rem;
+        font-weight: 700;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        text-decoration: none;
+        line-height: 1.25;
+        white-space: nowrap;
+    }
+    .promo-modal-cta:hover,
+    .promo-modal-cta:focus {
+        background: #e03d00;
+        color: #fff;
+        outline: none;
     }
     .promo-modal-close {
         position: absolute;
@@ -53,10 +90,15 @@
     @media (max-width: 767.98px) {
         .promo-modal-dialog {
             max-width: 94vw;
-            width: 94vw;
         }
         .promo-modal-image {
-            max-height: min(52vh, 420px);
+            max-height: min(58vh, 440px);
+        }
+        .promo-modal-cta {
+            white-space: normal;
+            text-align: center;
+            font-size: .7rem;
+            padding: .36rem .85rem;
         }
         .promo-modal-close {
             top: .5rem;
@@ -90,13 +132,12 @@
                 <img
                     src="{{ asset($promoCampaign->image_path) }}"
                     alt="{{ $promoCampaign->title }}"
-                    class="w-100 d-block promo-modal-image"
+                    class="promo-modal-image"
                 >
-                <div class="p-3 p-md-4 text-center" style="background: #fff;">
+                <div class="promo-modal-actions">
                     <a
                         href="{{ route('promotions.unlock', $promoCampaign) }}"
-                        class="btn btn-lg w-100 fw-bold text-uppercase"
-                        style="background: #ff4500; border-color: #ff4500; color: #fff; letter-spacing: .03em;"
+                        class="promo-modal-cta"
                         id="promoCampaignCta"
                     >
                         {{ $promoCampaign->button_text }}
@@ -110,13 +151,6 @@
 @push('scripts')
 <script>
     (() => {
-        const campaignId = @json($promoCampaign->id);
-        // sessionStorage: reaparece ao fechar o browser; some numa mesma visita.
-        const storageKey = `promo_campaign_dismissed_${campaignId}`;
-        if (window.sessionStorage.getItem(storageKey) === '1') {
-            return;
-        }
-
         const modalEl = document.getElementById('promoCampaignModal');
         if (!modalEl || typeof bootstrap === 'undefined') {
             return;
@@ -126,7 +160,6 @@
             backdrop: 'static',
             keyboard: false,
         });
-        const dismiss = () => window.sessionStorage.setItem(storageKey, '1');
         const show = () => modal.show();
 
         if (document.readyState === 'complete') {
@@ -134,9 +167,6 @@
         } else {
             window.addEventListener('load', () => setTimeout(show, 600));
         }
-
-        modalEl.addEventListener('hidden.bs.modal', dismiss);
-        document.getElementById('promoCampaignCta')?.addEventListener('click', dismiss);
     })();
 </script>
 @endpush
