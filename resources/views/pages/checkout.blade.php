@@ -651,6 +651,12 @@
                                         <span>Subtotal ({{ $totals['item_count'] }} {{ $totals['item_count'] === 1 ? 'produto' : 'produtos' }})</span>
                                         <strong>{{ number_format($totals['subtotal'], 2, ',', '.') }} €</strong>
                                     </div>
+                                    @if (($totals['discount_total'] ?? 0) > 0)
+                                        <div class="ck-row" style="color:#157347;">
+                                            <span>Desconto{{ !empty($totals['coupon']) ? ' (' . $totals['coupon']->code . ')' : '' }}</span>
+                                            <strong>-{{ number_format($totals['discount_total'], 2, ',', '.') }} €</strong>
+                                        </div>
+                                    @endif
                                     <div class="ck-row {{ $totals['has_free_shipping'] ? 'ck-row--shipping' : '' }}">
                                         <span>Envio</span>
                                         <strong>
@@ -665,6 +671,37 @@
                                         <span>IVA ({{ $taxPercent }}%)</span>
                                         <strong>{{ number_format($totals['tax_total'], 2, ',', '.') }} €</strong>
                                     </div>
+                                </div>
+
+                                <div class="mt-3 mb-3">
+                                    @if (!empty($totals['coupon']))
+                                        <div class="d-flex align-items-center justify-content-between gap-2 p-2 rounded" style="background:#eef9f2; border:1px solid #cce8d5;">
+                                            <div class="small">
+                                                <strong>Cupom {{ $totals['coupon']->code }}</strong>
+                                                <span class="text-muted">· {{ $totals['coupon']->label() }}</span>
+                                            </div>
+                                            <button form="checkout-coupon-remove" type="submit" class="btn btn-sm btn-outline-secondary">Remover</button>
+                                        </div>
+                                    @else
+                                        <div class="d-flex gap-2">
+                                            <input
+                                                form="checkout-coupon-apply"
+                                                type="text"
+                                                name="coupon_code"
+                                                class="form-control form-control-sm text-uppercase"
+                                                placeholder="Código do cupom"
+                                                value="{{ old('coupon_code') }}"
+                                                maxlength="50"
+                                            >
+                                            <button form="checkout-coupon-apply" type="submit" class="btn btn-sm btn-outline-primary text-nowrap">Aplicar</button>
+                                        </div>
+                                        @error('coupon_code')
+                                            <div class="text-danger small mt-1">{{ $message }}</div>
+                                        @enderror
+                                        @if (!empty($totals['coupon_error']))
+                                            <div class="text-danger small mt-1">{{ $totals['coupon_error'] }}</div>
+                                        @endif
+                                    @endif
                                 </div>
 
                                 <div class="ck-total">
@@ -702,6 +739,14 @@
                         </aside>
                     </div>
                 </div>
+            </form>
+
+            <form id="checkout-coupon-apply" method="POST" action="{{ route('checkout.coupon.apply') }}" class="d-none">
+                @csrf
+            </form>
+            <form id="checkout-coupon-remove" method="POST" action="{{ route('checkout.coupon.remove') }}" class="d-none">
+                @csrf
+                @method('DELETE')
             </form>
 
             <div class="ck-trust">

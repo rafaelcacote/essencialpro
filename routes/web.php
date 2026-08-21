@@ -3,17 +3,21 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminCouponController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminPartnerController;
 use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\AdminPromoCampaignController;
 use App\Http\Controllers\Admin\AdminQuoteController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CheckoutCouponController;
 use App\Http\Controllers\EupagoWebhookController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PromoCampaignController;
 use App\Http\Controllers\QuoteController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,12 +54,18 @@ Route::patch('/cart/items/{item}', [CartController::class, 'update'])->name('car
 Route::delete('/cart/items/{item}', [CartController::class, 'destroy'])->name('cart.items.destroy');
 Route::delete('/cart', [CartController::class, 'clear'])->name('cart.clear');
 
+Route::get('/promocoes/{promoCampaign}/desbloquear', [PromoCampaignController::class, 'unlock'])
+    ->name('promotions.unlock');
+Route::redirect('/cadastro', '/register');
+
 // Webhook do EuPago — sem autenticação nem CSRF (excluído em bootstrap/app.php).
 Route::post('/webhook/eupago', [EupagoWebhookController::class, 'handle'])->name('webhook.eupago');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'create'])->name('checkout.create');
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::post('/checkout/cupom', [CheckoutCouponController::class, 'apply'])->name('checkout.coupon.apply');
+    Route::delete('/checkout/cupom', [CheckoutCouponController::class, 'remove'])->name('checkout.coupon.remove');
     Route::get('/checkout/pagamento/retorno/{order}', [CheckoutController::class, 'paymentReturn'])->name('checkout.payment.return');
     Route::get('/checkout/pagamento/falha/{order}', [CheckoutController::class, 'paymentFailure'])->name('checkout.payment.failure');
     Route::get('/checkout/pagamento/cancelado/{order}', [CheckoutController::class, 'paymentCancel'])->name('checkout.payment.cancel');
@@ -81,6 +91,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('categories', AdminCategoryController::class)->except(['show']);
         Route::resource('quotes', AdminQuoteController::class)->only(['index', 'show', 'update', 'destroy']);
         Route::resource('partners', AdminPartnerController::class)->except(['show']);
+        Route::resource('coupons', AdminCouponController::class)->except(['show']);
+        Route::resource('promo-campaigns', AdminPromoCampaignController::class)->except(['show']);
         Route::resource('orders', AdminOrderController::class)->only(['index', 'show', 'update', 'destroy']);
     });
 });

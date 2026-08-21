@@ -1775,7 +1775,7 @@
     <div class="container">
         <div class="best-sellers-header">
             <x-section-heading
-                title="MAIS VENDIDOS"
+                title="PRODUTOS EM DESTAQUE"
                 subtitle="Os equipamentos preferidos pelos nossos clientes."
                 class="mb-0"
             />
@@ -1783,7 +1783,7 @@
         </div>
         <div
             class="best-sellers-grid home-section-carousel"
-            data-carousel-label="Mais vendidos"
+            data-carousel-label="Produtos em destaque"
             data-carousel-desktop="true"
             data-carousel-items="5"
             data-carousel-slide-by="1"
