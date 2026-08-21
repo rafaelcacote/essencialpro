@@ -49,12 +49,30 @@
         text-decoration: none;
         line-height: 1.25;
         white-space: nowrap;
+        animation: promo-cta-pulse 1.8s ease-in-out infinite;
+        will-change: transform, box-shadow;
     }
     .promo-modal-cta:hover,
     .promo-modal-cta:focus {
         background: #e03d00;
         color: #fff;
         outline: none;
+        animation: none;
+    }
+    @keyframes promo-cta-pulse {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.45);
+        }
+        50% {
+            transform: scale(1.04);
+            box-shadow: 0 0 0 10px rgba(255, 69, 0, 0);
+        }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .promo-modal-cta {
+            animation: none;
+        }
     }
     .promo-modal-close {
         position: absolute;
