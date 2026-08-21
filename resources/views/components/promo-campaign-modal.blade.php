@@ -30,7 +30,7 @@
     .promo-modal-actions {
         display: flex;
         justify-content: center;
-        padding: .55rem .75rem .7rem;
+        padding: .85rem 1rem 1rem;
         background: #fff;
     }
     .promo-modal-cta {
@@ -38,11 +38,11 @@
         align-items: center;
         justify-content: center;
         max-width: 100%;
-        padding: .38rem 1rem;
+        padding: .7rem 1.75rem;
         border-radius: 6px;
         background: #ff4500;
         color: #fff !important;
-        font-size: .75rem;
+        font-size: 1rem;
         font-weight: 700;
         letter-spacing: .04em;
         text-transform: uppercase;
@@ -97,8 +97,8 @@
         .promo-modal-cta {
             white-space: normal;
             text-align: center;
-            font-size: .7rem;
-            padding: .36rem .85rem;
+            font-size: .9rem;
+            padding: .65rem 1.35rem;
         }
         .promo-modal-close {
             top: .5rem;
