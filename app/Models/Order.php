@@ -25,6 +25,8 @@ class Order extends Model
         'subtotal',
         'shipping_total',
         'discount_total',
+        'coupon_id',
+        'coupon_code',
         'tax_total',
         'grand_total',
         'status',
@@ -54,6 +56,11 @@ class Order extends Model
     public function cart(): BelongsTo
     {
         return $this->belongsTo(Cart::class);
+    }
+
+    public function coupon(): BelongsTo
+    {
+        return $this->belongsTo(Coupon::class);
     }
 
     public function items(): HasMany

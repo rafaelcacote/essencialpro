@@ -6,10 +6,12 @@ use App\Models\Order;
 use App\Services\EupagoService;
 use App\Support\CartService;
 use App\Support\CheckoutTotals;
+use App\Support\CouponService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class CheckoutController extends Controller
 {
@@ -19,12 +21,12 @@ class CheckoutController extends Controller
         $cart->load('items.product.images');
         abort_if($cart->items->isEmpty(), 422, 'Seu carrinho está vazio.');
 
-        $totals = CheckoutTotals::fromCart($cart);
+        $totals = CheckoutTotals::fromCart($cart, $request->user());
 
         return view('pages.checkout', compact('cart', 'totals'));
     }
 
-    public function store(Request $request, CartService $cartService, EupagoService $eupago)
+    public function store(Request $request, CartService $cartService, EupagoService $eupago, CouponService $coupons)
     {
         $validated = $request->validate([
             'first_name' => ['required', 'string', 'max:120'],
@@ -55,11 +57,18 @@ class CheckoutController extends Controller
         $cart->load('items.product');
         abort_if($cart->items->isEmpty(), 422, 'Seu carrinho está vazio.');
 
-        $totals = CheckoutTotals::fromCart($cart);
+        $totals = CheckoutTotals::fromCart($cart, $request->user());
+        if ($totals['coupon_error']) {
+            throw ValidationException::withMessages([
+                'coupon_code' => $totals['coupon_error'],
+            ]);
+        }
+
         $contactName = trim($validated['first_name'] . ' ' . $validated['last_name']);
         $address = $this->formatAddress($validated);
+        $appliedCoupon = $totals['coupon'];
 
-        $order = DB::transaction(function () use ($request, $cart, $validated, $totals, $contactName, $address) {
+        $order = DB::transaction(function () use ($request, $cart, $validated, $totals, $contactName, $address, $appliedCoupon) {
             $order = Order::create([
                 'order_number' => 'PED-' . now()->format('Ymd') . '-' . strtoupper(substr(uniqid(), -6)),
                 'user_id' => $request->user()->id,
@@ -77,6 +86,8 @@ class CheckoutController extends Controller
                 'subtotal' => $totals['subtotal'],
                 'shipping_total' => $totals['shipping_total'],
                 'discount_total' => $totals['discount_total'],
+                'coupon_id' => $appliedCoupon?->id,
+                'coupon_code' => $appliedCoupon?->code,
                 'tax_total' => $totals['tax_total'],
                 'grand_total' => $totals['grand_total'],
                 'status' => 'pending',
@@ -98,8 +109,14 @@ class CheckoutController extends Controller
                 ]);
             }
 
+            if ($appliedCoupon) {
+                $appliedCoupon->increment('used_count');
+            }
+
             return $order;
         });
+
+        $coupons->forget();
 
         try {
             $payment = $eupago->createPayment($order, $validated['payment_method']);

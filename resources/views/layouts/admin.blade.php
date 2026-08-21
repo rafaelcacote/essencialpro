@@ -54,6 +54,14 @@
                     <i class="bi bi-award"></i>
                     <span>Parceiros</span>
                 </a>
+                <a class="admin-nav-link @if (request()->routeIs('admin.coupons.*')) active @endif" href="{{ route('admin.coupons.index') }}">
+                    <i class="bi bi-ticket-perforated"></i>
+                    <span>Cupons</span>
+                </a>
+                <a class="admin-nav-link @if (request()->routeIs('admin.promo-campaigns.*')) active @endif" href="{{ route('admin.promo-campaigns.index') }}">
+                    <i class="bi bi-megaphone"></i>
+                    <span>Campanhas</span>
+                </a>
 
                 <div class="admin-nav-section">Atendimento</div>
                 <a class="admin-nav-link @if (request()->routeIs('admin.quotes.*')) active @endif" href="{{ route('admin.quotes.index') }}">

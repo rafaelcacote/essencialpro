@@ -1,5 +1,5 @@
 @php
-    $whatsappNumber = '351923128006';
+    $whatsappNumber = '351922026198';
     $categoryPlaceholders = [
         ['slug' => 'epis', 'name' => 'EPIs'],
         ['slug' => 'vestuario', 'name' => 'Vestuário'],

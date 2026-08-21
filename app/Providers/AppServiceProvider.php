@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\PromoCampaign;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Pagination\Paginator;
@@ -25,6 +26,20 @@ class AppServiceProvider extends ServiceProvider
     {
         // Configurar paginação para usar Bootstrap 5
         Paginator::useBootstrapFive();
+
+        View::composer('components.promo-campaign-modal', function ($view) {
+            $campaign = PromoCampaign::query()
+                ->currentlyActive()
+                ->with('coupon')
+                ->latest('id')
+                ->first();
+
+            if ($campaign && ! $campaign->isVisibleTo(auth()->user())) {
+                $campaign = null;
+            }
+
+            $view->with('promoCampaign', $campaign);
+        });
 
         // Compartilhar categorias com todas as views para o menu (árvore completa)
         View::composer('components.navbar', function ($view) {
