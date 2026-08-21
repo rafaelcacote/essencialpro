@@ -44,7 +44,14 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        $verificationMailFailed = false;
+
+        try {
+            event(new Registered($user));
+        } catch (\Throwable $e) {
+            report($e);
+            $verificationMailFailed = true;
+        }
 
         $guestSessionId = $request->session()->getId();
 
@@ -54,6 +61,17 @@ class RegisteredUserController extends Controller
         app(CartService::class)->mergeGuestCartIntoUser($request, $user, $guestSessionId);
         $request->session()->regenerate();
         PromoCampaignController::promotePendingNotice($request);
+
+        if ($verificationMailFailed) {
+            $request->session()->flash(
+                'status',
+                'Conta criada com sucesso. Não foi possível enviar o e-mail de verificação agora — pode reenviar mais tarde.'
+            );
+        }
+
+        if (! $user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

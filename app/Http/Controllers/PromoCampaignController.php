@@ -11,7 +11,8 @@ class PromoCampaignController extends Controller
 {
     public const PENDING_NOTICE_KEY = 'promo_coupon_pending_notice';
 
-    public const NOTICE_FLASH_KEY = 'promo_coupon_notice';
+    /** Kept until the notice modal is rendered (survives verified-middleware redirects). */
+    public const NOTICE_KEY = 'promo_coupon_notice';
 
     public function unlock(Request $request, PromoCampaign $promoCampaign, CouponService $coupons): RedirectResponse
     {
@@ -34,13 +35,19 @@ class PromoCampaignController extends Controller
         $url = $promoCampaign->button_url ?: route('register');
         $path = parse_url($url, PHP_URL_PATH) ?: '/';
 
-        // Já autenticado: não precisa de cadastro — segue para o checkout com o aviso em modal.
-        if ($request->user() && in_array($path, ['/register', '/cadastro'], true)) {
-            return redirect()->route('checkout.create')->with(self::NOTICE_FLASH_KEY, $notice);
-        }
-
         if ($request->user()) {
-            return redirect()->to($url)->with(self::NOTICE_FLASH_KEY, $notice);
+            $request->session()->put(self::NOTICE_KEY, $notice);
+
+            // Checkout exige e-mail verificado — evita erro/redirect forçado.
+            if (! $request->user()->hasVerifiedEmail()) {
+                return redirect()->route('home');
+            }
+
+            if (in_array($path, ['/register', '/cadastro'], true)) {
+                return redirect()->route('checkout.create');
+            }
+
+            return redirect()->to($url);
         }
 
         // Convidado: guarda o cupom e adia a mensagem até depois do login/cadastro.
@@ -54,7 +61,7 @@ class PromoCampaignController extends Controller
         $notice = $request->session()->pull(self::PENDING_NOTICE_KEY);
 
         if (is_string($notice) && $notice !== '') {
-            $request->session()->flash(self::NOTICE_FLASH_KEY, $notice);
+            $request->session()->put(self::NOTICE_KEY, $notice);
         }
     }
 }

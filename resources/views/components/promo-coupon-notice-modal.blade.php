@@ -1,5 +1,5 @@
 @php
-    $promoCouponNotice = session('promo_coupon_notice');
+    $promoCouponNotice = session()->pull('promo_coupon_notice');
 @endphp
 
 @if ($promoCouponNotice)

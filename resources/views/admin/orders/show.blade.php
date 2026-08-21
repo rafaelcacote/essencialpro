@@ -105,7 +105,13 @@
                     <div class="admin-detail-grid" style="grid-template-columns: 1fr;">
                         <div class="admin-detail-item">
                             <div class="admin-detail-item__label">Nome</div>
-                            <div class="admin-detail-item__value">{{ $order->contact_name }}</div>
+                            <div class="admin-detail-item__value">
+                                @if ($order->user && ! $order->user->is_admin)
+                                    <a href="{{ route('admin.customers.show', $order->user) }}">{{ $order->contact_name }}</a>
+                                @else
+                                    {{ $order->contact_name }}
+                                @endif
+                            </div>
                         </div>
                         <div class="admin-detail-item">
                             <div class="admin-detail-item__label">Email</div>

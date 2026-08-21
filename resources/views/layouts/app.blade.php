@@ -33,7 +33,9 @@
 
     @yield('content')
     @include('components.footer')
-    @include('components.promo-campaign-modal')
+    @if (request()->routeIs('home'))
+        @include('components.promo-campaign-modal')
+    @endif
     @include('components.promo-coupon-notice-modal')
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
