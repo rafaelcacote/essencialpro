@@ -38,6 +38,7 @@ return [
     'string' => 'O campo :attribute tem de ser texto.',
     'unique' => 'Este valor de :attribute já está a ser utilizado.',
     'url' => 'O campo :attribute tem de ser um endereço válido.',
+    'turnstile' => 'Complete a verificação de segurança para continuar.',
 
     'attributes' => [
         'email' => 'e-mail',

@@ -120,6 +120,7 @@ return [
     'uploaded' => 'Falha ao enviar o campo :attribute.',
     'uppercase' => 'O campo :attribute deve estar em letras maiúsculas.',
     'url' => 'O campo :attribute deve ser uma URL válida.',
+    'turnstile' => 'Complete a verificação de segurança para continuar.',
     'uuid' => 'O campo :attribute deve ser um UUID válido.',
 
     'custom' => [
