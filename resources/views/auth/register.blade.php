@@ -87,6 +87,21 @@
                     </div>
                 </div>
 
+                @if (filled(config('services.turnstile.site_key')))
+                    <div class="mb-3 auth-turnstile">
+                        <div
+                            class="cf-turnstile"
+                            data-sitekey="{{ config('services.turnstile.site_key') }}"
+                            data-theme="light"
+                            data-size="flexible"
+                            data-language="pt-PT"
+                        ></div>
+                        @error('cf-turnstile-response')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+                @endif
+
                 <button class="btn btn-primary auth-submit-btn w-100" type="submit">
                     Registar
                 </button>
@@ -107,3 +122,9 @@
         </a>
     </div>
 @endsection
+
+@if (filled(config('services.turnstile.site_key')))
+    @push('scripts')
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    @endpush
+@endif
